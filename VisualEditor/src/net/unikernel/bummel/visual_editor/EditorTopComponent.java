@@ -15,27 +15,30 @@ import org.openide.awt.ActionReference;
  * Top component which displays something.
  */
 @ConvertAsProperties(dtd = "-//net.unikernel.bummel.visual_editor//Editor//EN",
-autostore = false)
+					 autostore = false)
 @TopComponent.Description(preferredID = "EditorTopComponent",
-//iconBase="SET/PATH/TO/ICON/HERE", 
-persistenceType = TopComponent.PERSISTENCE_ALWAYS)
-@TopComponent.Registration(mode = "editor", openAtStartup = true)
+						  //iconBase="SET/PATH/TO/ICON/HERE", 
+						  persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
+@TopComponent.Registration(mode = "editor", openAtStartup = false)
 @ActionID(category = "Window", id = "net.unikernel.bummel.visual_editor.EditorTopComponent")
-@ActionReference(path = "Menu/Window" /*, position = 333 */)
-@TopComponent.OpenActionRegistration(displayName = "#CTL_EditorAction",
-preferredID = "EditorTopComponent")
+@ActionReference(path = "Menu/Window", position = 0)
+@TopComponent.OpenActionRegistration(displayName = "#CTL_NewEditorAction"/*,
+									 preferredID = "EditorTopComponent"*/)
 public final class EditorTopComponent extends TopComponent
 {
+	/**
+	 * Counter of opened top components.
+	 */
+	static int counter = 0;
 	public EditorTopComponent()
 	{
 		initComponents();
-		setName(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent"));
+		setName(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter));
 		setToolTipText(NbBundle.getMessage(EditorTopComponent.class, "HINT_EditorTopComponent"));
-		putClientProperty(TopComponent.PROP_CLOSING_DISABLED, Boolean.TRUE);
+		//putClientProperty(TopComponent.PROP_CLOSING_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_DRAGGING_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_UNDOCKING_DISABLED, Boolean.TRUE);
-
 	}
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -66,6 +69,7 @@ public final class EditorTopComponent extends TopComponent
 	@Override
 	public void componentClosed()
 	{
+		counter--;
 		// TODO add custom code on component closing
 	}
 	void writeProperties(java.util.Properties p)
