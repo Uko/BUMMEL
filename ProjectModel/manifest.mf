@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: net.unikernel.bummel.project_model
+OpenIDE-Module-Localizing-Bundle: net/unikernel/bummel/project_model/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
