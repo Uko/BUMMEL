@@ -32,6 +32,7 @@ public final class EditorTopComponent extends TopComponent
 	static int counter = 0;
 	public EditorTopComponent()
 	{
+		
 		initComponents();
 		setName(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter));
 		setToolTipText(NbBundle.getMessage(EditorTopComponent.class, "HINT_EditorTopComponent"));
