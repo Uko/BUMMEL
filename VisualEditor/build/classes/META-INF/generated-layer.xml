@@ -45,6 +45,7 @@
             <file name="net-unikernel-bummel-visual_editor-EditorTopComponent.shadow">
                 <!--net.unikernel.bummel.visual_editor.EditorTopComponent-->
                 <attr name="originalFile" stringvalue="Actions/Window/net-unikernel-bummel-visual_editor-EditorTopComponent.instance"/>
+                <attr intvalue="0" name="position"/>
             </file>
         </folder>
     </folder>
@@ -65,7 +66,7 @@
 <!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
 <tc-ref version="2.0">
   <tc-id id="EditorTopComponent"/>
-  <state opened="true"/>
+  <state opened="false"/>
 </tc-ref>
 ]]></file>
             </folder>
@@ -78,9 +79,8 @@
                 <attr
                     methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
                 <attr name="component" newvalue="net.unikernel.bummel.visual_editor.EditorTopComponent"/>
-                <attr name="preferredID" stringvalue="EditorTopComponent"/>
                 <attr
-                    bundlevalue="net.unikernel.bummel.visual_editor.Bundle#CTL_EditorAction" name="displayName"/>
+                    bundlevalue="net.unikernel.bummel.visual_editor.Bundle#CTL_NewEditorAction" name="displayName"/>
             </file>
         </folder>
     </folder>

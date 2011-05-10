@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Menu">
+        <file name="GoTo_hidden"/>
+        <file name="Tools_hidden"/>
+        <file name="View_hidden"/>
+        <folder name="Window">
+            <file name="Output_hidden"/>
+            <file name="ProgressListAction.shadow_hidden"/>
+            <file name="SwitchToRecentDocumentAction.shadow_hidden"/>
+            <file name="org-netbeans-core-windows-actions-GlobalPropertiesAction.shadow_hidden"/>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Modes">
+            <folder name="explorer">
+                <file name="favorites.wstcref" url="favoritesWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
