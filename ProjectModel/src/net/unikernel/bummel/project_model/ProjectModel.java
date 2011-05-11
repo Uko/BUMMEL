@@ -1,6 +1,5 @@
 package net.unikernel.bummel.project_model;
 
-import com.mxgraph.model.mxIGraphModel;
 import java.io.Serializable;
 
 /**
@@ -12,8 +11,6 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	private mxIGraphModel schema;
-	private Object starters;
 
 	public ProjectModel()
 	{

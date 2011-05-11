@@ -3,12 +3,11 @@
     <type>org.netbeans.modules.apisupport.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
-            <code-name-base>net.unikernel.bummel.electric_element</code-name-base>
+            <code-name-base>net.unikernel.bummel.basic_elements</code-name-base>
             <suite-component/>
             <module-dependencies/>
             <public-packages>
                 <package>net.unikernel.bummel.basic_elements</package>
-                <package>net.unikernel.bummel.logic_elements</package>
             </public-packages>
         </data>
     </configuration>
