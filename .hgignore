@@ -4,5 +4,4 @@
 \.rej$
 \.conflict\~$
 nbproject/private
-build
-nbproject/private/platform-private\.properties
+build/
