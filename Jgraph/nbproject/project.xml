@@ -31,6 +31,7 @@
                 <package>com.mxgraph.util.png</package>
                 <package>com.mxgraph.util.svg</package>
                 <package>com.mxgraph.view</package>
+                <package>net.unikernel.bummel.jgraph</package>
             </public-packages>
             <class-path-extension>
                 <runtime-relative-path>ext/jgraphx.jar</runtime-relative-path>
