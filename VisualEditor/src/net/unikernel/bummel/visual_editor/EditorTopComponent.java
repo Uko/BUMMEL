@@ -120,7 +120,7 @@ public final class EditorTopComponent extends TopComponent
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-		graphComponent = new com.mxgraph.swing.mxGraphComponent(new com.mxgraph.view.mxGraph());
+        graphComponent = new com.mxgraph.swing.mxGraphComponent();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,19 +128,19 @@ public final class EditorTopComponent extends TopComponent
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(graphComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 380, Short.MAX_VALUE)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addComponent(graphComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(graphComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 278, Short.MAX_VALUE)
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addComponent(graphComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-	private com.mxgraph.swing.mxGraphComponent graphComponent;
+    private com.mxgraph.swing.mxGraphComponent graphComponent;
     // End of variables declaration//GEN-END:variables
 	@Override
 	public void componentOpened()
