@@ -521,8 +521,15 @@ public class mxGraphTransferable implements Transferable, UIResource,
 
 		try
 		{
-			dataFlavor = new DataFlavor(DataFlavor.javaSerializedObjectMimeType
-					+ "; class=com.mxgraph.swing.util.mxGraphTransferable");
+//			dataFlavor = new DataFlavor(DataFlavor.javaSerializedObjectMimeType
+//					+ "; class=com.mxgraph.swing.util.mxGraphTransferable");
+			
+			//For more information look at dataFlavor JavaDoc description (lines 37 - 58)
+//			dataFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType
+//						+ "; class=com.mxgraph.swing.util.mxGraphTransferable");
+			dataFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType
+			+ "; class=com.mxgraph.swing.util.mxGraphTransferable", null,
+			new com.mxgraph.swing.util.mxGraphTransferable(null, null).getClass().getClassLoader());
 		}
 		catch (ClassNotFoundException cnfe)
 		{

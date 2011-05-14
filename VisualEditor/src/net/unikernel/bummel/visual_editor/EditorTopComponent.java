@@ -7,7 +7,6 @@ package net.unikernel.bummel.visual_editor;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
-import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
@@ -103,9 +102,11 @@ public final class EditorTopComponent extends TopComponent
 		// if you are using an mxEditor instance)
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
 		{
+			@Override
 			public void invoke(Object sender, mxEventObject evt)
 			{
 				graphComponent.validateGraph();
+				//System.out.println(evt.getName());
 			}
 		});
 
