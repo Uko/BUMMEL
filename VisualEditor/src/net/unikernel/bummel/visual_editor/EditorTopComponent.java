@@ -13,12 +13,20 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxMultiplicity;
 import java.util.Arrays;
+import javax.swing.Action;
 import net.unikernel.bummel.jgraph.ElementModel;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.netbeans.spi.palette.PaletteActions;
+import org.netbeans.spi.palette.PaletteFactory;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.nodes.AbstractNode;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.Lookups;
 
 /**
  * Top component which displays something.
@@ -48,7 +56,33 @@ public final class EditorTopComponent extends TopComponent
 		putClientProperty(TopComponent.PROP_DRAGGING_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_UNDOCKING_DISABLED, Boolean.TRUE);
-		
+		associateLookup(Lookups.fixed(PaletteFactory.createPalette(new AbstractNode(Children.create(new CategoryChildFactory(), true)), new PaletteActions() {
+			@Override
+			public Action[] getImportActions()
+			{
+				return null;
+			}
+			@Override
+			public Action[] getCustomPaletteActions()
+			{
+				return null;
+			}
+			@Override
+			public Action[] getCustomCategoryActions(Lookup lkp)
+			{
+				return null;
+			}
+			@Override
+			public Action[] getCustomItemActions(Lookup lkp)
+			{
+				return null;
+			}
+			@Override
+			public Action getPreferredAction(Lookup lkp)
+			{
+				return null;
+			}
+		})));
 		
 		mxGraph graph = graphComponent.getGraph();
 		Object parent = graph.getDefaultParent();
