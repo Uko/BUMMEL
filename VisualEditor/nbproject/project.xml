@@ -23,7 +23,6 @@
                     </run-dependency>
                 </dependency>
                 <dependency>
-                <dependency>
                     <code-name-base>net.unikernel.bummel.logic_elements</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>

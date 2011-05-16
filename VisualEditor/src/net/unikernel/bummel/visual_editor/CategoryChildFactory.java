@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.visual_editor;
 
 import com.mxgraph.model.mxCell;
@@ -11,7 +7,6 @@ import com.mxgraph.util.mxRectangle;
 import java.awt.datatransfer.Transferable;
 import java.io.IOException;
 import java.util.List;
-import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.logic_elements.visual.VisualizationsFactory;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.ChildFactory;

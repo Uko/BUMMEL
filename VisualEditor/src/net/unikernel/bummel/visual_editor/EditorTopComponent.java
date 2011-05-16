@@ -1,16 +1,12 @@
 package net.unikernel.bummel.visual_editor;
 
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
-import com.mxgraph.view.mxMultiplicity;
-import java.util.Arrays;
 import javax.swing.Action;
-import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.project_model.ProjectModel;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -85,8 +81,6 @@ public final class EditorTopComponent extends TopComponent
 		
 		mxGraph graph = graphComponent.getGraph();
 		graph.setModel(project.getModel());
-
-
 		graph.setMultigraph(false);
 		graph.setAllowDanglingEdges(false);
 		graphComponent.setConnectable(true);
@@ -98,7 +92,7 @@ public final class EditorTopComponent extends TopComponent
 	
 		// Installs automatic validation (use editor.validation = true
 		// if you are using an mxEditor instance)
-		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
+		project.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
 		{
 			@Override
 			public void invoke(Object sender, mxEventObject evt)
