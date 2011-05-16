@@ -1,10 +1,37 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package net.unikernel.bummel.basic_elements;
 
 /**
- *
- * @author mcangel
+ * 
+ * @author uko
  */
-public interface BasicElement
+public abstract  class BasicElement implements Element
 {
-	public double[] touch(double[] acdc);
+	private double[] onPins;
+	
+	/**
+	 * This method should be overridden in every child class to ensure their functionality. The method itself makes all calculations.
+	 * @param acdc state of pins to process
+	 * @return result of pins after calculation
+	 */
+	protected abstract double[] process(double[] acdc);
+	/**
+	 * This method is final and it's made to ensure that the result will be written to the pins array.
+	 * @param acdc state of pins to process
+	 */
+	@Override
+	public final void touch(double[] acdc)
+	{
+		onPins=process(acdc);
+	}
+	/**
+	 * @return the onPins
+	 */
+	public final double[] getOnPins()
+	{
+		return onPins;
+	}
 }

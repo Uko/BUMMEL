@@ -4,17 +4,30 @@
  */
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicStarterElement;
+import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
- *
+ * <b>Pinout:</b>
+ * <ol>
+ * <li>Output</li>
+ * </ol>
  * @author uko
  */
-public class Generator implements BasicStarterElement
+public class Generator extends BasicElement
 {
 	private double state;
+	
+	/**
+	 * Returns the current state of generator
+	 * <b>Pinout:</b>
+	 * <ol>
+	 * <li>Output</li>
+	 * </ol>
+	 * @param acdc
+	 * @return
+	 */
 	@Override
-	public double[] touch()
+	public double[] process(double[] acdc)
 	{
 		double[] result = {state};
 		return result;
@@ -33,10 +46,17 @@ public class Generator implements BasicStarterElement
 	{
 		this.state = state;
 	}
+	/**
+	 * Creates generator with state 0
+	 */
 	public Generator()
 	{
 		state=0;
 	}
+	/**
+	 * Creates generator with passed state
+	 * @param state state to set
+	 */
 	public Generator(double state)
 	{
 		this.state = state;
