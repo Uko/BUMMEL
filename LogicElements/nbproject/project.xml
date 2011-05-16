@@ -14,9 +14,18 @@
                         <specification-version>1.0</specification-version>
                     </run-dependency>
                 </dependency>
+                <dependency>
+                    <code-name-base>net.unikernel.bummel.jgraph</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
             </module-dependencies>
             <public-packages>
                 <package>net.unikernel.bummel.logic_elements</package>
+                <package>net.unikernel.bummel.logic_elements.visual</package>
             </public-packages>
         </data>
     </configuration>

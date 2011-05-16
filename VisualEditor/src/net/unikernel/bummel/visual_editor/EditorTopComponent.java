@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.visual_editor;
 
 import com.mxgraph.model.mxGeometry;
@@ -85,44 +81,42 @@ public final class EditorTopComponent extends TopComponent
 		})));
 		
 		mxGraph graph = graphComponent.getGraph();
-		Object parent = graph.getDefaultParent();
+//		Object parent = graph.getDefaultParent();
+//
+//		graph.getModel().beginUpdate();
+//		try
+//		{
+//			ElementModel em1 = new ElementModel("Hello", null, new mxGeometry(20, 20, 100, 100), "", 2, 1);
+//			ElementModel em2 = new ElementModel("Hello", null, new mxGeometry(200, 20, 100, 100), "", 2, 1);
+//			graph.addCell(em1, parent);
+//			graph.addCell(em2, parent);
+//			
+//			graph.insertEdge(parent, null, "", em1.getOutputPort(0), em2.getInputPort(0));
+//		}
+//		finally
+//		{
+//			graph.getModel().endUpdate();
+//		}
+//
+//		mxMultiplicity[] multiplicities = new mxMultiplicity[3];
+//
+//	
+//		// Output nodes needs 1..2 connected Inputs
+//		multiplicities[0] = new mxMultiplicity(true, "Output", null, null, 0,
+//				null, Arrays.asList(new String[] { "Input" }),
+//				"", //"Output Must Connect to 0 or 'n' Inputs",	//if to specify this then mfGraph.java: 4987 - there is no control check for unlimited
+//				"Output Must Connect to Input", true);
+//		// Output node does not want any incoming connections
+//		multiplicities[1] = new mxMultiplicity(false, "Output", null, null, 0,
+//				"0", null, "Output Must Have No Incoming Edge", null, true); // Type does not matter
+//		// Input needs one or no incoming connection from Output
+//		multiplicities[2] = new mxMultiplicity(false, "Input", null, null, 0,
+//				"1", Arrays.asList(new String[] { "Output" }),
+//				"Input Must Have 1 Output", "Input Must Connect From Output",
+//				true);
+//
+//		graph.setMultiplicities(multiplicities);
 
-		graph.getModel().beginUpdate();
-		try
-		{
-			ElementModel em1 = new ElementModel("Hello", new mxGeometry(20, 20, 100, 100), "", 2, 1);
-			ElementModel em2 = new ElementModel("Hello", new mxGeometry(200, 20, 100, 100), "", 2, 1);
-			graph.addCell(em1, parent);
-			graph.addCell(em2, parent);
-			
-			graph.insertEdge(parent, null, "", em1.getOutputPort(0), em2.getInputPort(0));
-		}
-		finally
-		{
-			graph.getModel().endUpdate();
-		}
-
-		mxMultiplicity[] multiplicities = new mxMultiplicity[3];
-
-	
-		// Output nodes needs 1..2 connected Inputs
-		multiplicities[0] = new mxMultiplicity(true, "Output", null, null, 0,
-				null, Arrays.asList(new String[] { "Input" }),
-				"", //"Output Must Connect to 0 or 'n' Inputs",	//if to specify this then mfGraph.java: 4987 - there is no control check for unlimited
-				"Output Must Connect to Input", true);
-		// Output node does not want any incoming connections
-		multiplicities[1] = new mxMultiplicity(false, "Output", null, null, 0,
-				"0", null, "Output Must Have No Incoming Edge", null, true); // Type does not matter
-		// Input needs one or no incoming connection from Output
-		multiplicities[2] = new mxMultiplicity(false, "Input", null, null, 0,
-				"1", Arrays.asList(new String[] { "Output" }),
-				"Input Must Have 1 Output", "Input Must Connect From Output",
-				true);
-
-		graph.setMultiplicities(multiplicities);
-
-		//graphComponent = new mxGraphComponent(graph);
-		//graphComponent.setGraph(graph);
 		graph.setMultigraph(false);
 		graph.setAllowDanglingEdges(false);
 		graphComponent.setConnectable(true);
