@@ -23,11 +23,11 @@ public class VisualizationsFactory
 			}
 		},
 		new ElementModel("And", new And(), new mxGeometry(0, 0, 100, 100), ""){
-			@Override
-			public void init()
-			{
-				System.out.println("name: "+name);
-			}
+//			@Override
+//			public void init()
+//			{
+//				System.out.println("name: "+name);
+//			}
 		},
 		new ElementModel("Generator", new Generator(), new mxGeometry(0, 0, 100, 100), ""){
 			@Override

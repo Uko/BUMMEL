@@ -2,6 +2,7 @@ package net.unikernel.bummel.visual_editor;
 
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
+import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
@@ -79,8 +80,14 @@ public final class EditorTopComponent extends TopComponent
 			}
 		})));
 		
-		mxGraph graph = graphComponent.getGraph();
-		graph.setModel(project.getModel());
+		//mxGraph graph = graphComponent.getGraph();
+		mxGraph graph = new mxGraph(project.getModel());
+		//graph.setModel(project.getModel());
+		graphComponent = new mxGraphComponent(graph);
+		//graphComponent.refresh();
+		//graphComponent.getGraphControl().repaint();
+		
+		
 		graph.setMultigraph(false);
 		graph.setAllowDanglingEdges(false);
 		graphComponent.setConnectable(true);
