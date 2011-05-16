@@ -9,7 +9,7 @@ import net.unikernel.bummel.basic_elements.Element;
 
 /**
  * <b>Pinout:</b>
- * <ol>
+ * <ol start='0'>
  * <li>Input</li>
  * <li>Output</li>
  * </ol>
@@ -20,7 +20,7 @@ public class Not extends BasicElement
 	/**
 	 * Calculates the logical "not" value
 	 * <b>Pinout:</b>
-	 * <ol>
+	 * <ol start='0'>
 	 * <li>Input</li>
 	 * <li>Output</li>
 	 * </ol>

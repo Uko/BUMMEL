@@ -8,7 +8,7 @@ import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
  * <b>Pinout:</b>
- * <ol>
+ * <ol start='0'>
  * <li>Input</li>
  * </ol>
  * @author uko
@@ -18,7 +18,7 @@ public class Analyzer extends BasicElement
 	private double state;
 	/**Sets analyzers state same as input
 	 * <b>Pinout:</b>
-	 * <ol>
+	 * <ol start='0'>
 	 * <li>Input</li>
 	 * </ol>
 	 * @param acdc

@@ -8,7 +8,7 @@ import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
  * <b>Pinout:</b>
- * <ol>
+ * <ol start='0'>
  * <li>Input</li>
  * <li>Input</li>
  * <li>Output</li>
@@ -20,7 +20,7 @@ public class Or extends BasicElement
 	/**
 	 * Calculates the logical "or" value
 	 * <b>Pinout:</b>
-	 * <ol>
+	 * <ol start='0'>
 	 * <li>Input</li>
 	 * <li>Input</li>
 	 * <li>Output</li>
@@ -35,9 +35,9 @@ public class Or extends BasicElement
 		{
 			0,0,0
 		};
-		for (int i =0; i<3; i++)
+		for (int i =0; i<2; i++)
 		{
-			if ((result[3] = ((acdc[i] == 0) ? 0 : 1)) == 1)
+			if ((result[2] = ((acdc[i] == 0) ? 0 : 1)) == 1)
 			{
 				return result;
 			}

@@ -9,7 +9,7 @@ import net.unikernel.bummel.basic_elements.Element;
 
 /**
  * <b>Pinout:</b>
- * <ol>
+ * <ol start='0'>
  * <li>Input</li>
  * <li>Input</li>
  * <li>Output</li>
@@ -21,7 +21,7 @@ public class And extends BasicElement
 	 /**
 	 * Calculates the logical "and" value
 	 * <b>Pinout:</b>
-	 * <ol>
+	 * <ol start='0'>
 	 * <li>Input</li>
 	 * <li>Input</li>
 	 * <li>Output</li>

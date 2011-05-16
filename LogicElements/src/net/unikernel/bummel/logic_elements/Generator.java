@@ -8,7 +8,7 @@ import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
  * <b>Pinout:</b>
- * <ol>
+ * <ol start='0'>
  * <li>Output</li>
  * </ol>
  * @author uko
@@ -20,7 +20,7 @@ public class Generator extends BasicElement
 	/**
 	 * Returns the current state of generator
 	 * <b>Pinout:</b>
-	 * <ol>
+	 * <ol start='0'>
 	 * <li>Output</li>
 	 * </ol>
 	 * @param acdc
