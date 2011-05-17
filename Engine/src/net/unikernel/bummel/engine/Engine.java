@@ -55,12 +55,16 @@ public class Engine implements PropertyChangeListener, Runnable
 	@Override
 	public void run()
 	{
-		while(true)
-		{
-                    counter++;
-                    try{t.sleep(1);}
-                    catch (InterruptedException e) {}
-		}
+            counter=0;
+            while(true)
+            {
+                counter++;
+                //this try catch statement ensures thar thread will stop when something will try to interrupt it.
+                //if you need to interupt thred without sleep statements you need to perform check inside method: t.interrupted() or t.isinterrupted()
+                try{t.sleep(1);}
+                catch (InterruptedException e) {return;}
+                t.interrupted();
+            }
 	}
 
 	@Override
@@ -76,7 +80,10 @@ public class Engine implements PropertyChangeListener, Runnable
 	
 	public void stop()
 	{
+           //tells thread to interrupt
            t.interrupt();
+           //interruption kills thread, so we need to create it again to avoid null reference exception when we start it again.
+           t = new Thread(this);
            System.out.println("Thread work interrupted on "+counter + " tick");
 	}
 }
