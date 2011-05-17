@@ -1,6 +1,7 @@
 package net.unikernel.bummel.project_model;
 
 import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.model.mxIGraphModel;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,7 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	private mxGraphModel model;
+	private mxIGraphModel model;
 
 	public ProjectModel()
 	{
@@ -43,14 +44,14 @@ public class ProjectModel implements Serializable
 	/**
 	 * @return the model
 	 */
-	public mxGraphModel getModel()
+	public mxIGraphModel getModel()
 	{
 		return model;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(mxGraphModel model)
+	public void setModel(mxIGraphModel model)
 	{
 		this.model = model;
 	}

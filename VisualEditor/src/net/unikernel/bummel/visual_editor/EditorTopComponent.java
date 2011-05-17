@@ -8,6 +8,7 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import javax.swing.Action;
+import net.unikernel.bummel.engine.Engine;
 import net.unikernel.bummel.project_model.ProjectModel;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -41,6 +42,7 @@ public final class EditorTopComponent extends TopComponent
 	 */
 	private static int counter = 0;
 	private ProjectModel project;
+	private Engine engine;
 	public EditorTopComponent()
 	{
 		project=new ProjectModel();
@@ -82,6 +84,7 @@ public final class EditorTopComponent extends TopComponent
 		
 		//mxGraph graph = graphComponent.getGraph();
 		mxGraph graph = new mxGraph(project.getModel());
+		project.setModel(graph.getModel());
 		//graph.setModel(project.getModel());
 		graphComponent = new mxGraphComponent(graph);
 		//graphComponent.refresh();
@@ -111,6 +114,10 @@ public final class EditorTopComponent extends TopComponent
 
 		// Initial validation
 		graphComponent.validateGraph();
+		
+		engine = new Engine(graph);
+		engine.start();
+		engine.stop();
 	}
 	/** This method is called from within the constructor to
 	 * initialize the form.

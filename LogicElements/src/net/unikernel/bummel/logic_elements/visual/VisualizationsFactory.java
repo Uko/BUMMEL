@@ -16,7 +16,7 @@ public class VisualizationsFactory
 {
 	public static final ElementModel[] elements = new ElementModel[]{
 		new ElementModel("Analyzer", new Analyzer(), new mxGeometry(0, 0, 100, 100), "", 
-			new String[]{"D:\\ihorFolder\\Education\\LNU\\Course project\\3 course\\BUMMEL\\JGraph\\shapes\\network\\antenna.shape"})
+			new String[]{VisualizationsFactory.class.getResource("/net/unikernel/bummel/logic_elements/images/cross-maltese.shape").getPath().substring(6)})
 		{
 			@Override
 			public void init()
