@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>images - not</name>
+  <icon>not.png</icon>
+  <connections>
+    <point x="1" y="1"/>
+    <point x="7" y="5"/>
+    <point x="1" y="9"/>
+    <point x="4" y="3"/>
+    <point x="4" y="7"/>
+    <point x="7.7" y="5.55"/>
+    <point x="7.7" y="4.45"/>
+    <point x="7.15" y="5"/>
+    <point x="8.25" y="5"/>
+    <point x="8.42929" y="5"/>
+    <point x="10.9293" y="5"/>
+    <point x="9.67929" y="5"/>
+    <point x="-1.67175" y="5"/>
+    <point x="0.828249" y="5"/>
+    <point x="-0.421751" y="5"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" points="1,1 7,5 1,9 "/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" cx="7.7" cy="5" rx="0.55" ry="0.55"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" x1="8.42929" y1="5" x2="10.9293" y2="5"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" x1="-1.67175" y1="5" x2="0.828249" y2="5"/>
+  </svg:svg>
+</shape>

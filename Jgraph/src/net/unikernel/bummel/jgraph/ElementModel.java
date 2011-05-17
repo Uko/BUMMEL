@@ -58,22 +58,13 @@ public class ElementModel extends mxCell
 			stateImagesStyles = new String[stateImagesPaths.length];
 			for (int i = 0, n = stateImagesPaths.length; i < n; i++)
 			{
-				try
-				{
-					String nodeXml = mxUtils.readFile(stateImagesPaths[i]);
-					int lessthanIndex = nodeXml.indexOf("<");
-					nodeXml = nodeXml.substring(lessthanIndex);
-					mxStencilShape newShape = new mxStencilShape(nodeXml);
+					int lessthanIndex = stateImagesPaths[i].indexOf("<");
+					stateImagesPaths[i] = stateImagesPaths[i].substring(lessthanIndex);
+					mxStencilShape newShape = new mxStencilShape(stateImagesPaths[i]);
 					stateImagesStyles[i] = newShape.getName();
 
 					// Registers the shape in the canvas shape registry
 					mxGraphics2DCanvas.putShape(stateImagesStyles[i], newShape);
-				}
-				catch (IOException e)
-				{
-					System.err.println(e.toString() + "\n\t" + e.getMessage());
-					stateImagesStyles[i] = "";
-				}
 			}
 			if(stateImagesStyles.length > 0)
 				setShape(0);

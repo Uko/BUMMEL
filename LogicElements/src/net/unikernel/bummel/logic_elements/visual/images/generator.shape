@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>images - generator</name>
+  <icon>generator.png</icon>
+  <connections>
+    <point x="11.25" y="8"/>
+    <point x="13.5" y="8"/>
+    <point x="12.375" y="8"/>
+    <point x="10.5" y="6"/>
+    <point x="8" y="7.5"/>
+    <point x="10" y="8.5"/>
+    <point x="8.92328" y="9.57672"/>
+    <point x="9.25" y="6.75"/>
+    <point x="9" y="8"/>
+    <point x="9.46164" y="9.03836"/>
+    <point x="8.65811" y="9.84189"/>
+    <point x="8.83489" y="9.31156"/>
+    <point x="8.92328" y="9.57672"/>
+    <point x="9.18844" y="9.66511"/>
+    <point x="8.7465" y="9.57672"/>
+    <point x="8.87908" y="9.44414"/>
+    <point x="9.05586" y="9.62092"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" d="M 7 4.33333 C 7.85,3.33333 8.275,3 9.125,3 C 9.975,3 10.4,3.33333 11.25,4.33333 L 11.25,9.66667 C 10.4,10.6667 9.975,11 9.125,11 C 8.275,11 7.85,10.6667 7,9.66667 L 7,4.33333"/>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" d="M 7 4.33333 C 7.85,5.33333 8.275,5.66667 9.125,5.66667 C 9.975,5.66667 10.4,5.33333 11.25,4.33333"/>
+    <svg:text style="fill: #000000; font-size: 0.8; text-anchor:middle; font-family: sans; font-style: normal; font-weight: normal" x="9.125" y="7.86667" textLength="0"></svg:text>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000" x1="11.25" y1="8" x2="13.5" y2="8"/>
+    <svg:polyline style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" points="10.5,6 8,7.5 10,8.5 8.92328,9.57672 "/>
+    <svg:polygon style="fill: #000000" points="8.65811,9.84189 8.83489,9.31156 8.92328,9.57672 9.18844,9.66511 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" points="8.65811,9.84189 8.83489,9.31156 8.92328,9.57672 9.18844,9.66511 "/>
+  </svg:svg>
+</shape>
