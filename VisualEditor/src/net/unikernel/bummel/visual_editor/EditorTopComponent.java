@@ -114,9 +114,11 @@ public final class EditorTopComponent extends TopComponent
 
 		// Initial validation
 		graphComponent.validateGraph();
-		
 		engine = new Engine(graph);
+                System.out.println("Starting engine, rooooarrrr");
 		engine.start();
+                try{Thread.sleep(100);}
+                catch(InterruptedException e){}
 		engine.stop();
 	}
 	/** This method is called from within the constructor to

@@ -51,13 +51,15 @@ public class Engine implements PropertyChangeListener, Runnable
 	{
 		return model;
 	}
-	
+	private int counter=0;
 	@Override
 	public void run()
 	{
 		while(true)
 		{
-			System.out.println("run");
+                    counter++;
+                    try{t.sleep(1);}
+                    catch (InterruptedException e) {}
 		}
 	}
 
@@ -74,12 +76,7 @@ public class Engine implements PropertyChangeListener, Runnable
 	
 	public void stop()
 	{
-		Thread tmpT = t;
-        t = null;
-        if (tmpT != null)
-		{
-           tmpT.interrupt();
-        }
-		t = new Thread(this);
+           t.interrupt();
+           System.out.println("Thread work interrupted on "+counter + " tick");
 	}
 }
