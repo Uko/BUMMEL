@@ -99,7 +99,7 @@ public final class EditorTopComponent extends TopComponent
 	
 		// Installs automatic validation (use editor.validation = true
 		// if you are using an mxEditor instance)
-		project.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
+		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
 		{
 			@Override
 			public void invoke(Object sender, mxEventObject evt)

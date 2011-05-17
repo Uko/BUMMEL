@@ -1,14 +1,21 @@
 package net.unikernel.bummel.jgraph;
 
+import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
+import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
+import com.mxgraph.util.mxUtils;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * The exmaple of creation of visual element with i/o ports:
- * <pre><span style="color:#0000e6">new</span> ElementModel(<span style="color:#ce7b00">"Analyzer"</span>, <span style="color:#0000e6">new</span> Analyzer(), <span style="color:#0000e6">new</span> mxGeometry(0, 0, 100, 100), <span style="color:#ce7b00">""</span>)
+ * <pre><span style="color:#0000e6">new</span> ElementModel(<span style="color:#ce7b00">"Analyzer"</span>, <span style="color:#0000e6">new</span> Analyzer(), <span style="color:#0000e6">new</span> mxGeometry(0, 0, 100, 100), <span style="color:#ce7b00">""</span>,
+ *	<span style="color:#009900">//Detailed info about shapes here:</span> <a href="http://www.jgraph.com/doc/mxgraph/index_javavis.html#3.1.1.1">http://www.jgraph.com/doc/mxgraph/index_javavis.html#3.1.1.1</a>
+ *	<span style="color:#009900">//First shape will be the default shape.</span>
+ *	new String[]{<span style="color:#ce7b00">"some/path/iamge.shape"</span>})
  * {
  *	&#64;Override
  *	<span style="color:#0000e6">public void</span> init()
@@ -33,6 +40,7 @@ public class ElementModel extends mxCell
 	private ArrayList<ElementPort> inputPorts = null;
 	private ArrayList<ElementPort> outputPorts = null;
 	protected String name;
+	public final String[] stateImagesStyles;
 
 	/**
 	 * Constructs a new graph element based on the mxCell.
@@ -40,26 +48,53 @@ public class ElementModel extends mxCell
 	 * @param value Object that represents the value of the element.
 	 * @param geometry Specifies the geometry of the element.
 	 * @param styles Specifies the style as a formatted string.
-	 * @param inputPorts Specifies the amount of input Ports added by default generator.
-	 * @param outputPorts Specifies the amount of output Ports added by default generator.
+	 * @param stateImagesPaths String array that maps images to element states.
 	 */
-	public ElementModel(String name, Object value, mxGeometry geometry, String styles,
-	int inputPorts, int outputPorts)
+	public ElementModel(String name, Object value, mxGeometry geometry, String styles, String[] stateImagesPaths)
 	{
 		super(value, geometry, styles);
+		if (stateImagesPaths != null)
+		{
+			stateImagesStyles = new String[stateImagesPaths.length];
+			for (int i = 0, n = stateImagesPaths.length; i < n; i++)
+			{
+				try
+				{
+					String nodeXml = mxUtils.readFile(stateImagesPaths[i]);
+					int lessthanIndex = nodeXml.indexOf("<");
+					nodeXml = nodeXml.substring(lessthanIndex);
+					mxStencilShape newShape = new mxStencilShape(nodeXml);
+					stateImagesStyles[i] = newShape.getName();
+
+					// Registers the shape in the canvas shape registry
+					mxGraphics2DCanvas.putShape(stateImagesStyles[i], newShape);
+				}
+				catch (IOException e)
+				{
+					System.err.println(e.toString() + "\n\t" + e.getMessage());
+					stateImagesStyles[i] = "";
+				}
+			}
+			if(stateImagesStyles.length > 0)
+				setShape(0);
+		}
+		else
+		{
+			stateImagesStyles = null;
+		}
 		this.name = name;
 		getGeometry().setAlternateBounds((mxRectangle) geometry.clone());
 		this.inputPorts = new ArrayList<ElementPort>();
 		this.outputPorts = new ArrayList<ElementPort>();
 		setVertex(true);
 		setConnectable(false);
-		
+
 		init();
 	}
-	
+
 	public void init()
 	{
-		init(2,1);
+		init(2, 1);
 	}
 
 	private void init(int inputPorts, int outputPorts)
@@ -69,8 +104,8 @@ public class ElementModel extends mxCell
 			for (int i = 0; i < inputPorts; i++)
 			{
 				this.inputPorts.add(new ElementPort(null,
-													 new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 20, 20),
-													 "shape=ellipse;perimeter=ellipsePerimeter"));
+													new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 20, 20),
+													"shape=ellipse;perimeter=ellipsePerimeter"));
 				this.inputPorts.get(i).getGeometry().setOffset(new mxPoint(-10, -10));
 				insert(this.inputPorts.get(i));
 			}
@@ -80,13 +115,14 @@ public class ElementModel extends mxCell
 			for (int i = 0; i < outputPorts; i++)
 			{
 				this.outputPorts.add(new ElementPort(null,
-													  new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 20, 20),
-													  "shape=ellipse;perimeter=ellipsePerimeter"));
+													 new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 20, 20),
+													 "shape=ellipse;perimeter=ellipsePerimeter"));
 				this.outputPorts.get(i).getGeometry().setOffset(new mxPoint(-10, -10));
 				insert(this.outputPorts.get(i));
 			}
 		}
 	}
+
 	/**
 	 * Constructs a new cell for the given parameters.
 	 * @param value Object that represents the value of the cell.
@@ -95,7 +131,7 @@ public class ElementModel extends mxCell
 	 */
 	public ElementModel(String name, Object value, mxGeometry geometry, String styles)
 	{
-		this(name, value, geometry, styles, 0, 0);
+		this(name, value, geometry, styles, null);
 	}
 
 	/**
@@ -104,7 +140,7 @@ public class ElementModel extends mxCell
 	 */
 	public ElementModel(String name, Object value)
 	{
-		this(name, value, new mxGeometry(), "", 0, 0);
+		this(name, value, new mxGeometry(), "", null);
 	}
 
 	/**
@@ -112,7 +148,7 @@ public class ElementModel extends mxCell
 	 */
 	public ElementModel()
 	{
-		this("", null, new mxGeometry(), "", 0, 0);
+		this("", null, new mxGeometry(), "", null);
 	}
 
 	public ArrayList<ElementPort> getInputPorts()
@@ -127,11 +163,15 @@ public class ElementModel extends mxCell
 
 	public void setInputPorts(ArrayList<ElementPort> inputPorts)
 	{
-		for(int i = 0, n = this.inputPorts.size(); i < n; i++)
+		for (int i = 0, n = this.inputPorts.size(); i < n; i++)
+		{
 			remove(this.inputPorts.get(i));
+		}
 		this.inputPorts = new ArrayList<ElementPort>();
-		for(int i = 0, n = inputPorts.size(); i < n; i++)
+		for (int i = 0, n = inputPorts.size(); i < n; i++)
+		{
 			addInputPort(inputPorts.get(i));
+		}
 	}
 
 	public ArrayList<ElementPort> getOutputPorts()
@@ -146,34 +186,60 @@ public class ElementModel extends mxCell
 
 	public void setOutputPorts(ArrayList<ElementPort> outputPorts)
 	{
-		for(int i = 0, n = this.outputPorts.size(); i < n; i++)
+		for (int i = 0, n = this.outputPorts.size(); i < n; i++)
+		{
 			remove(this.outputPorts.get(i));
+		}
 		this.outputPorts = new ArrayList<ElementPort>();
-		for(int i = 0, n = outputPorts.size(); i < n; i++)
+		for (int i = 0, n = outputPorts.size(); i < n; i++)
+		{
 			addInputPort(outputPorts.get(i));
+		}
 	}
-	
+
 	public void addInputPort(Object value, mxGeometry geometry, String styles)
 	{
-		inputPorts.add((ElementPort)insert(new ElementPort(value, geometry, styles)));
+		inputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
 	}
+
 	public void addInputPort(ElementPort port)
 	{
-		inputPorts.add((ElementPort)insert(port));
+		inputPorts.add((ElementPort) insert(port));
 	}
-	
+
 	public void addOutputPort(Object value, mxGeometry geometry, String styles)
 	{
-		outputPorts.add((ElementPort)insert(new ElementPort(value, geometry, styles)));
+		outputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
 	}
+
 	public void addOutputPort(ElementPort port)
 	{
-		outputPorts.add((ElementPort)insert(port));
+		outputPorts.add((ElementPort) insert(port));
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return name;
+	}
+	
+	/**
+	 * Sets shape style parameter from available "state-shape" array depending on state passed as parameter.
+	 * @param state Represents current element state.
+	 */
+	public void setShape(int state)
+	{
+		if(stateImagesStyles != null && stateImagesStyles.length > 0)
+		{
+			int pos;
+			if((pos = style.indexOf("shape=")) > 0)
+			{
+				style.replace(style.substring(pos, ((pos = style.indexOf(";", pos)) > 0) ? pos : style.length()-1), "shape=" + stateImagesStyles[state] + ";");
+			}
+			else
+			{
+				style = "shape=" + stateImagesStyles[state] + ";" + style;
+			}
+		}
 	}
 }
