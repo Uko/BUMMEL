@@ -22,7 +22,7 @@ public class VisualizationsFactory
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(1, 0);
 			}
 		},
 		new ElementModel("And", new And(), new mxGeometry(0, 0, 56, 40), "", new String[]{" <?xml version=\"1.0\" encoding=\"UTF-8\"?> <shape xmlns=\"http://www.daa.com.au/~james/dia-shape-ns\" xmlns:svg=\"http://www.w3.org/2000/svg\"> <name>images - and</name> <icon>and.png</icon> <connections> <point x=\"12.125\" y=\"6.5\"/> <point x=\"15\" y=\"6.5\"/> <point x=\"13.5625\" y=\"6.5\"/> <point x=\"3.8\" y=\"4.5\"/> <point x=\"6.3\" y=\"4.5\"/> <point x=\"5.05\" y=\"4.5\"/> <point x=\"3.8\" y=\"8.5\"/> <point x=\"6.3\" y=\"8.5\"/> <point x=\"5.05\" y=\"8.5\"/> </connections> <aspectratio type=\"fixed\"/> <svg:svg> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"12.125\" y1=\"6.5\" x2=\"15\" y2=\"6.5\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"3.8\" y1=\"4.5\" x2=\"6.3\" y2=\"4.5\"/> <svg:path style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" d=\"M 6.5 2.5 C 14,2.5 14,10.5 6.5,10.5 C 6.5,2.5 6.5,10.5 6.5,2.5\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"3.8\" y1=\"8.5\" x2=\"6.3\" y2=\"8.5\"/> </svg:svg> </shape>"}){
@@ -36,21 +36,21 @@ public class VisualizationsFactory
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(0, 1);
 			}
 		},
 		new ElementModel("Not", new Not(), new mxGeometry(0, 0, 63, 40), "", new String[]{" <?xml version=\"1.0\" encoding=\"UTF-8\"?> <shape xmlns=\"http://www.daa.com.au/~james/dia-shape-ns\" xmlns:svg=\"http://www.w3.org/2000/svg\"> <name>images - not</name> <icon>not.png</icon> <connections> <point x=\"1\" y=\"1\"/> <point x=\"7\" y=\"5\"/> <point x=\"1\" y=\"9\"/> <point x=\"4\" y=\"3\"/> <point x=\"4\" y=\"7\"/> <point x=\"7.7\" y=\"5.55\"/> <point x=\"7.7\" y=\"4.45\"/> <point x=\"7.15\" y=\"5\"/> <point x=\"8.25\" y=\"5\"/> <point x=\"8.42929\" y=\"5\"/> <point x=\"10.9293\" y=\"5\"/> <point x=\"9.67929\" y=\"5\"/> <point x=\"-1.67175\" y=\"5\"/> <point x=\"0.828249\" y=\"5\"/> <point x=\"-0.421751\" y=\"5\"/> </connections> <aspectratio type=\"fixed\"/> <svg:svg> <svg:polygon style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" points=\"1,1 7,5 1,9 \"/> <svg:ellipse style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" cx=\"7.7\" cy=\"5\" rx=\"0.55\" ry=\"0.55\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"8.42929\" y1=\"5\" x2=\"10.9293\" y2=\"5\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"-1.67175\" y1=\"5\" x2=\"0.828249\" y2=\"5\"/> </svg:svg> </shape> "}){
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(1, 1);
 			}
 		},
 		new ElementModel("Or", new Or(), new mxGeometry(0, 0, 52, 40), "", new String[]{" <?xml version=\"1.0\" encoding=\"UTF-8\"?> <shape xmlns=\"http://www.daa.com.au/~james/dia-shape-ns\" xmlns:svg=\"http://www.w3.org/2000/svg\"> <name>images - or</name> <icon>or.png</icon> <connections> <point x=\"11.125\" y=\"6\"/> <point x=\"14\" y=\"6\"/> <point x=\"12.5625\" y=\"6\"/> <point x=\"4\" y=\"4\"/> <point x=\"7\" y=\"4\"/> <point x=\"5.5\" y=\"4\"/> <point x=\"4\" y=\"8\"/> <point x=\"7\" y=\"8\"/> <point x=\"5.5\" y=\"8\"/> </connections> <aspectratio type=\"fixed\"/> <svg:svg> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"11.125\" y1=\"6\" x2=\"14\" y2=\"6\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"4\" y1=\"4\" x2=\"7\" y2=\"4\"/> <svg:path style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" d=\"M 5.5 2 C 13,2 13,10 5.5,10 C 8,8 8,4 5.5,2\"/> <svg:line style=\"fill: none; fill-opacity:0; stroke-width: 0.4; stroke: #000000\" x1=\"4\" y1=\"8\" x2=\"7\" y2=\"8\"/> </svg:svg> </shape> "}){
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				super.init();
 			}
 		}
 	};

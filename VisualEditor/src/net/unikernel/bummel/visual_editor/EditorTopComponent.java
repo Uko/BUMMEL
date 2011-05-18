@@ -1,12 +1,18 @@
 package net.unikernel.bummel.visual_editor;
 
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.jws.WebParam.Mode;
 import javax.swing.Action;
 import net.unikernel.bummel.engine.Engine;
 import net.unikernel.bummel.project_model.ProjectModel;
@@ -82,13 +88,28 @@ public final class EditorTopComponent extends TopComponent
 			}
 		})));
 		
-		//mxGraph graph = graphComponent.getGraph();
-		mxGraph graph = new mxGraph(project.getModel());
+		final mxGraph graph = graphComponent.getGraph();
+		//mxGraph graph = new mxGraph(project.getModel());
 		project.setModel(graph.getModel());
 		//graph.setModel(project.getModel());
-		graphComponent = new mxGraphComponent(graph);
+		//graphComponent = new mxGraphComponent(graph);
 		//graphComponent.refresh();
 		//graphComponent.getGraphControl().repaint();
+		
+		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
+		{
+		
+			@Override
+			public void mouseReleased(MouseEvent e)
+			{
+				mxCell cell = (mxCell) graphComponent.getCellAt(e.getX(), e.getY());
+				
+				if (cell != null)
+				{
+					System.out.println("cellValue="+cell.getValue());
+				}
+			}
+		});
 		
 		
 		graph.setMultigraph(false);
@@ -107,26 +128,42 @@ public final class EditorTopComponent extends TopComponent
 			@Override
 			public void invoke(Object sender, mxEventObject evt)
 			{
-				graphComponent.validateGraph();
+				//graphComponent.validateGraph();
 				//System.out.println(evt.getName());
+				engine.start();
+			}
+		});
+		graphComponent.showDirtyRectangle = true;
+		graph.getModel().addListener(Engine.CIRCLE_DONE, new mxIEventListener()
+		{
+			@Override
+			public void invoke(Object sender, mxEventObject evt)
+			{
+				System.out.println(evt.getName());
+				graphComponent.getGraph().refresh();
+//				graphComponent.refresh();
+//				graphComponent.repaint(graphComponent.getViewport().getViewRect());
+//				graphComponent.getGraph().getModel().beginUpdate();
+//				graphComponent.getGraph().getModel().endUpdate();
+//				graphComponent.validateGraph();
 			}
 		});
 
 		// Initial validation
 		graphComponent.validateGraph();
-                
-                
-                
-		engine = new Engine(graph);                
-                System.out.println("Starting engine, rooooarrrr");
+		
+		
+               
+		engine = new Engine(graph);
+		System.out.println("Starting engine, rooooarrrr");
 		engine.start();
-                try{Thread.sleep(100);}
-                catch(InterruptedException e){}
-		engine.stop();
-                engine.start();
-                try{Thread.sleep(100);}
-                catch(InterruptedException e){}
-		engine.stop();
+//                try{Thread.sleep(100);}
+//                catch(InterruptedException e){}
+//		engine.stop();
+//		engine.start();
+//                try{Thread.sleep(100);}
+//                catch(InterruptedException e){}
+//		engine.stop();
 	}
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -161,6 +198,8 @@ public final class EditorTopComponent extends TopComponent
 	public void componentClosed()
 	{
 		counter--;
+		engine.stop();
+		engine = null;
 		// TODO add custom code on component closing
 	}
 	void writeProperties(java.util.Properties p)
