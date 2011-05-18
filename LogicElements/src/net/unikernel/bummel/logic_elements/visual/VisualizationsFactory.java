@@ -18,35 +18,6 @@ import net.unikernel.bummel.logic_elements.Split;
 public class VisualizationsFactory
 {
 	public static final ElementModel[] elements = new ElementModel[]{
-		new ElementModel("Analyzer", new Analyzer(), new mxGeometry(0, 0, 30, 18), "", 
-			new String[]{"/net/unikernel/bummel/logic_elements/visual/images/analyzer0.shape",
-						 "/net/unikernel/bummel/logic_elements/visual/images/analyzer1.shape"})
-		{
-			@Override
-			public void init()
-			{
-				ElementPort port = new ElementPort(null, new mxGeometry(0, 0.5, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
-				port.getGeometry().setOffset(new mxPoint(-2, -2));
-				insert(port);
-			}
-		},
-		new ElementModel("And", new And(), new mxGeometry(0, 0, 56, 40), "", 
-			new String[]{"/net/unikernel/bummel/logic_elements/visual/images/and.shape"})
-		{
-			@Override
-			public void init()
-			{
-				ElementPort port = new ElementPort(null, new mxGeometry(0, 0.25, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
-				port.getGeometry().setOffset(new mxPoint(-2, -2));
-				insert(port);
-				port = new ElementPort(null, new mxGeometry(0, 0.75, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
-				port.getGeometry().setOffset(new mxPoint(-2, -2));
-				insert(port);
-				port = new ElementPort(null, new mxGeometry(1, 0.5, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
-				port.getGeometry().setOffset(new mxPoint(-2, -2));
-				insert(port);
-			}
-		},
 		new ElementModel("Generator", new Generator(), new mxGeometry(0, 0, 41, 50), "", 
 			new String[]{	"/net/unikernel/bummel/logic_elements/visual/images/generator.shape",
 							"/net/unikernel/bummel/logic_elements/visual/images/generator1.shape"})
@@ -73,6 +44,23 @@ public class VisualizationsFactory
 				insert(port);
 			}
 		},
+		new ElementModel("And", new And(), new mxGeometry(0, 0, 56, 40), "", 
+			new String[]{"/net/unikernel/bummel/logic_elements/visual/images/and.shape"})
+		{
+			@Override
+			public void init()
+			{
+				ElementPort port = new ElementPort(null, new mxGeometry(0, 0.25, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+				port.getGeometry().setOffset(new mxPoint(-2, -2));
+				insert(port);
+				port = new ElementPort(null, new mxGeometry(0, 0.75, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+				port.getGeometry().setOffset(new mxPoint(-2, -2));
+				insert(port);
+				port = new ElementPort(null, new mxGeometry(1, 0.5, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+				port.getGeometry().setOffset(new mxPoint(-2, -2));
+				insert(port);
+			}
+		},
 		new ElementModel("Or", new Or(), new mxGeometry(0, 0, 52, 40), "", 
 			new String[]{"/net/unikernel/bummel/logic_elements/visual/images/or.shape"})
 		{
@@ -86,6 +74,18 @@ public class VisualizationsFactory
 				port.getGeometry().setOffset(new mxPoint(-2, -2));
 				insert(port);
 				port = new ElementPort(null, new mxGeometry(1, 0.5, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+				port.getGeometry().setOffset(new mxPoint(-2, -2));
+				insert(port);
+			}
+		},
+		new ElementModel("Analyzer", new Analyzer(), new mxGeometry(0, 0, 30, 18), "", 
+			new String[]{"/net/unikernel/bummel/logic_elements/visual/images/analyzer0.shape",
+						 "/net/unikernel/bummel/logic_elements/visual/images/analyzer1.shape"})
+		{
+			@Override
+			public void init()
+			{
+				ElementPort port = new ElementPort(null, new mxGeometry(0, 0.5, 4, 4),"shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
 				port.getGeometry().setOffset(new mxPoint(-2, -2));
 				insert(port);
 			}
