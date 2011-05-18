@@ -136,6 +136,7 @@ public final class EditorTopComponent extends TopComponent
 		style.put(mxConstants.STYLE_ENDARROW, "");	//remove arrow
 		graphComponent.setConnectable(true);
 		graphComponent.setToolTips(true);
+		graph.setLabelsVisible(false);
 		graphComponent.setFoldingEnabled(false);
 
 		// Enables rubberband selection

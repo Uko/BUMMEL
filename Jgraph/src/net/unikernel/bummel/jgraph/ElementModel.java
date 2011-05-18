@@ -118,9 +118,9 @@ public class ElementModel extends mxCell
 		for (int i = 0; i < inputPorts; i++)
 		{
 			ElementPort port = new ElementPort(null,
-											   new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 20, 20),
-											   "shape=ellipse;perimeter=ellipsePerimeter");
-			port.getGeometry().setOffset(new mxPoint(-10, -10));
+											   new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 10, 10),
+											   "shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+			port.getGeometry().setOffset(new mxPoint(-5, -5));
 //				this.inputPorts.add(port);
 			insert(port);
 		}
@@ -129,9 +129,9 @@ public class ElementModel extends mxCell
 		for (int i = 0; i < outputPorts; i++)
 		{
 			ElementPort port = new ElementPort(null,
-											   new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 20, 20),
-											   "shape=ellipse;perimeter=ellipsePerimeter");
-			port.getGeometry().setOffset(new mxPoint(-10, -10));
+											   new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 10, 10),
+											   "shape=ellipse;perimeter=ellipsePerimeter;fillColor=black");
+			port.getGeometry().setOffset(new mxPoint(-5, -5));
 //				this.inputPorts.add(port);
 			insert(port);
 		}
