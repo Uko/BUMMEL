@@ -1,5 +1,5 @@
 /**
- * $Id: mxGraphHandler.java,v 1.71 2010-12-19 12:07:58 gaudenz Exp $
+ * $Id: mxGraphHandler.java,v 1.72 2011-05-07 09:46:58 gaudenz Exp $
  * Copyright (c) 2008, Gaudenz Alder
  * 
  * Known issue: Drag image size depends on the initial position and may sometimes
@@ -1194,7 +1194,10 @@ public class mxGraphHandler extends mxMouseAdapter implements
 					{
 						if (tmp == null)
 						{
-							graph.clearSelection();
+							if (!graphComponent.isToggleEvent(e))
+							{
+								graph.clearSelection();
+							}
 						}
 						else if (graph.isSwimlane(tmp)
 								&& graphComponent.getCanvas()

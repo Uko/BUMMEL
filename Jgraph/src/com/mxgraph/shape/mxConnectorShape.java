@@ -1,5 +1,5 @@
 /**
- * $Id: mxConnectorShape.java,v 1.21 2010-10-18 10:48:00 gaudenz Exp $
+ * $Id: mxConnectorShape.java,v 1.22 2011-05-02 13:18:22 david Exp $
  * Copyright (c) 2010, Gaudenz Alder, David Benson
  */
 package com.mxgraph.shape;
@@ -140,8 +140,8 @@ public class mxConnectorShape extends mxBasicShape
 		double strokeX = unitX * strokeWidth;
 		double strokeY = unitY * strokeWidth;
 		pe = (mxPoint) pe.clone();
-		pe.setX(pe.getX() - strokeX);
-		pe.setY(pe.getY() - strokeY);
+		pe.setX(pe.getX() - strokeX / 2.0);
+		pe.setY(pe.getY() - strokeY / 2.0);
 		
 		mxIMarker marker = mxMarkerRegistry.getMarker(type);
 		

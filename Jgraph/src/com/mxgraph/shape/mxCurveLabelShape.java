@@ -1,5 +1,5 @@
 /**
- * $Id: mxCurveLabelShape.java,v 1.28 2011-03-25 17:42:32 david Exp $
+ * $Id: mxCurveLabelShape.java,v 1.30 2011-05-13 15:12:18 david Exp $
  * Copyright (c) 2010, David Benson, Gaudenz Alder
  */
 package com.mxgraph.shape;
@@ -16,7 +16,10 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.text.Bidi;
+import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.mxgraph.canvas.mxGraphics2DCanvas;
@@ -235,7 +238,7 @@ public class mxCurveLabelShape implements mxITextShape
 
 		// Check that the size of the widths array matches 
 		// that of the label size
-		if (labelGlyphs == null || label.length() != labelGlyphs.length)
+		if (labelGlyphs == null || (!label.equals(lastValue)))
 		{
 			labelGlyphs = new LabelGlyphCache[label.length()];
 		}
@@ -243,6 +246,7 @@ public class mxCurveLabelShape implements mxITextShape
 		if (!label.equals(lastValue) || !font.equals(lastFont))
 		{
 			char[] labelChars = label.toCharArray();
+			ArrayList<LabelGlyphCache> glyphList = new ArrayList<LabelGlyphCache>();
 			boolean bidiRequired = Bidi.requiresBidi(labelChars, 0,
 					labelChars.length);
 
@@ -282,14 +286,11 @@ public class mxCurveLabelShape implements mxITextShape
 					{
 						Shape shape = gv.getGlyphOutline(j, -vectorOffset, 0);
 
-						if (labelGlyphs[charCount] == null)
-						{
-							labelGlyphs[charCount] = new LabelGlyphCache();
-						}
-
-						labelGlyphs[charCount].glyphShape = shape;
+						LabelGlyphCache qlyph = new LabelGlyphCache();
+						glyphList.add(qlyph);
+						qlyph.glyphShape = shape;
 						mxRectangle size = new mxRectangle(shape.getBounds2D());
-						labelGlyphs[charCount].labelGlyphBounds = size;
+						qlyph.labelGlyphBounds = size;
 						labelSize += size.getWidth();
 						vectorOffset += size.getWidth();
 
@@ -300,33 +301,49 @@ public class mxCurveLabelShape implements mxITextShape
 			else
 			{
 				rtlGlyphVectors = null;
+				//String locale = System.getProperty("user.language");
+				// Character iterator required where character is split over
+				// string elements
+				BreakIterator it = BreakIterator.getCharacterInstance(Locale.getDefault());
+				it.setText(label);
 
-				for (int i = 0; i < label.length(); i++)
+				for (int i = 0; i < label.length();)
 				{
-					String glyph = label.substring(i, i + 1);
-					if (labelGlyphs[i] == null)
+					int next = it.next();
+					int characterLen = 1;
+					
+					if (next != BreakIterator.DONE)
 					{
-						labelGlyphs[i] = new LabelGlyphCache();
+						characterLen = next - i;
 					}
-					labelGlyphs[i].glyph = glyph;
-					labelGlyphs[i].glyphShape = font.createGlyphVector(frc,
-							glyph).getGlyphOutline(0);
+
+					String glyph = label.substring(i, i + characterLen);
+					
+					LabelGlyphCache labelGlyph = new LabelGlyphCache();
+					glyphList.add(labelGlyph);
+					labelGlyph.glyph = glyph;
+					GlyphVector vector = font.createGlyphVector(frc, glyph);
+					labelGlyph.glyphShape = vector.getOutline();
 
 					if (fm == null)
 					{
 						mxRectangle size = new mxRectangle(
 								font.getStringBounds(glyph,
 										mxCurveLabelShape.frc));
-						labelGlyphs[i].labelGlyphBounds = size;
+						labelGlyph.labelGlyphBounds = size;
 						labelSize += size.getWidth();
 					}
 					else
 					{
 						double width = fm.stringWidth(glyph);
-						labelGlyphs[i].labelGlyphBounds = new mxRectangle(0, 0,
+						labelGlyph.labelGlyphBounds = new mxRectangle(0, 0,
 								width, ascent);
 						labelSize += width;
 					}
+
+					i += characterLen;
+					
+
 				}
 			}
 
@@ -335,6 +352,7 @@ public class mxCurveLabelShape implements mxITextShape
 			lastValue = label;
 			lastFont = font;
 			lastPoints = curve.getGuidePoints();
+			this.labelGlyphs = glyphList.toArray(new LabelGlyphCache[glyphList.size()]);
 		}
 
 		// Store the start/end buffers that pad out the ends of the branch so the label is
@@ -370,7 +388,7 @@ public class mxCurveLabelShape implements mxITextShape
 		// Might be better than the curve is the only thing updated and
 		// the curve shapes listen to curve events
 		// !lastPoints.equals(curve.getGuidePoints())
-		for (int j = 0; j < label.length(); j++)
+		for (int j = 0; j < labelGlyphs.length; j++)
 		{
 			if (currentPos > endPos)
 			{

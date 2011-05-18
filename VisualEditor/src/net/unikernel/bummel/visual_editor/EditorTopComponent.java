@@ -4,17 +4,22 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
-import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.view.mxCellState;
+import com.mxgraph.view.mxEdgeStyle;
 import com.mxgraph.view.mxGraph;
+import com.mxgraph.view.mxMultiplicity;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.jws.WebParam.Mode;
+import java.util.Arrays;
+import java.util.Map;
 import javax.swing.Action;
+import net.unikernel.bummel.basic_elements.BasicElement;
 import net.unikernel.bummel.engine.Engine;
+import net.unikernel.bummel.jgraph.ElementModel;
+import net.unikernel.bummel.jgraph.ElementPort;
 import net.unikernel.bummel.project_model.ProjectModel;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -106,7 +111,16 @@ public final class EditorTopComponent extends TopComponent
 				
 				if (cell != null)
 				{
-					System.out.println("cellValue="+cell.getValue());
+					if(cell instanceof ElementModel)
+					{
+						Object val = cell.getValue();
+						if(val instanceof BasicElement)
+						{
+							((BasicElement)val).toggleState();
+							//((mxGraphModel) graph.getModel()).fireEvent(new mxEventObject(mxEvent.CHANGE)); //cause nullpointer
+							engine.start();
+						}
+					}
 				}
 			}
 		});
@@ -114,12 +128,41 @@ public final class EditorTopComponent extends TopComponent
 		
 		graph.setMultigraph(false);
 		graph.setAllowDanglingEdges(false);
+		graph.setDisconnectOnMove(false);
+		graph.setCellsResizable(false);
+		graph.setCellsEditable(false);
+		Map<String, Object> style = graph.getStylesheet().getDefaultEdgeStyle();
+		style.put(mxConstants.STYLE_EDGE, mxEdgeStyle.ElbowConnector);
+		style.put(mxConstants.STYLE_ENDARROW, "");	//remove arrow
 		graphComponent.setConnectable(true);
 		graphComponent.setToolTips(true);
+		graphComponent.setFoldingEnabled(false);
 
 		// Enables rubberband selection
 		new mxRubberband(graphComponent);
 		new mxKeyboardHandler(graphComponent);
+		
+		mxMultiplicity[] multiplicities = new mxMultiplicity[2];
+		
+		multiplicities[0] = new mxMultiplicity(false, null, null, null, 0,
+				"1", null, "", null, true){
+					@Override
+					public boolean checkTerminal(mxGraph graph, Object terminal, Object edge)
+					{
+						return terminal instanceof ElementPort;
+					}
+				};
+		multiplicities[1] = new mxMultiplicity(true, null, null, null, 0,
+				"1", null, "", null, true){
+					@Override
+					public boolean checkTerminal(mxGraph graph, Object terminal, Object edge)
+					{
+						return terminal instanceof ElementPort;
+					}
+				};
+
+		graph.setMultiplicities(multiplicities);
+		graphComponent.getConnectionHandler().setShowMessageDialogEnabled(false);
 	
 		// Installs automatic validation (use editor.validation = true
 		// if you are using an mxEditor instance)
@@ -128,8 +171,7 @@ public final class EditorTopComponent extends TopComponent
 			@Override
 			public void invoke(Object sender, mxEventObject evt)
 			{
-				//graphComponent.validateGraph();
-				//System.out.println(evt.getName());
+				graphComponent.validateGraph();
 				engine.start();
 			}
 		});

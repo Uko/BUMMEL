@@ -47,4 +47,12 @@ public abstract  class BasicElement implements Element
 	{
 		return 0;
 	}
+	
+	/**
+	 * This method may be overridden in every child class to enable state swithcing on mouse click.
+	 */
+	public int toggleState()
+	{
+		return 0;
+	}
 }

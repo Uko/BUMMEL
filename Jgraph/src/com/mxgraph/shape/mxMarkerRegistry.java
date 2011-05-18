@@ -58,9 +58,6 @@ public class mxMarkerRegistry
 					mxCellState state, String type, mxPoint pe, double nx,
 					double ny, double size)
 			{
-				nx *= 1.2;
-				ny *= 1.2;
-
 				canvas.getGraphics().draw(
 						new Line2D.Float((int) Math.round(pe.getX() - nx - ny
 								/ 2),
@@ -83,15 +80,10 @@ public class mxMarkerRegistry
 					mxCellState state, String type, mxPoint pe, double nx,
 					double ny, double size)
 			{
-				nx *= 1.2;
-				ny *= 1.2;
-				size *= 1.2;
-
-				int cx = (int) Math.round(pe.getX() - nx / 2);
-				int cy = (int) Math.round(pe.getY() - ny / 2);
-				int a = (int) Math.round(size / 2);
-				int a2 = (int) Math.round(size);
-				Shape shape = new Ellipse2D.Float(cx - a, cy - a, a2, a2);
+				double cx = pe.getX() - nx / 2;
+				double cy = pe.getY() - ny / 2;
+				double a = size / 2;
+				Shape shape = new Ellipse2D.Double(cx - a, cy - a, size, size);
 
 				canvas.fillShape(shape);
 				canvas.getGraphics().draw(shape);
@@ -107,9 +99,6 @@ public class mxMarkerRegistry
 					mxCellState state, String type, mxPoint pe, double nx,
 					double ny, double size)
 			{
-				nx *= 1.2;
-				ny *= 1.2;
-
 				Polygon poly = new Polygon();
 				poly.addPoint((int) Math.round(pe.getX()),
 						(int) Math.round(pe.getY()));

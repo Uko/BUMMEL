@@ -62,4 +62,10 @@ public class Generator extends BasicElement
 	{
 		this.state = state;
 	}
+	
+	@Override
+	public int toggleState()
+	{
+		return (int)(state = ((int)state + 1)%2);
+	}
 }

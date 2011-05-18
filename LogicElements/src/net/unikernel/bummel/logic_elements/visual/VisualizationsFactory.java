@@ -35,7 +35,7 @@ public class VisualizationsFactory
 			}
 		},
 		new ElementModel("Generator", new Generator(), new mxGeometry(0, 0, 41, 50), "", 
-			new String[]{	"/net/unikernel/bummel/logic_elements/visual/images/generator.shape",
+			new String[]{	"/net/unikernel/bummel/logic_elements/visual/images/cross-maltese.shape",
 							"/net/unikernel/bummel/logic_elements/visual/images/generator.shape"})
 		{
 			@Override

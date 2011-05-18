@@ -131,7 +131,13 @@ public class mxConnectionHandler extends mxMouseAdapter
 	 * 
 	 */
 	protected transient String error;
-
+	
+	/**
+	 * True - to fire message dialogs with errors (default)
+	 * False - don't fire
+	 */
+	protected boolean showMessageDialogEnabled = true;
+	
 	/**
 	 * 
 	 */
@@ -356,6 +362,24 @@ public class mxConnectionHandler extends mxMouseAdapter
 	public boolean isHandleEnabled()
 	{
 		return handleEnabled;
+	}
+
+	/**
+	 * Checks if message dialog with error is allowed to fier up or not (default = tru).
+	 * @return 
+	 */
+	public boolean isShowMessageDialogEnabled()
+	{
+		return showMessageDialogEnabled;
+	}
+
+	/**
+	 * Sets whetther to fier up dialog with errors or not to (default = true).
+	 * @param showMessageDialogEnabled 
+	 */
+	public void setShowMessageDialogEnabled(boolean showMessageDialogEnabled)
+	{
+		this.showMessageDialogEnabled = showMessageDialogEnabled;
 	}
 
 	/**
@@ -610,7 +634,7 @@ public class mxConnectionHandler extends mxMouseAdapter
 	{
 		if (error != null)
 		{
-			if (error.length() > 0)
+			if (showMessageDialogEnabled && error.length() > 0)
 			{
 				JOptionPane.showMessageDialog(graphComponent, error);
 			}

@@ -1,5 +1,5 @@
 /**
- * $Id: mxGraphComponent.java,v 1.136 2011-04-08 09:20:00 gaudenz Exp $
+ * $Id: mxGraphComponent.java,v 1.137 2011-05-05 08:54:35 gaudenz Exp $
  * Copyright (c) 2009-2010, Gaudenz Alder, David Benson
  */
 package com.mxgraph.swing;
@@ -639,7 +639,7 @@ public class mxGraphComponent extends JScrollPane implements Printable
 		createHandlers();
 		installDoubleClickHandler();
 	}
-
+	
 	/**
 	 * 
 	 * @param graph
@@ -661,7 +661,7 @@ public class mxGraphComponent extends JScrollPane implements Printable
 		createHandlers();
 		installDoubleClickHandler();
 	}
-
+	
 	/**
 	 * installs a handler to set the focus to the container.
 	 */
@@ -1359,13 +1359,21 @@ public class mxGraphComponent extends JScrollPane implements Printable
 	 */
 	public mxPoint getPointForEvent(MouseEvent e)
 	{
+		return getPointForEvent(e, true);
+	}
+
+	/**
+	 * Returns an mxPoint representing the given event in the unscaled,
+	 * non-translated coordinate space and applies the grid.
+	 */
+	public mxPoint getPointForEvent(MouseEvent e, boolean addOffset)
+	{
 		double s = graph.getView().getScale();
 		mxPoint tr = graph.getView().getTranslate();
-
-		double x = graph.snap(e.getX() / s - tr.getX() - graph.getGridSize()
-				/ 2);
-		double y = graph.snap(e.getY() / s - tr.getY() - graph.getGridSize()
-				/ 2);
+		
+		double off = (addOffset) ? graph.getGridSize() / 2 : 0;
+		double x = graph.snap(e.getX() / s - tr.getX() - off);
+		double y = graph.snap(e.getY() / s - tr.getY() - off);
 
 		return new mxPoint(x, y);
 	}
