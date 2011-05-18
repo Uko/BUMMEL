@@ -6,10 +6,9 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
-import com.mxgraph.util.mxUtils;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
+import java.io.InputStream;
 
 /**
  * The exmaple of creation of visual element with i/o ports:
@@ -59,6 +58,10 @@ public class ElementModel extends mxCell
 			stateImagesStyles = new String[stateImagesPaths.length];
 			for (int i = 0, n = stateImagesPaths.length; i < n; i++)
 			{
+				try
+				{
+					stateImagesPaths[i] = new String(readFile(stateImagesPaths[i]));
+
 					int lessthanIndex = stateImagesPaths[i].indexOf("<");
 					stateImagesPaths[i] = stateImagesPaths[i].substring(lessthanIndex);
 					mxStencilShape newShape = new mxStencilShape(stateImagesPaths[i]);
@@ -66,6 +69,11 @@ public class ElementModel extends mxCell
 
 					// Registers the shape in the canvas shape registry
 					mxGraphics2DCanvas.putShape(stateImagesStyles[i], newShape);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace(System.err);
+				}
 			}
 			if (stateImagesStyles.length > 0)
 			{
@@ -85,7 +93,7 @@ public class ElementModel extends mxCell
 
 		init();
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
@@ -94,7 +102,7 @@ public class ElementModel extends mxCell
 		{
 			clone.setValue(value.getClass().newInstance());
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 		}
 		return clone;
@@ -130,6 +138,26 @@ public class ElementModel extends mxCell
 
 	}
 
+	private byte[] readFile(String sFilename) throws IOException
+	{
+		getClass().getResource(sFilename);
+		InputStream in = getClass().getResourceAsStream(sFilename);
+		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+
+		byte[] aoBuffer = new byte[512];
+
+		int nBytesRead;
+
+		while ((nBytesRead = in.read(aoBuffer)) > 0)
+		{
+			out.write(aoBuffer, 0, nBytesRead);
+		}
+
+		in.close();
+
+		return out.toByteArray();
+	}
+
 	/**
 	 * Constructs a new cell for the given parameters.
 	 * @param value Object that represents the value of the cell.
@@ -162,12 +190,10 @@ public class ElementModel extends mxCell
 //	{
 //		return inputPorts;
 //	}
-
 //	public ElementPort getInputPort(int i)
 //	{
 //		return inputPorts.get(i);
 //	}
-
 //	public void setInputPorts(ArrayList<ElementPort> inputPorts)
 //	{
 //		for (int i = 0, n = this.inputPorts.size(); i < n; i++)
@@ -180,7 +206,6 @@ public class ElementModel extends mxCell
 //			addInputPort(inputPorts.get(i));
 //		}
 //	}
-
 //	public ArrayList<ElementPort> getOutputPorts()
 //	{
 //		return outputPorts;
@@ -223,7 +248,6 @@ public class ElementModel extends mxCell
 //	{
 //		outputPorts.add((ElementPort) insert(port));
 //	}
-	
 	public void addPort(ElementPort port)
 	{
 		insert(port);
@@ -244,9 +268,9 @@ public class ElementModel extends mxCell
 		if (stateImagesStyles != null && stateImagesStyles.length > 0)
 		{
 			int pos;
-			if ((pos = style.indexOf("shape=")) > 0)
+			if ((pos = style.indexOf("shape=")) >= 0)
 			{
-				style.replace(style.substring(pos, ((pos = style.indexOf(";", pos)) > 0) ? pos : style.length() - 1), "shape=" + stateImagesStyles[state] + ";");
+				style = style.replace(style.substring(pos, ((pos = style.indexOf(";", pos)) > 0) ? pos : style.length() - 1), "shape=" + stateImagesStyles[state]);
 			}
 			else
 			{
