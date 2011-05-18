@@ -38,4 +38,13 @@ public abstract  class BasicElement implements Element
 		System.arraycopy(onPins, 0, arr, 0, onPins.length);
 		return arr;
 	}
+	
+	/**
+	 * This method may be overridden in every child class to correct it's graphics representation of current work state.
+	 * @return state The state that represents element look.
+	 */
+	public int getState()
+	{
+		return 0;
+	}
 }

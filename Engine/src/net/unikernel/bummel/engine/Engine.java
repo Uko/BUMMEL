@@ -113,6 +113,7 @@ public class Engine implements PropertyChangeListener, Runnable
 				
 				//обрахунок елемента
 				((BasicElement)elem.getValue()).touch(acdc);
+				elem.setShape(((BasicElement)elem.getValue()).getState());	//set appropriate shape
 				acdc = ((BasicElement)elem.getValue()).getOnPins();
 				if(_acdc != null && acdc != null && _acdc.length == acdc.length)
 				{

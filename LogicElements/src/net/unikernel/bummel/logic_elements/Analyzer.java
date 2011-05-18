@@ -27,7 +27,7 @@ public class Analyzer extends BasicElement
 	@Override
 	public double[] process(double[] acdc)
 	{
-		state=acdc[0];
+		state = acdc[0];
 		double[] result = {0};
 		return result;
 	}
@@ -36,7 +36,12 @@ public class Analyzer extends BasicElement
 	 */
 	public Analyzer()
 	{
-		state=0;
+		state = 0;
 	}
 	
+	@Override
+	public int getState()
+	{
+		return (int)state;
+	}
 }

@@ -35,9 +35,10 @@ public class Generator extends BasicElement
 	/**
 	 * @return the state
 	 */
-	public double getState()
+	@Override
+	public int getState()
 	{
-		return state;
+		return (int)state;
 	}
 	/**
 	 * @param state the state to set
