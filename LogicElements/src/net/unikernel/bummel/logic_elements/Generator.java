@@ -51,7 +51,7 @@ public class Generator extends BasicElement
 	 */
 	public Generator()
 	{
-		state=0;
+		state = 1;
 	}
 	/**
 	 * Creates generator with passed state

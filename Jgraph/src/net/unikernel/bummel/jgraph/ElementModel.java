@@ -8,6 +8,7 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxUtils;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /**
@@ -37,8 +38,8 @@ import java.util.ArrayList;
  */
 public class ElementModel extends mxCell
 {
-	private ArrayList<ElementPort> inputPorts = null;
-	private ArrayList<ElementPort> outputPorts = null;
+//	private ArrayList<ElementPort> inputPorts = null;
+//	private ArrayList<ElementPort> outputPorts = null;
 	protected String name;
 	public final String[] stateImagesStyles;
 
@@ -75,8 +76,10 @@ public class ElementModel extends mxCell
 					stateImagesStyles[i] = "";
 				}
 			}
-			if(stateImagesStyles.length > 0)
+			if (stateImagesStyles.length > 0)
+			{
 				setShape(0);
+			}
 		}
 		else
 		{
@@ -84,12 +87,26 @@ public class ElementModel extends mxCell
 		}
 		this.name = name;
 		getGeometry().setAlternateBounds((mxRectangle) geometry.clone());
-		this.inputPorts = new ArrayList<ElementPort>();
-		this.outputPorts = new ArrayList<ElementPort>();
+//		this.inputPorts = new ArrayList<ElementPort>();
+//		this.outputPorts = new ArrayList<ElementPort>();
 		setVertex(true);
 		setConnectable(false);
 
 		init();
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		mxCell clone = (mxCell) super.clone();
+		try
+		{
+			clone.setValue(value.getClass().newInstance());
+		}
+		catch(Exception e)
+		{
+		}
+		return clone;
 	}
 
 	public void init()
@@ -97,30 +114,29 @@ public class ElementModel extends mxCell
 		init(2, 1);
 	}
 
-	private void init(int inputPorts, int outputPorts)
+	final public void init(int inputPorts, int outputPorts)
 	{
-		if (inputPorts > 0)
+		for (int i = 0; i < inputPorts; i++)
 		{
-			for (int i = 0; i < inputPorts; i++)
-			{
-				this.inputPorts.add(new ElementPort(null,
-													new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 20, 20),
-													"shape=ellipse;perimeter=ellipsePerimeter"));
-				this.inputPorts.get(i).getGeometry().setOffset(new mxPoint(-10, -10));
-				insert(this.inputPorts.get(i));
-			}
+			ElementPort port = new ElementPort(null,
+											   new mxGeometry(0, (i + 1.0) / (inputPorts + 1), 20, 20),
+											   "shape=ellipse;perimeter=ellipsePerimeter");
+			port.getGeometry().setOffset(new mxPoint(-10, -10));
+//				this.inputPorts.add(port);
+			insert(port);
 		}
-		if (outputPorts > 0)
+
+
+		for (int i = 0; i < outputPorts; i++)
 		{
-			for (int i = 0; i < outputPorts; i++)
-			{
-				this.outputPorts.add(new ElementPort(null,
-													 new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 20, 20),
-													 "shape=ellipse;perimeter=ellipsePerimeter"));
-				this.outputPorts.get(i).getGeometry().setOffset(new mxPoint(-10, -10));
-				insert(this.outputPorts.get(i));
-			}
+			ElementPort port = new ElementPort(null,
+											   new mxGeometry(1.0, (i + 1.0) / (outputPorts + 1), 20, 20),
+											   "shape=ellipse;perimeter=ellipsePerimeter");
+			port.getGeometry().setOffset(new mxPoint(-10, -10));
+//				this.inputPorts.add(port);
+			insert(port);
 		}
+
 	}
 
 	/**
@@ -151,70 +167,75 @@ public class ElementModel extends mxCell
 		this("", null, new mxGeometry(), "", null);
 	}
 
-	public ArrayList<ElementPort> getInputPorts()
-	{
-		return inputPorts;
-	}
+//	public ArrayList<ElementPort> getInputPorts()
+//	{
+//		return inputPorts;
+//	}
 
-	public ElementPort getInputPort(int i)
-	{
-		return inputPorts.get(i);
-	}
+//	public ElementPort getInputPort(int i)
+//	{
+//		return inputPorts.get(i);
+//	}
 
-	public void setInputPorts(ArrayList<ElementPort> inputPorts)
-	{
-		for (int i = 0, n = this.inputPorts.size(); i < n; i++)
-		{
-			remove(this.inputPorts.get(i));
-		}
-		this.inputPorts = new ArrayList<ElementPort>();
-		for (int i = 0, n = inputPorts.size(); i < n; i++)
-		{
-			addInputPort(inputPorts.get(i));
-		}
-	}
+//	public void setInputPorts(ArrayList<ElementPort> inputPorts)
+//	{
+//		for (int i = 0, n = this.inputPorts.size(); i < n; i++)
+//		{
+//			remove(this.inputPorts.get(i));
+//		}
+//		this.inputPorts = new ArrayList<ElementPort>();
+//		for (int i = 0, n = inputPorts.size(); i < n; i++)
+//		{
+//			addInputPort(inputPorts.get(i));
+//		}
+//	}
 
-	public ArrayList<ElementPort> getOutputPorts()
+//	public ArrayList<ElementPort> getOutputPorts()
+//	{
+//		return outputPorts;
+//	}
+//
+//	public ElementPort getOutputPort(int i)
+//	{
+//		return outputPorts.get(i);
+//	}
+//
+//	public void setOutputPorts(ArrayList<ElementPort> outputPorts)
+//	{
+//		for (int i = 0, n = this.outputPorts.size(); i < n; i++)
+//		{
+//			remove(this.outputPorts.get(i));
+//		}
+//		this.outputPorts = new ArrayList<ElementPort>();
+//		for (int i = 0, n = outputPorts.size(); i < n; i++)
+//		{
+//			addInputPort(outputPorts.get(i));
+//		}
+//	}
+//
+//	public void addInputPort(Object value, mxGeometry geometry, String styles)
+//	{
+//		inputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
+//	}
+//
+//	public void addInputPort(ElementPort port)
+//	{
+//		inputPorts.add((ElementPort) insert(port));
+//	}
+//
+//	public void addOutputPort(Object value, mxGeometry geometry, String styles)
+//	{
+//		outputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
+//	}
+//
+//	public void addOutputPort(ElementPort port)
+//	{
+//		outputPorts.add((ElementPort) insert(port));
+//	}
+	
+	public void addPort(ElementPort port)
 	{
-		return outputPorts;
-	}
-
-	public ElementPort getOutputPort(int i)
-	{
-		return outputPorts.get(i);
-	}
-
-	public void setOutputPorts(ArrayList<ElementPort> outputPorts)
-	{
-		for (int i = 0, n = this.outputPorts.size(); i < n; i++)
-		{
-			remove(this.outputPorts.get(i));
-		}
-		this.outputPorts = new ArrayList<ElementPort>();
-		for (int i = 0, n = outputPorts.size(); i < n; i++)
-		{
-			addInputPort(outputPorts.get(i));
-		}
-	}
-
-	public void addInputPort(Object value, mxGeometry geometry, String styles)
-	{
-		inputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
-	}
-
-	public void addInputPort(ElementPort port)
-	{
-		inputPorts.add((ElementPort) insert(port));
-	}
-
-	public void addOutputPort(Object value, mxGeometry geometry, String styles)
-	{
-		outputPorts.add((ElementPort) insert(new ElementPort(value, geometry, styles)));
-	}
-
-	public void addOutputPort(ElementPort port)
-	{
-		outputPorts.add((ElementPort) insert(port));
+		insert(port);
 	}
 
 	@Override
@@ -222,19 +243,19 @@ public class ElementModel extends mxCell
 	{
 		return name;
 	}
-	
+
 	/**
 	 * Sets shape style parameter from available "state-shape" array depending on state passed as parameter.
 	 * @param state Represents current element state.
 	 */
 	public void setShape(int state)
 	{
-		if(stateImagesStyles != null && stateImagesStyles.length > 0)
+		if (stateImagesStyles != null && stateImagesStyles.length > 0)
 		{
 			int pos;
-			if((pos = style.indexOf("shape=")) > 0)
+			if ((pos = style.indexOf("shape=")) > 0)
 			{
-				style.replace(style.substring(pos, ((pos = style.indexOf(";", pos)) > 0) ? pos : style.length()-1), "shape=" + stateImagesStyles[state] + ";");
+				style.replace(style.substring(pos, ((pos = style.indexOf(";", pos)) > 0) ? pos : style.length() - 1), "shape=" + stateImagesStyles[state] + ";");
 			}
 			else
 			{

@@ -21,7 +21,7 @@ public class VisualizationsFactory
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(1, 0);
 			}
 		},
 		new ElementModel("And", new And(), new mxGeometry(0, 0, 100, 100), ""){
@@ -35,21 +35,21 @@ public class VisualizationsFactory
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(0, 1);
 			}
 		},
 		new ElementModel("Not", new Not(), new mxGeometry(0, 0, 100, 100), ""){
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				init(1, 1);
 			}
 		},
 		new ElementModel("Or", new Or(), new mxGeometry(0, 0, 100, 100), ""){
 			@Override
 			public void init()
 			{
-				System.out.println("name: "+name);
+				super.init();
 			}
 		}
 	};

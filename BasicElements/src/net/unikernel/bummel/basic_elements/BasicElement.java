@@ -25,13 +25,17 @@ public abstract  class BasicElement implements Element
 	@Override
 	public final void touch(double[] acdc)
 	{
-		onPins=process(acdc);
+		onPins = process(acdc);
 	}
 	/**
 	 * @return the onPins
 	 */
 	public final double[] getOnPins()
 	{
-		return onPins;
+		if(onPins == null)
+			return null;
+		double[] arr = new double[onPins.length];
+		System.arraycopy(onPins, 0, arr, 0, onPins.length);
+		return arr;
 	}
 }
