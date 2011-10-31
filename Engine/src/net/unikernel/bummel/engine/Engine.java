@@ -180,10 +180,12 @@ public class Engine implements PropertyChangeListener, Runnable
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void start()
+	public Engine start()
 	{
+		System.out.println("Starting engine, rooooarrrr");
 		if(!t.isAlive())
 			t.start();
+		return this;
 	}
 
 	public void stop()

@@ -2,6 +2,7 @@ package net.unikernel.bummel.logic_elements.visual;
 
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
+import java.io.Serializable;
 import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.jgraph.ElementPort;
 import net.unikernel.bummel.logic_elements.Analyzer;
@@ -15,7 +16,7 @@ import net.unikernel.bummel.logic_elements.Split;
  *
  * @author mcangel
  */
-public class VisualizationsFactory
+public class VisualizationsFactory implements Serializable
 {
 	public static final ElementModel[] elements = new ElementModel[]{
 		new ElementModel("Generator", new Generator(), new mxGeometry(0, 0, 41, 50), "", 

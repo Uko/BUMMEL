@@ -185,6 +185,15 @@ public class ElementModel extends mxCell
 	{
 		this("", null, new mxGeometry(), "", null);
 	}
+	
+	/**
+	 * Copy Constructor
+	 * @param obj ElementModel - object to make copy from
+	 */
+	/*public ElementModel(ElementModel obj)
+	{
+		this(obj.name, obj.value, obj.geometry, obj.style, obj.stateImagesStyles);
+	}*/
 
 //	public ArrayList<ElementPort> getInputPorts()
 //	{

@@ -13,13 +13,18 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	private mxIGraphModel model;
+	transient private mxIGraphModel model;
 
-	public ProjectModel()
+	public ProjectModel(String name)
 	{
-		name="";
+		this.name = name;
 		filePath="";
 		model = new mxGraphModel();
+	}
+	
+	public ProjectModel()
+	{
+		this("");
 	}
 
 	public String getFilePath()

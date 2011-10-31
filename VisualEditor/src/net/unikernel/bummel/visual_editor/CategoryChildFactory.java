@@ -7,6 +7,7 @@ import com.mxgraph.util.mxRectangle;
 import java.awt.datatransfer.Transferable;
 import java.io.IOException;
 import java.util.List;
+import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.logic_elements.visual.VisualizationsFactory;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.ChildFactory;
@@ -44,7 +45,7 @@ public class CategoryChildFactory extends ChildFactory<String>
 		protected boolean createKeys(List<mxCell> list)
 		{
 			for(int i = 0, n = VisualizationsFactory.elements.length; i < n; i++)
-				list.add(VisualizationsFactory.elements[i]);
+				list.add(/*new ElementModel(*/VisualizationsFactory.elements[i]/*)*/);
 			//list.add(new ElementModel("Hello", null, new mxGeometry(0,0,100,100), "", 2, 1));
 			return true;
 		}
