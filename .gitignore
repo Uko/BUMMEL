@@ -1,7 +1,7 @@
 # NetBeans related data #
 #########################
-*nbproject/private
-*build/
+*/nbproject/private
+*/build/
 
 # Compiled source #
 ###################
