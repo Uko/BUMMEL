@@ -45,7 +45,7 @@ public abstract  class BasicElement implements Element
 	}
 	
 	/**
-	 * This method may be overridden in every child class to enable state swithcing on mouse click.
+	 * This method may be overridden in every child class to enable state switching on mouse click.
 	 */
 	public int toggleState()
 	{

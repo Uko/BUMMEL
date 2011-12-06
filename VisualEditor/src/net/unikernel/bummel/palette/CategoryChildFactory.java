@@ -1,11 +1,5 @@
-package net.unikernel.bummel.visual_editor;
+package net.unikernel.bummel.palette;
 
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxRectangle;
-import java.awt.datatransfer.Transferable;
-import java.io.IOException;
 import java.util.List;
 import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.logic_elements.visual.VisualizationsFactory;
@@ -34,7 +28,7 @@ public class CategoryChildFactory extends ChildFactory<String>
 		return node;
 	}
 
-	private class ElementChildFactory extends ChildFactory<mxCell>
+	private class ElementChildFactory extends ChildFactory<ElementModel>
 	{
 		private String category;
 		private ElementChildFactory(String category)
@@ -42,7 +36,7 @@ public class CategoryChildFactory extends ChildFactory<String>
 			this.category = category;
 		}
 		@Override
-		protected boolean createKeys(List<mxCell> list)
+		protected boolean createKeys(List<ElementModel> list)
 		{
 			for(int i = 0, n = VisualizationsFactory.elements.length; i < n; i++)
 				list.add(/*new ElementModel(*/VisualizationsFactory.elements[i]/*)*/);
@@ -50,24 +44,9 @@ public class CategoryChildFactory extends ChildFactory<String>
 			return true;
 		}
 		@Override
-		protected Node createNodeForKey(final mxCell element)
+		protected Node createNodeForKey(final ElementModel element)
 		{
-			Node node = new AbstractNode(Children.LEAF)
-			{
-
-				@Override
-				public Transferable drag() throws IOException
-				{
-					mxRectangle bounds = (mxGeometry) element.getGeometry().clone();
-					final mxGraphTransferable t = new mxGraphTransferable(new Object[] { element }, 
-																		bounds);
-					return t;
-				}
-				
-			};
-			node.setDisplayName(element.toString());
-			return node;
+			return new ElementNode(element);
 		}
 	}
-
 }

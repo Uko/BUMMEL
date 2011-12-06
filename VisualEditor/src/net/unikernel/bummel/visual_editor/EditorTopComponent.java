@@ -20,17 +20,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.Action;
+import javax.swing.JComponent;
 import net.unikernel.bummel.basic_elements.BasicElement;
 import net.unikernel.bummel.engine.Engine;
 import net.unikernel.bummel.jgraph.ElementModel;
 import net.unikernel.bummel.jgraph.ElementPort;
+import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.ProjectModel;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.netbeans.spi.palette.PaletteActions;
-import org.netbeans.spi.palette.PaletteFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.ActionID;
@@ -43,10 +42,7 @@ import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectNotFoundException;
-import org.openide.nodes.AbstractNode;
-import org.openide.nodes.Children;
 import org.openide.util.Exceptions;
-import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.util.lookup.Lookups;
@@ -71,13 +67,13 @@ public final class EditorTopComponent extends TopComponent
 	 * Counter of opened top components.
 	 */
 	private static int counter = 0;
-	private static Map<File, EditorTopComponent> tcByFile = 
+	private static Map<File, EditorTopComponent> tcByFile =
 			new HashMap<File, EditorTopComponent>();
-	
+
 	public static EditorTopComponent findInstance(File f)
 	{
 		EditorTopComponent tc = tcByFile.get(f);
-		if(tc == null)
+		if (tc == null)
 		{
 			//TODO - add a constructor from the File object ??
 			try
@@ -86,15 +82,13 @@ public final class EditorTopComponent extends TopComponent
 				tcByFile.put(f, tc);
 				FileObject fob = FileUtil.toFileObject(FileUtil.normalizeFile(f));
 				tc.content.add(DataObject.find(fob));
-			}
-			catch(DataObjectNotFoundException ex)
+			} catch (DataObjectNotFoundException ex)
 			{
 				Exceptions.printStackTrace(ex);
 			}
 		}
 		return tc;
 	}
-	
 	private InstanceContent content = new InstanceContent();
 	private Saver saver = new Saver();
 //	private static Opener opener = new Opener();
@@ -105,7 +99,7 @@ public final class EditorTopComponent extends TopComponent
 	{
 		this(new ProjectModel(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter)));
 	}
-	
+
 	private EditorTopComponent(ProjectModel obj)
 	{
 		initComponents();
@@ -118,38 +112,9 @@ public final class EditorTopComponent extends TopComponent
 		putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
 		putClientProperty(TopComponent.PROP_UNDOCKING_DISABLED, Boolean.TRUE);
 
-		associateLookup(new ProxyLookup(Lookups.fixed(PaletteFactory.createPalette(new AbstractNode(Children.create(new CategoryChildFactory(), true)), new PaletteActions()
-		{
-			@Override
-			public Action[] getImportActions()
-			{
-				return null;
-			}
-
-			@Override
-			public Action[] getCustomPaletteActions()
-			{
-				return null;
-			}
-
-			@Override
-			public Action[] getCustomCategoryActions(Lookup lkp)
-			{
-				return null;
-			}
-
-			@Override
-			public Action[] getCustomItemActions(Lookup lkp)
-			{
-				return null;
-			}
-
-			@Override
-			public Action getPreferredAction(Lookup lkp)
-			{
-				return null;
-			}
-		})), new AbstractLookup(content)));
+		associateLookup(new ProxyLookup(
+				Lookups.fixed(new Object[] {PaletteSupport.createPalette()}),
+				new AbstractLookup(content)));
 		//associateLookup(new AbstractLookup(content));
 
 		final mxGraph graph = graphComponent.getGraph();
@@ -403,8 +368,7 @@ public final class EditorTopComponent extends TopComponent
 								DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(failMsg));
 								return;
 							}
-						}
-						else
+						} else
 						{
 							String overwriteMessage = NbBundle.getMessage(Saver.class, "MSG_Overwrite", f.getName());
 							userChoice = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation(overwriteMessage));
@@ -421,15 +385,13 @@ public final class EditorTopComponent extends TopComponent
 						save(f.getAbsoluteFile());
 						tcByFile.put(f, EditorTopComponent.this);
 						userChoice = NotifyDescriptor.YES_OPTION;
-					}
-					catch (IOException ioe)
+					} catch (IOException ioe)
 					{
 						project.setName(projectPrevName);
 						Exceptions.attachMessage(ioe, "Saver.saveAs():");
 						Exceptions.printStackTrace(ioe);
 					}
-				}
-				else
+				} else
 				{
 					userChoice = NotifyDescriptor.YES_OPTION;
 				}
@@ -470,7 +432,7 @@ public final class EditorTopComponent extends TopComponent
 //			open(f);
 			throw new UnsupportedOperationException("Not supported yet.");
 		}
-		
+
 		public static ProjectModel open(File f)
 		{
 			ProjectModel projectModel = null;
@@ -488,12 +450,10 @@ public final class EditorTopComponent extends TopComponent
 //					{
 //						System.out.println("Serialization succeded.");
 //					}
-				}
-				catch (IOException ex)
+				} catch (IOException ex)
 				{
 					Exceptions.printStackTrace(ex);
-				}
-				catch (ClassNotFoundException ex)
+				} catch (ClassNotFoundException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}
