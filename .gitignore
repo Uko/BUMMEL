@@ -37,3 +37,4 @@ build/
 ehthumbs.db
 Icon?
 Thumbs.db
+/dist/
