@@ -1,8 +1,10 @@
 package net.unikernel.bummel.project_model;
 
-import com.mxgraph.model.mxGraphModel;
-import com.mxgraph.model.mxIGraphModel;
+import net.unikernel.bummel.project_model.api.Сircuit;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
  * Class that represents project. 
@@ -13,13 +15,12 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	transient private mxIGraphModel model;
+	transient private ArrayList<BasicElement> elements;
 
 	public ProjectModel(String name)
 	{
 		this.name = name;
 		filePath="";
-		model = new mxGraphModel();
 	}
 	
 	public ProjectModel()
@@ -49,16 +50,16 @@ public class ProjectModel implements Serializable
 	/**
 	 * @return the model
 	 */
-	public mxIGraphModel getModel()
+	public ArrayList<BasicElement> getModel()
 	{
-		return model;
+		return elements;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(mxIGraphModel model)
+	public void setModel(ArrayList<BasicElement> model)
 	{
-		this.model = model;
+		this.elements = model;
 	}
 	
 }
