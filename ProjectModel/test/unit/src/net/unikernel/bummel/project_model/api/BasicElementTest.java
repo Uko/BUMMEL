@@ -1,6 +1,9 @@
 package net.unikernel.bummel.project_model.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.unikernel.bummel.project_model.BasicConnection;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,6 +19,7 @@ import static org.junit.Assert.*;
 public class BasicElementTest
 {
 	BasicElement instance;
+	String globalPort = "abstractionHole";
 			
 	public BasicElementTest()
 	{
@@ -102,30 +106,25 @@ public class BasicElementTest
 	 * Test of plug method, of class BasicElement.
 	 */
 	@Test
-	public void testPlug()
-			throws NullPointerException	//or custom exception
-	{
-		System.out.println("plug");
-		Connection connection = null;
-		int port = 0;
-		instance.plug(connection, port);
-	}
-	@Test
 	public void testPlug2()
-			throws IndexOutOfBoundsException //?
+			throws Exception
 	{
 		System.out.println("plug2");
 		Connection connection = null;
-		int port = -1;
-		instance.plug(connection, port);
+		instance.plug(connection, "");
 	}
 	@Test
 	public void testCorrectPlug()
 	{
 		System.out.println("correctPlug");
 		Connection connection = new BasicConnection(null, null);
-		int port = 0;
-		instance.plug(connection, port);
+		try
+		{
+			instance.plug(connection, globalPort);
+		} catch (Exception ex)
+		{
+			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		assertTrue(instance.equals(connection.getFirstElement())
 				|| instance.equals(connection.getSecondElement()));
 	}
@@ -133,22 +132,17 @@ public class BasicElementTest
 	 * Test of unplug method, of class BasicElement.
 	 */
 	@Test
-	public void testUnplug_int()
-			//what about instance without initialised ports?
-	{
-		System.out.println("unplug_int");
-		int port = 0;
-		Connection expResult = null;
-		Connection result = instance.unplug(port);
-		assertEquals(expResult, result);
-	}
-	@Test
 	public void testCorrectUnplug_int()
 	{
 		System.out.println("correctUnplug_int");
-		int port = 0;
-		instance.plug(new BasicConnection(null, null), port);
-		Connection result = instance.unplug(port);
+		try
+		{
+			instance.plug(new BasicConnection(null, null), globalPort);
+		} catch (Exception ex)
+		{
+			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		Connection result = instance.unplug(globalPort);
 		assertTrue(!result.getFirstElement().equals(instance)
 				&& !result.getSecondElement().equals(instance));
 	}
@@ -168,7 +162,13 @@ public class BasicElementTest
 	{
 		System.out.println("Unplug_Connection2");
 		Connection connection = new BasicConnection(null, null);
-		instance.plug(connection, 0);
+		try
+		{
+			instance.plug(connection, globalPort);
+		} catch (Exception ex)
+		{
+			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		assertEquals(true, instance.unplug(connection));
 	}
 	@Test
@@ -176,7 +176,13 @@ public class BasicElementTest
 	{
 		System.out.println("correctUnplug_Connection");
 		Connection connection = new BasicConnection(null, null);
-		instance.plug(connection, 0);
+		try
+		{
+			instance.plug(connection, globalPort);
+		} catch (Exception ex)
+		{
+			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		instance.unplug(connection);
 		assertTrue(!connection.getFirstElement().equals(instance)
 				&& !connection.getSecondElement().equals(instance));
@@ -219,10 +225,11 @@ public class BasicElementTest
 		
 		public BasicElementImpl()
 		{
+			super(new String[]{globalPort});
 			setLabel("BasicElementImpl");
 			setState(1);
 			ports = 3;
-			connections = new ArrayList<Connection>(ports);
+			connections = new HashMap<String, Connection>();
 		}
 		
 		@Override

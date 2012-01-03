@@ -2,17 +2,26 @@ package net.unikernel.bummel.project_model.api;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
  * @author uko
  */
 public abstract class BasicElement implements Element
-{
+{	
 	String label;
 	int state;
 	Point coords;
-	ArrayList<Connection> connections;
+	HashMap<String, Connection> connections;
+	HashSet<String> availablePorts;
+
+	public BasicElement(String[] availablePorts)
+	{
+		this.availablePorts = new HashSet<String>(Arrays.asList(availablePorts));
+	}
 	
 	@Override
 	public String getLabel()
@@ -40,19 +49,27 @@ public abstract class BasicElement implements Element
 		return coords;
 	}
 	@Override
-	public void plug(Connection connection, int port)
+	public void plug(Connection connection, String port) throws Exception
 	{
-		this.connections.set(port, connection);
+		if(availablePorts.contains(port))
+		{
+			this.connections.put(label, connection);
+		}
+		else
+		{//or replace this with "return false;"
+			throw new Exception("No such port: '"+port+"' among available ports");
+		}
 	}
+	
 	@Override
-	public Connection unplug(int port)
+	public Connection unplug(String port)
 	{
 		return this.connections.remove(port);
 	}
 	@Override
 	public boolean unplug(Connection connection)
 	{
-		return this.connections.remove(connection);
+		return this.connections.values().remove(connection);
 	}
 	
 	public abstract ArrayList<Double> process(ArrayList<Double> connectionsValues);
@@ -61,7 +78,7 @@ public abstract class BasicElement implements Element
 	public ArrayList<Double> step()
 	{
 		ArrayList<Double> connectionsValues = new ArrayList<Double>();
-		for(Connection connection : connections)
+		for(Connection connection : connections.values())
 		{
 			connectionsValues.add(new Double(connection.getValue()));
 		}

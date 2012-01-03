@@ -1,5 +1,7 @@
 package net.unikernel.bummel.project_model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Connection;
 import org.junit.After;
@@ -79,13 +81,19 @@ public class BasicCircuitTest
 	{
 		System.out.println("connectElements");
 		int first = 0;
-		int firstPort = 0;
 		int second = 0;
-		int secondPort = 0;
 		BasicCircuit instance = new BasicCircuit();
 		int expResult = 0;
-		int result = instance.connectElements(first, firstPort, second, secondPort);
-		assertEquals(expResult, result);
+		int result;
+		try
+		{
+			result = instance.connectElements(first, "", second, "");
+			assertEquals(expResult, result);
+		} catch (Exception ex)
+		{
+			Logger.getLogger(BasicCircuitTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
 	}

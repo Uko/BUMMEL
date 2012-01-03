@@ -27,7 +27,8 @@ public class BasicCircuit implements Circuit
 		return elements.remove(elementId);
 	}
 	@Override
-	public int connectElements(int first, int firstPort, int second, int secondPort)
+	public int connectElements(int first, String firstPort, int second, String secondPort)
+			throws Exception
 	{
 		Connection connection = new BasicConnection(elements.get(first), elements.get(second));
 		elements.get(first).plug(connection, firstPort);
