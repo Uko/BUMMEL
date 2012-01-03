@@ -1,10 +1,5 @@
 package net.unikernel.bummel.project_model;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.util.HashMap;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Connection;
@@ -51,7 +46,7 @@ public class BasicCircuit implements Circuit
 	@Override
 	public void step()
 	{
-		//engine implementation
+		//TODO: engine implementation
 	}
 	
 }
