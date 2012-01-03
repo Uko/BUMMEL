@@ -4,7 +4,7 @@
  */
 package net.unikernel.bummel.project_model;
 
-import net.unikernel.bummel.project_model.api.Element;
+import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Connection;
 
 /**
@@ -15,10 +15,10 @@ public class BasicConnection implements Connection
 {
 	private String label;
 	private double valule;
-	private Element first;
-	private Element second;
+	private BasicElement first;
+	private BasicElement second;
 	
-	public BasicConnection(Element first, Element second)
+	public BasicConnection(BasicElement first, BasicElement second)
 	{
 		label = "";
 		valule = 0;
@@ -27,17 +27,17 @@ public class BasicConnection implements Connection
 	}
 	
 	@Override
-	public Element getOtherElement(Element thisElement)
+	public BasicElement getOtherElement(BasicElement thisElement)
 	{
 		return first == thisElement ? second : first;
 	}
 	@Override
-	public Element getFirstElement()
+	public BasicElement getFirstElement()
 	{
 		return first;
 	}
 	@Override
-	public Element getSecondElement()
+	public BasicElement getSecondElement()
 	{
 		return second;
 	}

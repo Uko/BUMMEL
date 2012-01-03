@@ -8,26 +8,26 @@ package net.unikernel.bummel.project_model;
 import java.util.HashMap;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Connection;
-import net.unikernel.bummel.project_model.api.Element;
+import net.unikernel.bummel.project_model.api.BasicElement;
 /**
  *
  * @author uko
  */
 public class BasicCircuit implements Circuit
 {
-	private HashMap<Integer,Element> elements;
+	private HashMap<Integer,BasicElement> elements;
 	private HashMap<Integer,Connection> connections;
 	private int elementCounter=0;
 	private int connectionCounter=0;
 	
 	@Override
-	public int addElement(Element element)
+	public int addElement(BasicElement element)
 	{
 		elements.put(++elementCounter, element);
 		return elementCounter;
 	}
 	@Override
-	public Element removeElement(int elementId)
+	public BasicElement removeElement(int elementId)
 	{
 		return elements.remove(elementId);
 	}
@@ -47,6 +47,11 @@ public class BasicCircuit implements Circuit
 		connection.getFirstElement().unplug(connection);
 		connection.getSecondElement().unplug(connection);
 		return connections.remove(connectionId);
+	}
+	@Override
+	public void step()
+	{
+		//engine implementation
 	}
 	
 }

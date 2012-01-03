@@ -10,9 +10,9 @@ package net.unikernel.bummel.project_model.api;
  */
 public interface Connection
 {
-	public Element getOtherElement(Element thisElement);
-	public Element getFirstElement();
-	public Element getSecondElement();
+	public BasicElement getOtherElement(BasicElement thisElement);
+	public BasicElement getFirstElement();
+	public BasicElement getSecondElement();
 	public String getLabel();
 	public void setLabel(String label);
 	public double getValue ();

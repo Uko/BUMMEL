@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public interface Element extends Serializable
+interface Element extends Serializable
 {
 	public String getLabel();
 	public void setLabel(String label);
@@ -14,6 +14,6 @@ public interface Element extends Serializable
 	public Point getCoords();
 	public void plug(Connection connection, int port);
 	public Connection unplug(int port);
-	public Connection unplug(Connection connection);
-	public ArrayList<Double> process();
+	public boolean unplug(Connection connection);
+	public ArrayList<Double> step();
 }

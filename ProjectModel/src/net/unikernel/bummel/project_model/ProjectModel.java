@@ -13,7 +13,7 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	transient private ArrayList<Element> elements;
+	transient private ArrayList<BasicElement> elements;
 
 	public ProjectModel(String name)
 	{
@@ -48,14 +48,14 @@ public class ProjectModel implements Serializable
 	/**
 	 * @return the model
 	 */
-	public ArrayList<Element> getModel()
+	public ArrayList<BasicElement> getModel()
 	{
 		return elements;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(ArrayList<Element> model)
+	public void setModel(ArrayList<BasicElement> model)
 	{
 		this.elements = model;
 	}
