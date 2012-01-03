@@ -1,10 +1,8 @@
 package net.unikernel.bummel.project_model;
 
-import net.unikernel.bummel.project_model.api.Сircuit;
+import net.unikernel.bummel.project_model.api.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import net.unikernel.bummel.basic_elements.BasicElement;
 
 /**
  * Class that represents project. 
@@ -15,7 +13,7 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	transient private ArrayList<BasicElement> elements;
+	transient private ArrayList<Element> elements;
 
 	public ProjectModel(String name)
 	{
@@ -50,14 +48,14 @@ public class ProjectModel implements Serializable
 	/**
 	 * @return the model
 	 */
-	public ArrayList<BasicElement> getModel()
+	public ArrayList<Element> getModel()
 	{
 		return elements;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(ArrayList<BasicElement> model)
+	public void setModel(ArrayList<Element> model)
 	{
 		this.elements = model;
 	}
