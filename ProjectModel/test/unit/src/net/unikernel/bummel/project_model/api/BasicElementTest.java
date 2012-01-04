@@ -1,5 +1,6 @@
 package net.unikernel.bummel.project_model.api;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -99,52 +100,54 @@ public class BasicElementTest
 	@Test
 	public void testGetCoords()
 	{
-		fail("I don't understand the purpose of this method.");
+		System.out.println("getCoords");
+		assertEquals(1, instance.getCoords().x);
+		assertEquals(1, instance.getCoords().y);
+	}
+	@Test
+	public void testSetCoords()
+	{
+		System.out.println("setCoords");
+		instance.setCoords(new Point(2, 3));
+		assertEquals(2, instance.getCoords().x);
+		assertEquals(3, instance.getCoords().y);
 	}
 
 	/**
 	 * Test of plug method, of class BasicElement.
 	 */
 	@Test
-	public void testPlug2()
-			throws Exception
+	public void testPlug()
 	{
-		System.out.println("plug2");
-		Connection connection = null;
-		instance.plug(connection, "");
-	}
-	@Test
-	public void testCorrectPlug()
-	{
-		System.out.println("correctPlug");
+		System.out.println("plug");
 		Connection connection = new BasicConnection(null, null);
 		try
 		{
 			instance.plug(connection, globalPort);
+			assertTrue(instance.connections.containsValue(connection));
 		} catch (Exception ex)
 		{
 			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+			fail(ex.getLocalizedMessage());
 		}
-		assertTrue(instance.equals(connection.getFirstElement())
-				|| instance.equals(connection.getSecondElement()));
 	}
 	/**
 	 * Test of unplug method, of class BasicElement.
 	 */
 	@Test
-	public void testCorrectUnplug_int()
+	public void testUnplug_int()
 	{
-		System.out.println("correctUnplug_int");
+		System.out.println("unplug_int");
 		try
 		{
 			instance.plug(new BasicConnection(null, null), globalPort);
+			Connection result = instance.unplug(globalPort);
+			assertTrue(!instance.connections.containsValue(result));
 		} catch (Exception ex)
 		{
 			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+			fail(ex.getLocalizedMessage());
 		}
-		Connection result = instance.unplug(globalPort);
-		assertTrue(!result.getFirstElement().equals(instance)
-				&& !result.getSecondElement().equals(instance));
 	}
 
 	/**
@@ -165,46 +168,14 @@ public class BasicElementTest
 		try
 		{
 			instance.plug(connection, globalPort);
+			assertEquals(true, instance.unplug(connection));
+			assertTrue(!instance.connections.containsValue(connection));
 		} catch (Exception ex)
 		{
 			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
+			fail(ex.getLocalizedMessage());
 		}
-		assertEquals(true, instance.unplug(connection));
 	}
-	@Test
-	public void testCorrectUnplug_Connection()
-	{
-		System.out.println("correctUnplug_Connection");
-		Connection connection = new BasicConnection(null, null);
-		try
-		{
-			instance.plug(connection, globalPort);
-		} catch (Exception ex)
-		{
-			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		instance.unplug(connection);
-		assertTrue(!connection.getFirstElement().equals(instance)
-				&& !connection.getSecondElement().equals(instance));
-	}
-
-	/**
-	 * 
-	 * [IMHO]
-	 * waiting for confirmation of removing - unnecessary test for the abstract class
-	 * 
-	 */
-//	@Test
-//	public void testProcess()
-//	{
-//		System.out.println("process");
-//		ArrayList<Double> connectionsValues = null;
-//		ArrayList expResult = null;
-//		ArrayList result = instance.process(connectionsValues);
-//		assertEquals(expResult, result);
-//		// TODO review the generated test code and remove the default call to fail.
-//		fail("The test case is a prototype.");
-//	}
 
 	/**
 	 * Test of step method, of class BasicElement.
@@ -217,18 +188,16 @@ public class BasicElementTest
 	}
 
 	/**
-	 * Imagine it's the AND logic element
+	 * Some element for testing purposes
 	 */
 	public class BasicElementImpl extends BasicElement
 	{
-		int ports;
-		
 		public BasicElementImpl()
 		{
 			super(new String[]{globalPort});
 			setLabel("BasicElementImpl");
 			setState(1);
-			ports = 3;
+			setCoords(new Point(1, 1));
 			connections = new HashMap<String, Connection>();
 		}
 		

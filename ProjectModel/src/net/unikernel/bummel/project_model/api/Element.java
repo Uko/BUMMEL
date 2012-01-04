@@ -12,6 +12,7 @@ interface Element extends Serializable
 	public int getState();
 	public void setState(int state);
 	public Point getCoords();
+	public void setCoords(Point point);
 	public void plug(Connection connection, String port) throws Exception;
 	public Connection unplug(String port);
 	public boolean unplug(Connection connection);

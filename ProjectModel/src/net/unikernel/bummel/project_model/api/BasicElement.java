@@ -49,6 +49,11 @@ public abstract class BasicElement implements Element
 		return coords;
 	}
 	@Override
+	public void setCoords(Point point)
+	{
+		this.coords = point;
+	}
+	@Override
 	public void plug(Connection connection, String port) throws Exception
 	{
 		if(availablePorts.contains(port))

@@ -33,9 +33,23 @@ public class BasicConnection implements Connection
 		return first;
 	}
 	@Override
+	public void connectFirstElement(BasicElement firstElement, String port)
+			throws Exception
+	{
+		this.first = firstElement;
+		this.first.plug(this, port);
+	}
+	@Override
 	public BasicElement getSecondElement()
 	{
 		return second;
+	}
+	@Override
+	public void connectSecondElement(BasicElement secondElement, String port)
+			throws Exception
+	{
+		this.second = secondElement;
+		this.second.plug(this, port);
 	}
 	@Override
 	public String getLabel()

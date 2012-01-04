@@ -1,7 +1,5 @@
 package net.unikernel.bummel.project_model;
 
-import net.unikernel.bummel.project_model.api.BasicElement;
-import net.unikernel.bummel.project_model.api.BasicElementTest.BasicElementImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
