@@ -6,10 +6,10 @@ package net.unikernel.bummel.project_model.api;
  */
 public interface Circuit
 {
-	public int addElement (BasicElement element);
-	public BasicElement removeElement (int elementId);
-	public int connectElements (int first, String firstPort, int second, String secondPort)
-			throws Exception;
-	public Connection disconect (int connectionId);
+	public int addElement (Element element);
+	public Element removeElement (int elementId);
+	public int connectElements (int firstElementId, String firstElementPort, int secondElementId, String secondElementPort);
+	public void disconectElements (int firstElementId, String firstElementPort, int secondElementId, String secondElementPort);
+	public void removeConnection (int connectionId);
 	public void step();
 }
