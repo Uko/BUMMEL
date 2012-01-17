@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -143,6 +144,12 @@ public class BasicCircuit implements Circuit, Element
 	{
 		return Collections.unmodifiableSet(this.elements);
 	}
+
+	@Override
+	public List<Integer> getPorts()
+	{
+		return null;	//Merry Christmas
+	}
 	
 	private class Conection
 	{
@@ -211,9 +218,6 @@ public class BasicCircuit implements Circuit, Element
 		public Integer getSecondElementPort()
 		{
 			return secondElementPort;
-		}
-		
-		
+		}	
 	}
-	
 }

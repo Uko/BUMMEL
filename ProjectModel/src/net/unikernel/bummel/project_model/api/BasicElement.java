@@ -1,23 +1,25 @@
 package net.unikernel.bummel.project_model.api;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
- * @author uko
+ * @author uko, mcangel
  */
 public abstract class BasicElement implements Element
 {	
 	String label;
 	int state;
 	Point coords;
-	HashSet<String> availablePorts;
+	ArrayList<Integer> availablePorts;
 
-	public BasicElement(String[] availablePorts)
+	public BasicElement(Integer[] availablePorts)
 	{
-		this.availablePorts = new HashSet<String>(Arrays.asList(availablePorts));
+		this.availablePorts = new ArrayList<Integer>(Arrays.asList(availablePorts));
 	}
 	
 	@Override
@@ -49,5 +51,10 @@ public abstract class BasicElement implements Element
 	public void setCoords(Point point)
 	{
 		this.coords = point;
+	}
+	@Override
+	public List<Integer> getPorts()
+	{
+		return Collections.unmodifiableList(availablePorts);
 	}
 }

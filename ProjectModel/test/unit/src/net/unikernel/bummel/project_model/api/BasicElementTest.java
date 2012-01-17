@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class BasicElementTest
 {
 	BasicElement instance;
-	String globalPort = "abstractionHole";
+	Integer globalPort = -100500;
 			
 	public BasicElementTest()
 	{
@@ -122,7 +122,7 @@ public class BasicElementTest
 	{
 		public BasicElementImpl()
 		{
-			super(new String[]{globalPort});
+			super(new Integer[]{globalPort});
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));

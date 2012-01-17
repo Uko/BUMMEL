@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicElement;
+import java.util.Map;
+import net.unikernel.bummel.project_model.api.BasicElement;
 
 /**
  * <b>Pinout:</b>
@@ -13,14 +10,30 @@ import net.unikernel.bummel.basic_elements.BasicElement;
  * <li>Output</li>
  * <li>Output</li>
  * </ol>
- * @author uko
+ * @author mcangel
  */
 public class Split extends BasicElement
 {
-	@Override
-	protected double[] process(double[] acdc)
+
+	public Split(Integer[] availablePorts)
 	{
-		double[] result = {0,acdc[0],acdc[0]};
-		return result;
+		super(new Integer[]{0,1,2});
+	}
+	
+	/**
+	 * Duplicates input port value to the output ports.
+	 * <b>Pinout:</b>
+	 * <ol start='0'>
+	 * <li>Input</li>
+	 * <li>Output</li>
+	 * <li>Output</li>
+	 * </ol>
+	 */
+	@Override
+	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	{
+		valuesOnPorts.put(getPorts().get(1), valuesOnPorts.get(getPorts().get(0)));
+		valuesOnPorts.put(getPorts().get(2), valuesOnPorts.get(getPorts().get(0)));
+		return valuesOnPorts;
 	}
 }

@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicElement;
+import java.util.Map;
+import net.unikernel.bummel.project_model.api.BasicElement;
 
 /**
  * <b>Pinout:</b>
@@ -13,10 +10,16 @@ import net.unikernel.bummel.basic_elements.BasicElement;
  * <li>Input</li>
  * <li>Output</li>
  * </ol>
- * @author uko
+ * @author mcangel
  */
 public class Or extends BasicElement
 {
+
+	public Or(Integer[] availablePorts)
+	{
+		super(new Integer[]{0,1,2});//input,input,output
+	}
+	
 	/**
 	 * Calculates the logical "or" value
 	 * <b>Pinout:</b>
@@ -25,23 +28,25 @@ public class Or extends BasicElement
 	 * <li>Input</li>
 	 * <li>Output</li>
 	 * </ol>
-	 * @param acdc
-	 * @return
 	 */
 	@Override
-	public double[] process(double[] acdc)
+	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
-		double[] result =
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0)
 		{
-			0,0,0
-		};
-		for (int i =0; i<2; i++)
+			valuesOnPorts.put(getPorts().get(2), new Double(1));
+		}
+		else
 		{
-			if ((result[2] = ((acdc[i] == 0) ? 0 : 1)) == 1)
+			if(valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
 			{
-				return result;
+				valuesOnPorts.put(getPorts().get(2), new Double(1));
+			}
+			else
+			{
+				valuesOnPorts.put(getPorts().get(2), new Double(0));
 			}
 		}
-		return result;
+		return valuesOnPorts;
 	}
 }

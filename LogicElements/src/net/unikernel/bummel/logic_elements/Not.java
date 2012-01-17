@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicElement;
-import net.unikernel.bummel.basic_elements.Element;
+import java.util.Map;
+import net.unikernel.bummel.project_model.api.BasicElement;
 
 /**
  * <b>Pinout:</b>
@@ -13,10 +9,16 @@ import net.unikernel.bummel.basic_elements.Element;
  * <li>Input</li>
  * <li>Output</li>
  * </ol>
- * @author uko
+ * @author mcangel
  */
 public class Not extends BasicElement
 {
+
+	public Not(Integer[] availablePorts)
+	{
+		super(new Integer[]{0,1});//input, output
+	}
+	
 	/**
 	 * Calculates the logical "not" value
 	 * <b>Pinout:</b>
@@ -24,16 +26,18 @@ public class Not extends BasicElement
 	 * <li>Input</li>
 	 * <li>Output</li>
 	 * </ol>
-	 * @param acdc
-	 * @return
 	 */
 	@Override
-	public double[] process(double[] acdc)
+	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
-		double[] result =
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0)
 		{
-			0,((acdc[0] == 0) ? 1 : 0)
-		};
-		return result;
+			valuesOnPorts.put(getPorts().get(1), new Double(1));
+		}
+		else
+		{
+			valuesOnPorts.put(getPorts().get(1), new Double(0));
+		}
+		return valuesOnPorts;
 	}
 }

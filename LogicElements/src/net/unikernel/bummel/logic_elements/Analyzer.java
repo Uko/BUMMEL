@@ -1,47 +1,37 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicElement;
+import java.util.Map;
+import net.unikernel.bummel.project_model.api.BasicElement;
 
 /**
  * <b>Pinout:</b>
  * <ol start='0'>
  * <li>Input</li>
  * </ol>
- * @author uko
+ * @author mcangel
  */
 public class Analyzer extends BasicElement
 {
-	private double state;
-	/**Sets analyzers state same as input
+	/**
+	 * Creates analyzer with one port
+	 */
+	public Analyzer(Integer[] availablePorts)
+	{
+		super(new Integer[]{0});
+		setState(0);
+	}
+	/**Sets analyzers state same as on the input port
 	 * <b>Pinout:</b>
 	 * <ol start='0'>
 	 * <li>Input</li>
 	 * </ol>
-	 * @param acdc
 	 * @return
 	 */
 	@Override
-	public double[] process(double[] acdc)
+	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
-		state = acdc[0];
-		double[] result = {0};
-		return result;
-	}
-	/**
-	 * Creates analyzer with state 0
-	 */
-	public Analyzer()
-	{
-		state = 0;
-	}
-	
-	@Override
-	public int getState()
-	{
-		return (int)state;
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0);
+		setState(1);	//light it
+		return valuesOnPorts;
 	}
 }

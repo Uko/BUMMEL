@@ -220,7 +220,7 @@ public class BasicCircuitTest
 	{
 		public BasicElementImpl()
 		{
-			super(new String[]{"",""});
+			super(new Integer[]{0,1});
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));

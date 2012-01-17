@@ -1,6 +1,7 @@
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.basic_elements.BasicElement;
+import java.util.Map;
+import net.unikernel.bummel.project_model.api.BasicElement;
 
 /**
  * <b>Pinout:</b>
@@ -9,10 +10,16 @@ import net.unikernel.bummel.basic_elements.BasicElement;
  * <li>Input</li>
  * <li>Output</li>
  * </ol>
- * @author uko
+ * @author mcangel
  */
 public class And extends BasicElement
 {
+
+	public And(Integer[] availablePorts)
+	{
+		super(new Integer[]{0,1,2}); //input1,inpu2,output
+	}
+	
 	 /**
 	 * Calculates the logical "and" value
 	 * <b>Pinout:</b>
@@ -21,13 +28,13 @@ public class And extends BasicElement
 	 * <li>Input</li>
 	 * <li>Output</li>
 	 * </ol>
-	 * @param acdc
-	 * @return
 	 */
 	@Override
-	public double[] process(double[] acdc)
+	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
-		double[] result = {0,0,acdc[0]*acdc[1]};
-		return result;
+		valuesOnPorts.put(getPorts().get(2), 
+				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
+				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));
+		return valuesOnPorts;
 	}
 }
