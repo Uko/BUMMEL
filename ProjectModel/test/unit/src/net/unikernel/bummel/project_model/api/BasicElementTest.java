@@ -3,6 +3,7 @@ package net.unikernel.bummel.project_model.api;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.unikernel.bummel.project_model.BasicConnection;
@@ -113,80 +114,7 @@ public class BasicElementTest
 		assertEquals(3, instance.getCoords().y);
 	}
 
-	/**
-	 * Test of plug method, of class BasicElement.
-	 */
-	@Test
-	public void testPlug()
-	{
-		System.out.println("plug");
-		Connection connection = new BasicConnection(null, null);
-		try
-		{
-			instance.plug(connection, globalPort);
-			assertTrue(instance.connections.containsValue(connection));
-		} catch (Exception ex)
-		{
-			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
-			fail(ex.getLocalizedMessage());
-		}
-	}
-	/**
-	 * Test of unplug method, of class BasicElement.
-	 */
-	@Test
-	public void testUnplug_int()
-	{
-		System.out.println("unplug_int");
-		try
-		{
-			instance.plug(new BasicConnection(null, null), globalPort);
-			Connection result = instance.unplug(globalPort);
-			assertTrue(!instance.connections.containsValue(result));
-		} catch (Exception ex)
-		{
-			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
-			fail(ex.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test of unplug method, of class BasicElement.
-	 */
-	@Test
-	public void testUnplug_Connection()
-	{
-		System.out.println("unplug_Connection");
-		Connection connection = null;
-		assertEquals(false, instance.unplug(connection));
-	}
-	@Test
-	public void testUnplug_Connection2()
-	{
-		System.out.println("Unplug_Connection2");
-		Connection connection = new BasicConnection(null, null);
-		try
-		{
-			instance.plug(connection, globalPort);
-			assertEquals(true, instance.unplug(connection));
-			assertTrue(!instance.connections.containsValue(connection));
-		} catch (Exception ex)
-		{
-			Logger.getLogger(BasicElementTest.class.getName()).log(Level.SEVERE, null, ex);
-			fail(ex.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test of step method, of class BasicElement.
-	 */
-	@Test
-	public void testStep()
-	{
-		System.out.println("step");
-		assertEquals(null, instance.step());
-	}
-
+	
 	/**
 	 * Some element for testing purposes
 	 */
@@ -198,11 +126,10 @@ public class BasicElementTest
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));
-			connections = new HashMap<String, Connection>();
 		}
-		
+
 		@Override
-		public ArrayList<Double> process(ArrayList<Double> connectionsValues)
+		public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 		{
 			return null;
 		}

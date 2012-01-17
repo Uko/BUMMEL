@@ -37,7 +37,7 @@ public class BasicConnection implements Connection
 			throws Exception
 	{
 		this.first = firstElement;
-		this.first.plug(this, port);
+		//this.first.plug(this, port);
 	}
 	@Override
 	public BasicElement getSecondElement()
@@ -49,7 +49,7 @@ public class BasicConnection implements Connection
 			throws Exception
 	{
 		this.second = secondElement;
-		this.second.plug(this, port);
+		//this.second.plug(this, port);
 	}
 	@Override
 	public String getLabel()

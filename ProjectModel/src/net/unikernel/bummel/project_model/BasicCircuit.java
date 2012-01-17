@@ -2,9 +2,11 @@ package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
@@ -15,9 +17,19 @@ import net.unikernel.bummel.project_model.api.Element;
 public class BasicCircuit implements Circuit, Element
 {
 	private String label;
-	private HashSet<Element> elements;
-	private HashMap<Conection, Double> conections;
-	private HashMap<Element, HashMap<Integer, Conection>> conectionsByElementAndPort;
+	private Point coords;
+	private Set<Element> elements;
+	private Map<Conection, Double> conections;
+	private Map<Element, Map<Integer, Conection>> conectionsByElementAndPort;
+	
+	public BasicCircuit()
+	{
+		label = "";
+		coords = new Point(0, 0);
+		elements = new HashSet<Element>();
+		conections = new HashMap<Conection, Double>();
+		conectionsByElementAndPort = new HashMap<Element, Map<Integer, Conection>>();
+	}
 	
 	@Override
 	public void addElement(Element element)
@@ -113,18 +125,23 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public Point getCoords()
 	{
-		return new Point(0,0);
+		return coords;
 	}
 	@Override
 	public void setCoords(Point point)
 	{
-		//to be continued
+		this.coords = point;
 	}
 	@Override
 	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
 		this.step();
 		return null;
+	}
+	@Override
+	public Set<Element> getElements()
+	{
+		return Collections.unmodifiableSet(this.elements);
 	}
 	
 	private class Conection

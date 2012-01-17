@@ -1,46 +1,38 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package net.unikernel.bummel.project_model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Point;
+import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
-import net.unikernel.bummel.project_model.api.Connection;
-import org.junit.After;
+import net.unikernel.bummel.project_model.api.Element;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author mcangel
+ * @author uko
  */
 public class BasicCircuitTest
 {
 	public BasicCircuitTest()
 	{
 	}
-
+	
 	@BeforeClass
 	public static void setUpClass() throws Exception
 	{
 	}
-
+	
 	@AfterClass
 	public static void tearDownClass() throws Exception
 	{
 	}
 	
-	@Before
-	public void setUp()
-	{
-	}
-	
-	@After
-	public void tearDown()
-	{
-	}
-
 	/**
 	 * Test of addElement method, of class BasicCircuit.
 	 */
@@ -48,15 +40,12 @@ public class BasicCircuitTest
 	public void testAddElement()
 	{
 		System.out.println("addElement");
-		BasicElement element = null;
+		Element element = new BasicElementImpl();
 		BasicCircuit instance = new BasicCircuit();
-		int expResult = 0;
-		int result = instance.addElement(element);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		instance.addElement(element);
+		assertTrue(instance.getElements().contains(element));
 	}
-
+	
 	/**
 	 * Test of removeElement method, of class BasicCircuit.
 	 */
@@ -64,15 +53,13 @@ public class BasicCircuitTest
 	public void testRemoveElement()
 	{
 		System.out.println("removeElement");
-		int elementId = 0;
+		Element element = new BasicElementImpl();
 		BasicCircuit instance = new BasicCircuit();
-		BasicElement expResult = null;
-		BasicElement result = instance.removeElement(elementId);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		instance.addElement(element);
+		instance.removeElement(element);
+		assertFalse(instance.getElements().contains(element));
 	}
-
+	
 	/**
 	 * Test of connectElements method, of class BasicCircuit.
 	 */
@@ -80,40 +67,36 @@ public class BasicCircuitTest
 	public void testConnectElements()
 	{
 		System.out.println("connectElements");
-		int first = 0;
-		int second = 0;
+		Element firstElement = new BasicElementImpl();
+		Integer firstElementPort = 0;
+		Element secondElement = new BasicElementImpl();
+		Integer secondElementPort = 1;
 		BasicCircuit instance = new BasicCircuit();
-		int expResult = 0;
-		int result;
-		try
-		{
-			result = instance.connectElements(first, "", second, "");
-			assertEquals(expResult, result);
-		} catch (Exception ex)
-		{
-			Logger.getLogger(BasicCircuitTest.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		//O_o
+		//We can connect elements that are not in the circuit.
 	}
-
+	
 	/**
-	 * Test of disconect method, of class BasicCircuit.
+	 * Test of disconectElements method, of class BasicCircuit.
 	 */
 	@Test
-	public void testDisconect()
+	public void testDisconectElements()
 	{
-		System.out.println("disconect");
-		int connectionId = 0;
+		System.out.println("connectElements");
+		Element firstElement = new BasicElementImpl();
+		Integer firstElementPort = 0;
+		Element secondElement = new BasicElementImpl();
+		Integer secondElementPort = 1;
 		BasicCircuit instance = new BasicCircuit();
-		Connection expResult = null;
-		Connection result = instance.disconect(connectionId);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		instance.addElement(firstElement);
+		instance.addElement(secondElement);
+		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		instance.disconectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		//o_O
+		//We can connect elements that are not in the circuit.
 	}
-
+	
 	/**
 	 * Test of step method, of class BasicCircuit.
 	 */
@@ -121,9 +104,133 @@ public class BasicCircuitTest
 	public void testStep()
 	{
 		System.out.println("step");
+		Element firstElement = new BasicElementImpl();
+		Integer firstElementPort = 0;
+		Element secondElement = new BasicElementImpl();
+		Integer secondElementPort = 1;
 		BasicCircuit instance = new BasicCircuit();
+		instance.addElement(firstElement);
+		instance.addElement(secondElement);
+		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 		instance.step();
+	}
+	
+	/**
+	 * Test of getLabel method, of class BasicCircuit.
+	 */
+	@Test
+	public void testGetLabel()
+	{
+		System.out.println("getLabel");
+		BasicCircuit instance = new BasicCircuit();
+		String expResult = "";
+		String result = instance.getLabel();
+		assertEquals(expResult, result);
+	}
+	
+	/**
+	 * Test of setLabel method, of class BasicCircuit.
+	 */
+	@Test
+	public void testSetLabel()
+	{
+		System.out.println("setLabel");
+		String label = "hello";
+		BasicCircuit instance = new BasicCircuit();
+		instance.setLabel(label);
+		assertEquals(label, instance.getLabel());
+	}
+	
+	/**
+	 * Test of getState method, of class BasicCircuit.
+	 */
+	@Test
+	public void testGetState()
+	{
+		System.out.println("getState");
+		BasicCircuit instance = new BasicCircuit();
+		int expResult = 0;
+		int result = instance.getState();
+		assertEquals(expResult, result);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
 	}
+	
+	/**
+	 * Test of setState method, of class BasicCircuit.
+	 */
+	@Test
+	public void testSetState()
+	{
+		System.out.println("setState");
+		int state = 0;
+		BasicCircuit instance = new BasicCircuit();
+		instance.setState(state);
+		// TODO review the generated test code and remove the default call to fail.
+		fail("The test case is a prototype.");
+	}
+	
+	/**
+	 * Test of getCoords method, of class BasicCircuit.
+	 */
+	@Test
+	public void testGetCoords()
+	{
+		System.out.println("getCoords");
+		BasicCircuit instance = new BasicCircuit();
+		Point expResult = new Point(0, 0);
+		Point result = instance.getCoords();
+		assertEquals(expResult, result);
+	}
+	
+	/**
+	 * Test of setCoords method, of class BasicCircuit.
+	 */
+	@Test
+	public void testSetCoords()
+	{
+		System.out.println("setCoords");
+		Point point = new Point(13, 25);
+		BasicCircuit instance = new BasicCircuit();
+		instance.setCoords(point);
+		Point result = instance.getCoords();
+		assertEquals(point, result);
+	}
+	
+	/**
+	 * Test of process method, of class BasicCircuit.
+	 */
+	@Test
+	public void testProcess()
+	{
+		System.out.println("process");
+		Map<Integer, Double> valuesOnPorts = null;
+		BasicCircuit instance = new BasicCircuit();
+		Map expResult = null;
+		Map result = instance.process(valuesOnPorts);
+		assertEquals(expResult, result);
+		// TODO review the generated test code and remove the default call to fail.
+		fail("The test case is a prototype.");
+	}
+
+	/**
+	 * Some element for testing purposes
+	 */
+	public class BasicElementImpl extends BasicElement
+	{
+		public BasicElementImpl()
+		{
+			super(new String[]{"",""});
+			setLabel("BasicElementImpl");
+			setState(1);
+			setCoords(new Point(1, 1));
+		}
+
+		@Override
+		public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+		{
+			return valuesOnPorts;
+		}
+	}
+	
 }
