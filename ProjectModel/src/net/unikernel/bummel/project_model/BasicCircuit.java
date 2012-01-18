@@ -11,10 +11,12 @@ import java.util.Set;
 import java.util.TreeMap;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
+import org.openide.util.lookup.ServiceProvider;
 /**
  *
  * @author uko
  */
+@ServiceProvider(service=Circuit.class)
 public class BasicCircuit implements Circuit, Element
 {
 	private String label;

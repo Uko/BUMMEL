@@ -13,7 +13,7 @@ import net.unikernel.bummel.project_model.api.BasicElement;
 public class Generator extends BasicElement
 {
 
-	public Generator(Integer[] availablePorts)
+	public Generator()
 	{
 		super(new Integer[]{0});//output
 		setState(1);

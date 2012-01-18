@@ -15,7 +15,7 @@ import net.unikernel.bummel.project_model.api.BasicElement;
 public class Split extends BasicElement
 {
 
-	public Split(Integer[] availablePorts)
+	public Split()
 	{
 		super(new Integer[]{0,1,2});
 	}

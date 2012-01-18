@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
 import org.junit.AfterClass;
@@ -16,7 +12,13 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-	net.unikernel.bummel.logic_elements.GeneratorTest.class, net.unikernel.bummel.logic_elements.AnalyzerTest.class, net.unikernel.bummel.logic_elements.AndTest.class, net.unikernel.bummel.logic_elements.OrTest.class, net.unikernel.bummel.logic_elements.NotTest.class, net.unikernel.bummel.logic_elements.SplitTest.class
+	net.unikernel.bummel.logic_elements.GeneratorTest.class,
+	net.unikernel.bummel.logic_elements.AnalyzerTest.class,
+	net.unikernel.bummel.logic_elements.AndTest.class,
+	net.unikernel.bummel.logic_elements.OrTest.class,
+	net.unikernel.bummel.logic_elements.NotTest.class,
+	net.unikernel.bummel.logic_elements.SplitTest.class,
+	net.unikernel.bummel.logic_elements.SchemeTest.class
 })
 public class Logic_elementsSuite
 {
@@ -28,5 +30,4 @@ public class Logic_elementsSuite
 	public static void tearDownClass() throws Exception
 	{
 	}
-	
 }

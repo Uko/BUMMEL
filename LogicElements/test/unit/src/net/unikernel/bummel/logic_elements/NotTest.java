@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
+import org.junit.After;
+import org.junit.Before;
 import java.util.TreeMap;
 import java.util.Map;
 import org.junit.AfterClass;
@@ -17,7 +15,6 @@ import static org.junit.Assert.*;
  */
 public class NotTest
 {
-	private Integer[] availablePorts = {0, 1};
 	public NotTest()
 	{
 	}
@@ -29,14 +26,25 @@ public class NotTest
 	public static void tearDownClass() throws Exception
 	{
 	}
+	
+	Not instance;
+	@Before
+	public void setUp()
+	{
+		instance = new Not();
+	}
+	@After
+	public void tearDown()
+	{
+		instance = null;
+	}
 	/**
 	 * Test of process method, of class Not.
 	 */
 	@Test
 	public void testProcess00()
 	{
-		System.out.println("process");
-		Not instance = new Not(availablePorts);
+		System.out.println("not_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -50,8 +58,7 @@ public class NotTest
 	@Test
 	public void testProcess01()
 	{
-		System.out.println("process");
-		Not instance = new Not(availablePorts);
+		System.out.println("not_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -65,8 +72,7 @@ public class NotTest
 	@Test
 	public void testProcess10()
 	{
-		System.out.println("process");
-		Not instance = new Not(availablePorts);
+		System.out.println("not_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -80,8 +86,7 @@ public class NotTest
 	@Test
 	public void testProcess11()
 	{
-		System.out.println("process");
-		Not instance = new Not(availablePorts);
+		System.out.println("not_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);

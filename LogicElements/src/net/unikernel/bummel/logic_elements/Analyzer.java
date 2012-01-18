@@ -15,7 +15,7 @@ public class Analyzer extends BasicElement
 	/**
 	 * Creates analyzer with one port
 	 */
-	public Analyzer(Integer[] availablePorts)
+	public Analyzer()
 	{
 		super(new Integer[]{0});
 		setState(0);

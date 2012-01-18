@@ -15,7 +15,7 @@ import net.unikernel.bummel.project_model.api.BasicElement;
 public class And extends BasicElement
 {
 
-	public And(Integer[] availablePorts)
+	public And()
 	{
 		super(new Integer[]{0,1,2}); //input1,inpu2,output
 	}

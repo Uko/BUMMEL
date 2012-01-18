@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
+import org.junit.After;
+import org.junit.Before;
 import java.util.TreeMap;
 import java.util.Map;
 import org.junit.AfterClass;
@@ -17,7 +15,6 @@ import static org.junit.Assert.*;
  */
 public class GeneratorTest
 {
-	private Integer[] availablePorts = {0};
 	public GeneratorTest()
 	{
 	}
@@ -29,14 +26,25 @@ public class GeneratorTest
 	public static void tearDownClass() throws Exception
 	{
 	}
+	
+	Generator instance;
+	@Before
+	public void setUp()
+	{
+		instance = new Generator();
+	}
+	@After
+	public void tearDown()
+	{
+		instance = null;
+	}
 	/**
 	 * Test of process method, of class Generator.
 	 */
 	@Test
 	public void testProcess0_0()
 	{
-		System.out.println("process");
-		Generator instance = new Generator(availablePorts);
+		System.out.println("gen_process");
 		instance.setState(0);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
@@ -49,8 +57,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess0_1()
 	{
-		System.out.println("process");
-		Generator instance = new Generator(availablePorts);
+		System.out.println("gen_process");
 		instance.setState(1);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
@@ -63,8 +70,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess1_0()
 	{
-		System.out.println("process");
-		Generator instance = new Generator(availablePorts);
+		System.out.println("gen_process");
 		instance.setState(0);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
@@ -77,8 +83,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess1_1()
 	{
-		System.out.println("process");
-		Generator instance = new Generator(availablePorts);
+		System.out.println("gen_process");
 		instance.setState(1);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);

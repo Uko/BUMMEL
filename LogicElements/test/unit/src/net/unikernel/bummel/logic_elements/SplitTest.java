@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
+import org.junit.After;
+import org.junit.Before;
 import java.util.TreeMap;
 import java.util.Map;
 import org.junit.AfterClass;
@@ -17,7 +15,6 @@ import static org.junit.Assert.*;
  */
 public class SplitTest
 {
-	private Integer[] availablePorts = {0, 1, 2};
 	public SplitTest()
 	{
 	}
@@ -29,14 +26,24 @@ public class SplitTest
 	public static void tearDownClass() throws Exception
 	{
 	}
+	Split instance;
+	@Before
+	public void setUp()
+	{
+		instance = new Split();
+	}
+	@After
+	public void tearDown()
+	{
+		instance = null;
+	}
 	/**
 	 * Test of process method, of class Split.
 	 */
 	@Test
 	public void testProcess000()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -52,8 +59,7 @@ public class SplitTest
 	@Test
 	public void testProcess001()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -69,8 +75,7 @@ public class SplitTest
 	@Test
 	public void testProcess010()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -86,8 +91,7 @@ public class SplitTest
 	@Test
 	public void testProcess011()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -103,8 +107,7 @@ public class SplitTest
 	@Test
 	public void testProcess100()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -120,8 +123,7 @@ public class SplitTest
 	@Test
 	public void testProcess101()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -137,8 +139,7 @@ public class SplitTest
 	@Test
 	public void testProcess110()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);
@@ -154,8 +155,7 @@ public class SplitTest
 	@Test
 	public void testProcess111()
 	{
-		System.out.println("process");
-		Split instance = new Split(availablePorts);
+		System.out.println("split_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);

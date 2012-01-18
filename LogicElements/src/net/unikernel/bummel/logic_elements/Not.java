@@ -14,7 +14,7 @@ import net.unikernel.bummel.project_model.api.BasicElement;
 public class Not extends BasicElement
 {
 
-	public Not(Integer[] availablePorts)
+	public Not()
 	{
 		super(new Integer[]{0,1});//input, output
 	}

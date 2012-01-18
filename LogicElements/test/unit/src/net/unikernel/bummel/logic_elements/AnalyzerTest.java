@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.logic_elements;
 
+import org.junit.After;
+import org.junit.Before;
 import java.util.TreeMap;
-import java.util.HashMap;
 import java.util.Map;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -17,8 +14,7 @@ import static org.junit.Assert.*;
  * @author uko
  */
 public class AnalyzerTest
-{
-	private Integer[] availablePorts = {0};
+{	
 	public AnalyzerTest()
 	{
 	}
@@ -30,14 +26,25 @@ public class AnalyzerTest
 	public static void tearDownClass() throws Exception
 	{
 	}
+	
+	Analyzer instance;
+	@Before
+	public void setUp()
+	{
+		instance = new Analyzer();
+	}
+	@After
+	public void tearDown()
+	{
+		instance = null;
+	}
 	/**
 	 * Test of process method, of class Analyzer.
 	 */
 	@Test
 	public void testProcess0()
 	{
-		System.out.println("process");
-		Analyzer instance = new Analyzer(availablePorts);
+		System.out.println("an_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		Map expResult = new TreeMap<Integer, Double>();
@@ -50,8 +57,7 @@ public class AnalyzerTest
 	@Test
 	public void testProcess1()
 	{
-		System.out.println("process");
-		Analyzer instance = new Analyzer(availablePorts);
+		System.out.println("an_process");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		Map expResult = new TreeMap<Integer, Double>();
