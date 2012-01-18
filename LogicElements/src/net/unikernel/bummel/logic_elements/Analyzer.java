@@ -30,8 +30,11 @@ public class Analyzer extends BasicElement
 	@Override
 	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
 	{
-		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0);
-		setState(1);	//light it
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0)
+			setState(1);	//light it
+		else
+			setState(0);	//douse it
+		valuesOnPorts.put(0, 0.);
 		return valuesOnPorts;
 	}
 }

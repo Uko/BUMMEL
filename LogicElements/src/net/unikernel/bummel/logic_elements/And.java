@@ -35,6 +35,8 @@ public class And extends BasicElement
 		valuesOnPorts.put(getPorts().get(2), 
 				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
 				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));
+		valuesOnPorts.put(0, 0.);
+		valuesOnPorts.put(1, 0.);
 		return valuesOnPorts;
 	}
 }

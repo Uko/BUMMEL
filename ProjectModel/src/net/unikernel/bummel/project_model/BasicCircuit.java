@@ -20,16 +20,16 @@ public class BasicCircuit implements Circuit, Element
 	private String label;
 	private Point coords;
 	private Set<Element> elements;
-	private Map<Conection, Double> conections;
-	private Map<Element, Map<Integer, Conection>> conectionsByElementAndPort;
+	private Map<Connection, Double> connections;
+	private Map<Element, Map<Integer, Connection>> connectionsByElementAndPort;
 	
 	public BasicCircuit()
 	{
 		label = "";
 		coords = new Point(0, 0);
 		elements = new HashSet<Element>();
-		conections = new HashMap<Conection, Double>();
-		conectionsByElementAndPort = new HashMap<Element, Map<Integer, Conection>>();
+		connections = new HashMap<Connection, Double>();
+		connectionsByElementAndPort = new HashMap<Element, Map<Integer, Connection>>();
 	}
 	
 	@Override
@@ -45,61 +45,70 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public void connectElements(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
 	{
-		//make a conection
-		Conection temp = new Conection(firstElement, firstElementPort, secondElement, secondElementPort);
-		conections.put(temp, 0.);
-		if(!conectionsByElementAndPort.containsKey(firstElement))
+		//if the specified elements are in the circuit
+		if(elements.contains(firstElement) && elements.contains(secondElement))
 		{
-			conectionsByElementAndPort.put(firstElement, new HashMap<Integer, Conection>());
+			//make a connection
+			Connection temp = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
+
+			//put it in the connections
+			connections.put(temp, 0.);
+
+			//put it in the map of element->port->connection for each element+port pair
+			if(!connectionsByElementAndPort.containsKey(firstElement))
+			{
+				connectionsByElementAndPort.put(firstElement, new HashMap<Integer, Connection>());
+			}
+			if(!connectionsByElementAndPort.containsKey(secondElement))
+			{
+				connectionsByElementAndPort.put(secondElement, new HashMap<Integer, Connection>());
+			}
+			connectionsByElementAndPort.get(firstElement).put(firstElementPort, temp);
+			connectionsByElementAndPort.get(secondElement).put(secondElementPort, temp);
 		}
-		if(!conectionsByElementAndPort.containsKey(secondElement))
-		{
-			conectionsByElementAndPort.put(secondElement, new HashMap<Integer, Conection>());
-		}
-		conectionsByElementAndPort.get(firstElement).put(firstElementPort, temp);
-		conectionsByElementAndPort.get(secondElement).put(secondElementPort, temp);
 	}
+	
 	@Override
 	public void disconectElements(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
 	{
-		if (conections.remove(new Conection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
+		if (connections.remove(new Connection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
 		{
-			conectionsByElementAndPort.get(firstElement).remove(firstElementPort);
-			conectionsByElementAndPort.get(secondElement).remove(secondElementPort);
-			if(conectionsByElementAndPort.get(secondElement).isEmpty())
+			connectionsByElementAndPort.get(firstElement).remove(firstElementPort);
+			connectionsByElementAndPort.get(secondElement).remove(secondElementPort);
+			if(connectionsByElementAndPort.get(secondElement).isEmpty())
 			{
-				conectionsByElementAndPort.remove(firstElement);
+				connectionsByElementAndPort.remove(firstElement);
 			}
-			if(conectionsByElementAndPort.get(firstElement).isEmpty())
+			if(connectionsByElementAndPort.get(firstElement).isEmpty())
 			{
-				conectionsByElementAndPort.remove(secondElement);
+				connectionsByElementAndPort.remove(secondElement);
 			}
 		}
 	}
 	@Override
 	public void step()
 	{
-		Map<Conection,ArrayList<Double>> tempoMap = new HashMap<Conection,ArrayList<Double>>();
-		for (Conection i : conections.keySet())
+		Map<Connection,ArrayList<Double>> tempoMap = new HashMap<Connection,ArrayList<Double>>();
+		for (Connection i : connections.keySet())
 		{
 			tempoMap.put(i, new ArrayList<Double>());
 		}
 		for (Element i: elements)
 		{
 			Map<Integer, Double> portsMap = new TreeMap<Integer, Double>();
-			for (Map.Entry<Integer,Conection> j : conectionsByElementAndPort.get(i).entrySet())
+			for (Map.Entry<Integer,Connection> j : connectionsByElementAndPort.get(i).entrySet())
 			{
-				portsMap.put(j.getKey(), conections.get(j.getValue()));
+				portsMap.put(j.getKey(), connections.get(j.getValue()));
 			}
 			portsMap = i.process(portsMap);
 			for (Map.Entry<Integer,Double> j : portsMap.entrySet())
 			{
-				tempoMap.get(conectionsByElementAndPort.get(i).get(j.getKey())).add(j.getValue());
+				tempoMap.get(connectionsByElementAndPort.get(i).get(j.getKey())).add(j.getValue());
 			}
 		}
-		for (Map.Entry<Conection,ArrayList<Double>> i : tempoMap.entrySet())
+		for (Map.Entry<Connection,ArrayList<Double>> i : tempoMap.entrySet())
 		{
-			conections.put(i.getKey(), (i.getValue().get(0) +i.getValue().get(1))/2);
+			connections.put(i.getKey(), (i.getValue().get(0) +i.getValue().get(1))/2);
 		}
 		
 	}
@@ -148,17 +157,17 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public List<Integer> getPorts()
 	{
-		return null;	//Merry Christmas
+		return new ArrayList<Integer>();	//Merry Christmas
 	}
 	
-	private class Conection
+	private class Connection
 	{
 		private Element firstElement;
 		private Integer firstElementPort;
 		private Element secondElement;
 		private Integer secondElementPort;
 		
-		public Conection(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
+		public Connection(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
 		{
 			this.firstElement = firstElement;
 			this.firstElementPort = firstElementPort;
@@ -169,9 +178,9 @@ public class BasicCircuit implements Circuit, Element
 		@Override
 		public boolean equals(Object o)
 		{
-			if(o.getClass().equals(Conection.class))
+			if(o.getClass().equals(Connection.class))
 			{
-				Conection temp = (Conection)o;
+				Connection temp = (Connection)o;
 				if(this.firstElement.equals(temp.firstElement) && this.firstElementPort.equals(temp.firstElementPort) && this.secondElement.equals(temp.secondElement) && this.secondElementPort.equals(temp.secondElementPort))
 				{
 					return true;

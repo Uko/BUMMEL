@@ -34,6 +34,7 @@ public class Split extends BasicElement
 	{
 		valuesOnPorts.put(getPorts().get(1), valuesOnPorts.get(getPorts().get(0)));
 		valuesOnPorts.put(getPorts().get(2), valuesOnPorts.get(getPorts().get(0)));
+		valuesOnPorts.put(0, 0.);
 		return valuesOnPorts;
 	}
 }

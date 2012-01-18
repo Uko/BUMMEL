@@ -38,6 +38,7 @@ public class Not extends BasicElement
 		{
 			valuesOnPorts.put(getPorts().get(1), new Double(0));
 		}
+		valuesOnPorts.put(0, 0.);
 		return valuesOnPorts;
 	}
 }
