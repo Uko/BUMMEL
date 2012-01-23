@@ -44,7 +44,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess0_0()
 	{
-		System.out.println("gen_process");
+		System.out.println("gen_process0_0");
 		instance.setState(0);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
@@ -57,7 +57,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess0_1()
 	{
-		System.out.println("gen_process");
+		System.out.println("gen_process0_1");
 		instance.setState(1);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
@@ -70,7 +70,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess1_0()
 	{
-		System.out.println("gen_process");
+		System.out.println("gen_process1_0");
 		instance.setState(0);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
@@ -83,7 +83,7 @@ public class GeneratorTest
 	@Test
 	public void testProcess1_1()
 	{
-		System.out.println("gen_process");
+		System.out.println("gen_process1_1");
 		instance.setState(1);
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);

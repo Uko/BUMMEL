@@ -44,7 +44,7 @@ public class NotTest
 	@Test
 	public void testProcess00()
 	{
-		System.out.println("not_process");
+		System.out.println("not_process00");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -58,7 +58,7 @@ public class NotTest
 	@Test
 	public void testProcess01()
 	{
-		System.out.println("not_process");
+		System.out.println("not_process01");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -72,7 +72,7 @@ public class NotTest
 	@Test
 	public void testProcess10()
 	{
-		System.out.println("not_process");
+		System.out.println("not_process10");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -86,7 +86,7 @@ public class NotTest
 	@Test
 	public void testProcess11()
 	{
-		System.out.println("not_process");
+		System.out.println("not_process11");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);

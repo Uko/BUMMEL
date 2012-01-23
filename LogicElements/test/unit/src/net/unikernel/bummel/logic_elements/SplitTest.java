@@ -43,7 +43,7 @@ public class SplitTest
 	@Test
 	public void testProcess000()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process000");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -59,7 +59,7 @@ public class SplitTest
 	@Test
 	public void testProcess001()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process001");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 0.);
@@ -75,7 +75,7 @@ public class SplitTest
 	@Test
 	public void testProcess010()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process010");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -91,7 +91,7 @@ public class SplitTest
 	@Test
 	public void testProcess011()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process011");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		valuesOnPorts.put(1, 1.);
@@ -107,7 +107,7 @@ public class SplitTest
 	@Test
 	public void testProcess100()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process100");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -123,7 +123,7 @@ public class SplitTest
 	@Test
 	public void testProcess101()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process101");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 0.);
@@ -139,7 +139,7 @@ public class SplitTest
 	@Test
 	public void testProcess110()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process110");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);
@@ -155,7 +155,7 @@ public class SplitTest
 	@Test
 	public void testProcess111()
 	{
-		System.out.println("split_process");
+		System.out.println("split_process111");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		valuesOnPorts.put(1, 1.);

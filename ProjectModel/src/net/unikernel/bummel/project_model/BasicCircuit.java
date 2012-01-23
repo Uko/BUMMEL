@@ -23,7 +23,7 @@ public class BasicCircuit implements Circuit, Element
 	private Point coords;
 	private Set<Element> elements;
 	private Map<Connection, Double> connections;
-	private Map<Element, Map<Integer, Connection>> connectionsByElementAndPort;
+	private Map<Element, Map<Integer, Connection>> ElementPortConnection;
 	
 	public BasicCircuit()
 	{
@@ -31,7 +31,7 @@ public class BasicCircuit implements Circuit, Element
 		coords = new Point(0, 0);
 		elements = new HashSet<Element>();
 		connections = new HashMap<Connection, Double>();
-		connectionsByElementAndPort = new HashMap<Element, Map<Integer, Connection>>();
+		ElementPortConnection = new HashMap<Element, Map<Integer, Connection>>();
 	}
 	
 	@Override
@@ -51,22 +51,22 @@ public class BasicCircuit implements Circuit, Element
 		if(elements.contains(firstElement) && elements.contains(secondElement))
 		{
 			//make a connection
-			Connection temp = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
+			Connection conn = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
 
 			//put it in the connections
-			connections.put(temp, 0.);
+			connections.put(conn, 0.);
 
 			//put it in the map of element->port->connection for each element+port pair
-			if(!connectionsByElementAndPort.containsKey(firstElement))
+			if(!ElementPortConnection.containsKey(firstElement))
 			{
-				connectionsByElementAndPort.put(firstElement, new HashMap<Integer, Connection>());
+				ElementPortConnection.put(firstElement, new HashMap<Integer, Connection>());
 			}
-			if(!connectionsByElementAndPort.containsKey(secondElement))
+			if(!ElementPortConnection.containsKey(secondElement))
 			{
-				connectionsByElementAndPort.put(secondElement, new HashMap<Integer, Connection>());
+				ElementPortConnection.put(secondElement, new HashMap<Integer, Connection>());
 			}
-			connectionsByElementAndPort.get(firstElement).put(firstElementPort, temp);
-			connectionsByElementAndPort.get(secondElement).put(secondElementPort, temp);
+			ElementPortConnection.get(firstElement).put(firstElementPort, conn);
+			ElementPortConnection.get(secondElement).put(secondElementPort, conn);
 		}
 	}
 	
@@ -75,15 +75,15 @@ public class BasicCircuit implements Circuit, Element
 	{
 		if (connections.remove(new Connection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
 		{
-			connectionsByElementAndPort.get(firstElement).remove(firstElementPort);
-			connectionsByElementAndPort.get(secondElement).remove(secondElementPort);
-			if(connectionsByElementAndPort.get(secondElement).isEmpty())
+			ElementPortConnection.get(firstElement).remove(firstElementPort);
+			ElementPortConnection.get(secondElement).remove(secondElementPort);
+			if(ElementPortConnection.get(secondElement).isEmpty())
 			{
-				connectionsByElementAndPort.remove(firstElement);
+				ElementPortConnection.remove(firstElement);
 			}
-			if(connectionsByElementAndPort.get(firstElement).isEmpty())
+			if(ElementPortConnection.get(firstElement).isEmpty())
 			{
-				connectionsByElementAndPort.remove(secondElement);
+				ElementPortConnection.remove(secondElement);
 			}
 		}
 	}
@@ -97,15 +97,39 @@ public class BasicCircuit implements Circuit, Element
 		}
 		for (Element i: elements)
 		{
-			Map<Integer, Double> portsMap = new TreeMap<Integer, Double>();
-			for (Map.Entry<Integer,Connection> j : connectionsByElementAndPort.get(i).entrySet())
+			//check whether element is at least connected to something
+			if(ElementPortConnection.containsKey(i))
 			{
-				portsMap.put(j.getKey(), connections.get(j.getValue()));
-			}
-			portsMap = i.process(portsMap);
-			for (Map.Entry<Integer,Double> j : portsMap.entrySet())
-			{
-				tempoMap.get(connectionsByElementAndPort.get(i).get(j.getKey())).add(j.getValue());
+				Map<Integer, Double> portsMap = new TreeMap<Integer, Double>();
+				//copy values from connections to the current element ports
+				for (Map.Entry<Integer, Connection> j : ElementPortConnection.get(i).entrySet())
+				{
+					portsMap.put(j.getKey(), connections.get(j.getValue()));
+				}
+				try
+				{
+					portsMap = i.process(portsMap);
+				} //ignore elements crashes
+				catch (NullPointerException ex)
+				{
+					//put 0s on the used ports
+					for (Integer j : i.getPorts())
+					{
+						//"used" means connected to something
+						if (ElementPortConnection.get(i).containsKey(j))
+						{
+							portsMap.put(j, 0.);
+						}
+					}
+				}
+				for (Map.Entry<Integer, Double> j : portsMap.entrySet())
+				{
+					//take output values only from present and used ports
+					if (ElementPortConnection.get(i).containsKey(j.getKey()))
+					{
+						tempoMap.get(ElementPortConnection.get(i).get(j.getKey())).add(j.getValue());
+					}
+				}
 			}
 		}
 		for (Map.Entry<Connection,ArrayList<Double>> i : tempoMap.entrySet())

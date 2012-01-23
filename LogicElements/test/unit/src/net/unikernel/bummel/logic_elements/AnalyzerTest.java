@@ -44,7 +44,7 @@ public class AnalyzerTest
 	@Test
 	public void testProcess0()
 	{
-		System.out.println("an_process");
+		System.out.println("an_process0");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 0.);
 		Map expResult = new TreeMap<Integer, Double>();
@@ -57,7 +57,7 @@ public class AnalyzerTest
 	@Test
 	public void testProcess1()
 	{
-		System.out.println("an_process");
+		System.out.println("an_process1");
 		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
 		valuesOnPorts.put(0, 1.);
 		Map expResult = new TreeMap<Integer, Double>();
