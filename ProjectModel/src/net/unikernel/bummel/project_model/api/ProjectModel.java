@@ -1,4 +1,4 @@
-package net.unikernel.bummel.project_model;
+package net.unikernel.bummel.project_model.api;
 
 import net.unikernel.bummel.project_model.api.*;
 import java.io.Serializable;

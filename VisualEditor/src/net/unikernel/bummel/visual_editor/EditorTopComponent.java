@@ -1,34 +1,11 @@
 package net.unikernel.bummel.visual_editor;
 
-import com.mxgraph.model.mxCell;
-import com.mxgraph.swing.handler.mxKeyboardHandler;
-import com.mxgraph.swing.handler.mxRubberband;
-import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.view.mxEdgeStyle;
-import com.mxgraph.view.mxGraph;
-import com.mxgraph.view.mxMultiplicity;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
-import net.unikernel.bummel.basic_elements.BasicElement;
-import net.unikernel.bummel.engine.Engine;
-import net.unikernel.bummel.jgraph.ElementModel;
-import net.unikernel.bummel.jgraph.ElementPort;
 import net.unikernel.bummel.palette.PaletteSupport;
-import net.unikernel.bummel.project_model.ProjectModel;
-import org.openide.util.NbBundle;
-import org.openide.windows.TopComponent;
+import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -43,10 +20,12 @@ import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.util.Exceptions;
+import org.openide.util.NbBundle;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.util.lookup.Lookups;
 import org.openide.util.lookup.ProxyLookup;
+import org.openide.windows.TopComponent;
 
 /**
  * Top component which displays something.
@@ -63,6 +42,8 @@ persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
 preferredID = "EditorTopComponent"*/)
 public final class EditorTopComponent extends TopComponent
 {
+	private JComponent vlEditorView;
+	
 	/**
 	 * Counter of opened top components.
 	 */
@@ -93,7 +74,6 @@ public final class EditorTopComponent extends TopComponent
 	private Saver saver = new Saver();
 //	private static Opener opener = new Opener();
 	private ProjectModel project;
-	private Engine engine;
 
 	public EditorTopComponent()
 	{
@@ -116,119 +96,9 @@ public final class EditorTopComponent extends TopComponent
 				Lookups.fixed(new Object[] {PaletteSupport.createPalette()}),
 				new AbstractLookup(content)));
 		//associateLookup(new AbstractLookup(content));
-
-		final mxGraph graph = graphComponent.getGraph();
-		//mxGraph graph = new mxGraph(project.getModel());
-		project.setModel(graph.getModel());
-		//graph.setModel(project.getModel());
-		//graphComponent = new mxGraphComponent(graph);
-		//graphComponent.refresh();
-		//graphComponent.getGraphControl().repaint();
-
-		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				mxCell cell = (mxCell) graphComponent.getCellAt(e.getX(), e.getY());
-
-				if (cell != null)
-				{
-					if (cell instanceof ElementModel)
-					{
-						Object val = cell.getValue();
-						if (val instanceof BasicElement)
-						{
-							((BasicElement) val).toggleState();
-							//((mxGraphModel) graph.getModel()).fireEvent(new mxEventObject(mxEvent.CHANGE)); //cause nullpointer
-							engine.start();
-						}
-					}
-				}
-			}
-		});
-
-		graph.setMultigraph(false);
-		graph.setAllowDanglingEdges(false);
-		graph.setDisconnectOnMove(false);
-		graph.setCellsResizable(false);
-		graph.setCellsEditable(false);
-		Map<String, Object> style = graph.getStylesheet().getDefaultEdgeStyle();
-		style.put(mxConstants.STYLE_EDGE, mxEdgeStyle.ElbowConnector);
-		style.put(mxConstants.STYLE_ENDARROW, "");	//remove arrow
-		graphComponent.setConnectable(true);
-		graphComponent.setToolTips(true);
-		graph.setLabelsVisible(false);
-		graphComponent.setFoldingEnabled(false);
-
-		// Enables rubberband selection
-		new mxRubberband(graphComponent);
-		new mxKeyboardHandler(graphComponent);
-
-		mxMultiplicity[] multiplicities = new mxMultiplicity[2];
-
-		multiplicities[0] = new mxMultiplicity(false, null, null, null, 0,
-				"1", null, "", null, true)
-		{
-			@Override
-			public boolean checkTerminal(mxGraph graph, Object terminal, Object edge)
-			{
-				return terminal instanceof ElementPort;
-			}
-		};
-		multiplicities[1] = new mxMultiplicity(true, null, null, null, 0,
-				"1", null, "", null, true)
-		{
-			@Override
-			public boolean checkTerminal(mxGraph graph, Object terminal, Object edge)
-			{
-				return terminal instanceof ElementPort;
-			}
-		};
-
-		graph.setMultiplicities(multiplicities);
-		graphComponent.getConnectionHandler().setShowMessageDialogEnabled(false);
-
-		// Installs automatic validation (use editor.validation = true
-		// if you are using an mxEditor instance)
-		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
-		{
-			@Override
-			public void invoke(Object sender, mxEventObject evt)
-			{
-				graphComponent.validateGraph();
-				engine.start();
-			}
-		});
-		graphComponent.showDirtyRectangle = true;
-		graph.getModel().addListener(Engine.CIRCLE_DONE, new mxIEventListener()
-		{
-			@Override
-			public void invoke(Object sender, mxEventObject evt)
-			{
-				System.out.println(evt.getName());
-				graphComponent.getGraph().refresh();
-//				graphComponent.refresh();
-//				graphComponent.repaint(graphComponent.getViewport().getViewRect());
-//				graphComponent.getGraph().getModel().beginUpdate();
-//				graphComponent.getGraph().getModel().endUpdate();
-//				graphComponent.validateGraph();
-			}
-		});
-
-		// Initial validation
-		graphComponent.validateGraph();
-
-
-
-		engine = new Engine(graph);
-//                try{Thread.sleep(100);}
-//                catch(InterruptedException e){}
-//		engine.stop();
-//		engine.start();
-//                try{Thread.sleep(100);}
-//                catch(InterruptedException e){}
-//		engine.stop();
+		
+		vlEditorView = new CircuitGraphPinScene().createView();
+		jScrollPane1.setViewportView(vlEditorView);
 
 		enableSaveAction(true);
 //		content.add(opener);
@@ -242,27 +112,26 @@ public final class EditorTopComponent extends TopComponent
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        graphComponent = new com.mxgraph.swing.mxGraphComponent();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(graphComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(graphComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mxgraph.swing.mxGraphComponent graphComponent;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
 	@Override
 	public void componentOpened()
 	{
-		engine.start();
 		// TODO add custom code on component opening
 	}
 
@@ -270,7 +139,6 @@ public final class EditorTopComponent extends TopComponent
 	public void componentClosed()
 	{
 		counter--;
-		engine.stop();
 		//engine = null;
 		// TODO add custom code on component closing
 	}
@@ -295,24 +163,14 @@ public final class EditorTopComponent extends TopComponent
 		if (canSave)
 		{
 			content.add(saver);
-		} //Otherwise, we remove the SaveCookie impl from the lookup
+		}
+		//Otherwise, we remove the SaveCookie impl from the lookup
 		//and add listener for any changes to the graph mode
 		//to enable save capability again
 		else
 		{
 			content.remove(saver);
-			project.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
-			{
-				@Override
-				public void invoke(Object sender, mxEventObject evt)
-				{
-					//Once we can save, we are done listening.
-					//If enableSaveAction(false) is called, we will
-					//start listening again.
-					project.getModel().removeListener(this);
-					enableSaveAction(true);
-				}
-			});
+			//TODO: add listener for canvas changes which will enableSaveAction(true) on change.
 		}
 	}
 

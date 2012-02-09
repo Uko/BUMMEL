@@ -1,5 +1,6 @@
 package net.unikernel.bummel.project_model;
 
+import net.unikernel.bummel.project_model.api.ProjectModel;
 import java.util.ArrayList;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import org.junit.After;

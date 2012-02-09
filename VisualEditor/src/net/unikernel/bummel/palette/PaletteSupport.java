@@ -25,7 +25,7 @@ public class PaletteSupport
 	public static PaletteController createPalette()
 	{
 		AbstractNode paletteRoot = new AbstractNode(Children.create(new CategoryChildFactory(), true));
-		paletteRoot.setName("NB VL attempt");
+		paletteRoot.setName("NB VL attempt No2");
 		//return PaletteFactory.createPalette(paletteRoot, new OurActions(), null, new OurDnDHandler());
 		return PaletteFactory.createPalette(paletteRoot, new OurActions());
 	}
