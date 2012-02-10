@@ -49,7 +49,7 @@ public class NotTest
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
@@ -63,7 +63,7 @@ public class NotTest
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
@@ -77,7 +77,7 @@ public class NotTest
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
@@ -91,7 +91,7 @@ public class NotTest
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);

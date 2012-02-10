@@ -49,7 +49,7 @@ public class GeneratorTest
 		instance.setState(0);
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
@@ -62,7 +62,7 @@ public class GeneratorTest
 		instance.setState(1);
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
@@ -75,7 +75,7 @@ public class GeneratorTest
 		instance.setState(0);
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
@@ -88,7 +88,7 @@ public class GeneratorTest
 		instance.setState(1);
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);

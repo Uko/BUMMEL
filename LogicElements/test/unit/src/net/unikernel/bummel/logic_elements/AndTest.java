@@ -50,7 +50,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -66,7 +66,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -82,7 +82,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -98,7 +98,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -114,7 +114,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -130,7 +130,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -146,7 +146,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -162,7 +162,7 @@ public class AndTest
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);

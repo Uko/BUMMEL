@@ -49,7 +49,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -65,7 +65,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -81,7 +81,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -97,7 +97,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -113,7 +113,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -129,7 +129,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -145,7 +145,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -161,7 +161,7 @@ public class SplitTest
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);

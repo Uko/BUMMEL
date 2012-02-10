@@ -48,7 +48,7 @@ public class AnalyzerTest
 		System.out.println("an_process0");
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 0.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
@@ -61,7 +61,7 @@ public class AnalyzerTest
 		System.out.println("an_process1");
 		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
 		valuesOnPorts.put("input", 1.);
-		Map expResult = new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<String, Double>();
 		expResult.put("input", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
