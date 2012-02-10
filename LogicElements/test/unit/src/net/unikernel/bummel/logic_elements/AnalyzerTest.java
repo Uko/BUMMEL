@@ -1,5 +1,6 @@
 package net.unikernel.bummel.logic_elements;
 
+import net.unikernel.bummel.logic_elements.Analyzer.Analyzer;
 import org.junit.After;
 import org.junit.Before;
 import java.util.TreeMap;

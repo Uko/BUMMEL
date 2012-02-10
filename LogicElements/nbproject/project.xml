@@ -33,8 +33,12 @@
                 </dependency>
             </module-dependencies>
             <public-packages>
-                <package>net.unikernel.bummel.logic_elements</package>
-                <package>net.unikernel.bummel.logic_elements.visual</package>
+                <package>net.unikernel.bummel.logic_elements.Analyzer</package>
+                <package>net.unikernel.bummel.logic_elements.And</package>
+                <package>net.unikernel.bummel.logic_elements.Generator</package>
+                <package>net.unikernel.bummel.logic_elements.Not</package>
+                <package>net.unikernel.bummel.logic_elements.Or</package>
+                <package>net.unikernel.bummel.logic_elements.Split</package>
             </public-packages>
         </data>
     </configuration>

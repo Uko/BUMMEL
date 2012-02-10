@@ -1,4 +1,4 @@
-package net.unikernel.bummel.logic_elements;
+package net.unikernel.bummel.logic_elements.Not;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
@@ -8,32 +8,36 @@ import net.unikernel.bummel.project_model.api.BasicElement;
  * <ol start='0'>
  * <li>Input</li>
  * <li>Output</li>
- * <li>Output</li>
  * </ol>
  * @author mcangel
  */
-public class Split extends BasicElement
+public class Not extends BasicElement
 {
 
-	public Split()
+	public Not()
 	{
-		super(new String[]{"input","output1","output2"});
+		super(new String[]{"input","output"});//input, output
 	}
 	
 	/**
-	 * Duplicates input port value to the output ports.
+	 * Calculates the logical "not" value
 	 * <b>Pinout:</b>
 	 * <ol start='0'>
 	 * <li>Input</li>
-	 * <li>Output</li>
 	 * <li>Output</li>
 	 * </ol>
 	 */
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
-		valuesOnPorts.put(getPorts().get(1), valuesOnPorts.get(getPorts().get(0)));
-		valuesOnPorts.put(getPorts().get(2), valuesOnPorts.get(getPorts().get(0)));
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0)
+		{
+			valuesOnPorts.put(getPorts().get(1), new Double(1));
+		}
+		else
+		{
+			valuesOnPorts.put(getPorts().get(1), new Double(0));
+		}
 		valuesOnPorts.put(getPorts().get(0), 0.);
 		return valuesOnPorts;
 	}

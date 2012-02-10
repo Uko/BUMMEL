@@ -1,4 +1,4 @@
-package net.unikernel.bummel.logic_elements;
+package net.unikernel.bummel.logic_elements.Analyzer;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;

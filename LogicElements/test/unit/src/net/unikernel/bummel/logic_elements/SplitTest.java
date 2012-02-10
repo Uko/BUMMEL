@@ -1,5 +1,6 @@
 package net.unikernel.bummel.logic_elements;
 
+import net.unikernel.bummel.logic_elements.Split.Split;
 import org.junit.After;
 import org.junit.Before;
 import java.util.TreeMap;

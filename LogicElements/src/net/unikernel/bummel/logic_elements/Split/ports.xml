@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ports.xml
+    Created on : 11 лютого 2012, 0:10
+    Author     : uko
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE ports PUBLIC '-//Unikernel//DTD BUMMEL Element Ports 1.0//EN' 'http://cloud.github.com/downloads/Uko/BUMMEL/element-ports10.dtd'>
+<ports>
+	<port name="input" direction="left" offset="0" />
+	<port name="output1" direction="right" offset="0.5" />
+	<port name="output2" direction="right" offset="-0.5" />
+</ports>

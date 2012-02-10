@@ -1,4 +1,4 @@
-package net.unikernel.bummel.logic_elements;
+package net.unikernel.bummel.logic_elements.Or;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
@@ -12,16 +12,16 @@ import net.unikernel.bummel.project_model.api.BasicElement;
  * </ol>
  * @author mcangel
  */
-public class And extends BasicElement
+public class Or extends BasicElement
 {
 
-	public And()
+	public Or()
 	{
-		super(new String[]{"input1","input2","output"}); //input1,inpu2,output
+		super(new String[]{"input1","input2","output"});//input,input,output
 	}
 	
-	 /**
-	 * Calculates the logical "and" value
+	/**
+	 * Calculates the logical "or" value
 	 * <b>Pinout:</b>
 	 * <ol start='0'>
 	 * <li>Input</li>
@@ -32,9 +32,14 @@ public class And extends BasicElement
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
-		valuesOnPorts.put(getPorts().get(2), 
-				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
-				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0 || valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
+		{
+			valuesOnPorts.put(getPorts().get(2), new Double(1));
+		}
+		else
+		{
+			valuesOnPorts.put(getPorts().get(2), new Double(0));
+		}
 		valuesOnPorts.put(getPorts().get(0), 0.);
 		valuesOnPorts.put(getPorts().get(1), 0.);
 		return valuesOnPorts;

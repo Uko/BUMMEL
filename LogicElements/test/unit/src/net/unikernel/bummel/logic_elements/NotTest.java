@@ -1,6 +1,6 @@
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.logic_elements.Not.Element;
+import net.unikernel.bummel.logic_elements.Not.Not;
 import org.junit.After;
 import org.junit.Before;
 import java.util.TreeMap;
@@ -28,11 +28,11 @@ public class NotTest
 	{
 	}
 	
-	Element instance;
+	Not instance;
 	@Before
 	public void setUp()
 	{
-		instance = new Element();
+		instance = new Not();
 	}
 	@After
 	public void tearDown()
@@ -40,7 +40,7 @@ public class NotTest
 		instance = null;
 	}
 	/**
-	 * Test of process method, of class Element.
+	 * Test of process method, of class Not.
 	 */
 	@Test
 	public void testProcess00()
