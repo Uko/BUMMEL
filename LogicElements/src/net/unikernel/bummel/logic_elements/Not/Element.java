@@ -11,10 +11,10 @@ import net.unikernel.bummel.project_model.api.BasicElement;
  * </ol>
  * @author mcangel
  */
-public class Not extends BasicElement
+public class Element extends BasicElement
 {
 
-	public Not()
+	public Element()
 	{
 		super(new Integer[]{0,1});//input, output
 	}

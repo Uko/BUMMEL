@@ -1,6 +1,6 @@
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.logic_elements.Not.Not;
+import net.unikernel.bummel.logic_elements.Not.Element;
 import net.unikernel.bummel.project_model.api.Circuit;
 import org.junit.After;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class SchemeTest
 	{
 		System.out.println("scheme_processN2");
 		Generator gen = new Generator();
-		Not no = new Not();
+		Element no = new Element();
 		Analyzer an = new Analyzer();
 		instance.addElement(gen);
 		instance.addElement(no);
@@ -270,7 +270,7 @@ public class SchemeTest
 		System.out.println("scheme_processN7_CrashTest");
 		Generator gen1 = new Generator();
 		Generator gen2 = new Generator();
-		Not not = new Not();
+		Element not = new Element();
 		Or or = new Or();
 		And and1 = new And();
 		And and2 = new And();
@@ -329,7 +329,7 @@ public class SchemeTest
 		System.out.println("scheme_processN8");
 		Generator gen1 = new Generator();
 		Generator gen2 = new Generator();
-		Not not = new Not();
+		Element not = new Element();
 		Or or = new Or();
 		And and1 = new And();
 		And and2 = new And();
