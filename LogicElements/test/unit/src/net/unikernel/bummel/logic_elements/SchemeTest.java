@@ -1,5 +1,6 @@
 package net.unikernel.bummel.logic_elements;
 
+import net.unikernel.bummel.logic_elements.Not.Not;
 import net.unikernel.bummel.project_model.api.Circuit;
 import org.junit.After;
 import org.junit.Before;
