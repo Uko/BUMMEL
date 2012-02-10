@@ -77,9 +77,9 @@ public class BasicCircuitTest
 	{
 		System.out.println("connectElements");
 		Element firstElement = new BasicElementImpl();
-		Integer firstElementPort = 0;
+		String firstElementPort = "in";
 		Element secondElement = new BasicElementImpl();
-		Integer secondElementPort = 1;
+		String secondElementPort = "out";
 		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 	}
 	
@@ -91,9 +91,9 @@ public class BasicCircuitTest
 	{
 		System.out.println("connectElements");
 		Element firstElement = new BasicElementImpl();
-		Integer firstElementPort = 0;
+		String firstElementPort = "in";
 		Element secondElement = new BasicElementImpl();
-		Integer secondElementPort = 1;
+		String secondElementPort = "out";
 		instance.addElement(firstElement);
 		instance.addElement(secondElement);
 		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
@@ -108,9 +108,9 @@ public class BasicCircuitTest
 	{
 		System.out.println("step");
 		Element firstElement = new BasicElementImpl();
-		Integer firstElementPort = 0;
+		String firstElementPort = "in";
 		Element secondElement = new BasicElementImpl();
-		Integer secondElementPort = 1;
+		String secondElementPort = "out";
 		instance.addElement(firstElement);
 		instance.addElement(secondElement);
 		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
@@ -226,22 +226,22 @@ public class BasicCircuitTest
 	{
 		public BasicElementImpl()
 		{
-			super(new Integer[]{0,1});
+			super(new String[]{"in","out"});
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));
 		}
 
 		@Override
-		public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+		public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 		{
 			//evil code to crash scheme ]:P
-			HashMap<Integer, Double> map = new HashMap<Integer, Double>();
-			map.put(0, 0.);
-			map.put(1, 1.);
-			map.put(2, 0.);
-			map.put(3, 1.);
-			map.put(4, 0.);
+			HashMap<String, Double> map = new HashMap<String, Double>();
+			map.put("in", 0.);
+			map.put("out", 1.);
+			map.put("this way", 0.);
+			map.put("that way", 1.);
+			map.put("up", 0.);
 			return map;
 		}
 	}

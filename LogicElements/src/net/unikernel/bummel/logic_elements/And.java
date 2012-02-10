@@ -17,7 +17,7 @@ public class And extends BasicElement
 
 	public And()
 	{
-		super(new Integer[]{0,1,2}); //input1,inpu2,output
+		super(new String[]{"input1","input2","output"}); //input1,inpu2,output
 	}
 	
 	 /**
@@ -30,13 +30,13 @@ public class And extends BasicElement
 	 * </ol>
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		valuesOnPorts.put(getPorts().get(2), 
 				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
 				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.);
+		valuesOnPorts.put(getPorts().get(1), 0.);
 		return valuesOnPorts;
 	}
 }

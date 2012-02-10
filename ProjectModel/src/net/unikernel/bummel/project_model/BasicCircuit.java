@@ -23,7 +23,7 @@ public class BasicCircuit implements Circuit, Element
 	private Point coords;
 	private Set<Element> elements;
 	private Map<Connection, Double> connections;
-	private Map<Element, Map<Integer, Connection>> ElementPortConnection;
+	private Map<Element, Map<String, Connection>> ElementPortConnection;
 	
 	public BasicCircuit()
 	{
@@ -31,7 +31,7 @@ public class BasicCircuit implements Circuit, Element
 		coords = new Point(0, 0);
 		elements = new HashSet<Element>();
 		connections = new HashMap<Connection, Double>();
-		ElementPortConnection = new HashMap<Element, Map<Integer, Connection>>();
+		ElementPortConnection = new HashMap<Element, Map<String, Connection>>();
 	}
 	
 	@Override
@@ -45,7 +45,7 @@ public class BasicCircuit implements Circuit, Element
 		return this.elements.remove(element);
 	}
 	@Override
-	public void connectElements(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
+	public void connectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
 		//if the specified elements are in the circuit
 		if(elements.contains(firstElement) && elements.contains(secondElement))
@@ -59,11 +59,11 @@ public class BasicCircuit implements Circuit, Element
 			//put it in the map of element->port->connection for each element+port pair
 			if(!ElementPortConnection.containsKey(firstElement))
 			{
-				ElementPortConnection.put(firstElement, new HashMap<Integer, Connection>());
+				ElementPortConnection.put(firstElement, new HashMap<String, Connection>());
 			}
 			if(!ElementPortConnection.containsKey(secondElement))
 			{
-				ElementPortConnection.put(secondElement, new HashMap<Integer, Connection>());
+				ElementPortConnection.put(secondElement, new HashMap<String, Connection>());
 			}
 			ElementPortConnection.get(firstElement).put(firstElementPort, conn);
 			ElementPortConnection.get(secondElement).put(secondElementPort, conn);
@@ -71,7 +71,7 @@ public class BasicCircuit implements Circuit, Element
 	}
 	
 	@Override
-	public void disconectElements(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
+	public void disconectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
 		if (connections.remove(new Connection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
 		{
@@ -100,9 +100,9 @@ public class BasicCircuit implements Circuit, Element
 			//check whether element is at least connected to something
 			if(ElementPortConnection.containsKey(i))
 			{
-				Map<Integer, Double> portsMap = new TreeMap<Integer, Double>();
+				Map<String, Double> portsMap = new TreeMap<String, Double>();
 				//copy values from connections to the current element ports
-				for (Map.Entry<Integer, Connection> j : ElementPortConnection.get(i).entrySet())
+				for (Map.Entry<String, Connection> j : ElementPortConnection.get(i).entrySet())
 				{
 					portsMap.put(j.getKey(), connections.get(j.getValue()));
 				}
@@ -113,7 +113,7 @@ public class BasicCircuit implements Circuit, Element
 				catch (NullPointerException ex)
 				{
 					//put 0s on the used ports
-					for (Integer j : i.getPorts())
+					for (String j : i.getPorts())
 					{
 						//"used" means connected to something
 						if (ElementPortConnection.get(i).containsKey(j))
@@ -122,7 +122,7 @@ public class BasicCircuit implements Circuit, Element
 						}
 					}
 				}
-				for (Map.Entry<Integer, Double> j : portsMap.entrySet())
+				for (Map.Entry<String, Double> j : portsMap.entrySet())
 				{
 					//take output values only from present and used ports
 					if (ElementPortConnection.get(i).containsKey(j.getKey()))
@@ -169,7 +169,7 @@ public class BasicCircuit implements Circuit, Element
 		this.coords = point;
 	}
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		this.step();
 		return null;
@@ -181,19 +181,19 @@ public class BasicCircuit implements Circuit, Element
 	}
 
 	@Override
-	public List<Integer> getPorts()
+	public List<String> getPorts()
 	{
-		return new ArrayList<Integer>();	//Merry Christmas
+		return new ArrayList<String>();	//Merry Christmas
 	}
 	
 	private class Connection
 	{
 		private Element firstElement;
-		private Integer firstElementPort;
+		private String firstElementPort;
 		private Element secondElement;
-		private Integer secondElementPort;
+		private String secondElementPort;
 		
-		public Connection(Element firstElement, Integer firstElementPort, Element secondElement, Integer secondElementPort)
+		public Connection(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 		{
 			this.firstElement = firstElement;
 			this.firstElementPort = firstElementPort;
@@ -236,7 +236,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the firstElementPort
 		 */
-		public Integer getFirstElementPort()
+		public String getFirstElementPort()
 		{
 			return firstElementPort;
 		}
@@ -250,7 +250,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the secondElementPort
 		 */
-		public Integer getSecondElementPort()
+		public String getSecondElementPort()
 		{
 			return secondElementPort;
 		}	

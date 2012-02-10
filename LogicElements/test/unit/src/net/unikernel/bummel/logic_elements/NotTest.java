@@ -46,12 +46,12 @@ public class NotTest
 	public void testProcess00()
 	{
 		System.out.println("not_process00");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -60,12 +60,12 @@ public class NotTest
 	public void testProcess01()
 	{
 		System.out.println("not_process01");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -74,12 +74,12 @@ public class NotTest
 	public void testProcess10()
 	{
 		System.out.println("not_process10");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -88,12 +88,12 @@ public class NotTest
 	public void testProcess11()
 	{
 		System.out.println("not_process11");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}

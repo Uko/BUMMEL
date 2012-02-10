@@ -15,11 +15,11 @@ public abstract class BasicElement implements Element
 	String label;
 	int state;
 	Point coords;
-	ArrayList<Integer> availablePorts;
+	ArrayList<String> availablePorts;
 
-	public BasicElement(Integer[] availablePorts)
+	public BasicElement(String[] availablePorts)
 	{
-		this.availablePorts = new ArrayList<Integer>(Arrays.asList(availablePorts));
+		this.availablePorts = new ArrayList<String>(Arrays.asList(availablePorts));
 	}
 	
 	@Override
@@ -53,7 +53,7 @@ public abstract class BasicElement implements Element
 		this.coords = point;
 	}
 	@Override
-	public List<Integer> getPorts()
+	public List<String> getPorts()
 	{
 		return Collections.unmodifiableList(availablePorts);
 	}

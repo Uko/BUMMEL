@@ -46,10 +46,10 @@ public class GeneratorTest
 	{
 		System.out.println("gen_process0_0");
 		instance.setState(0);
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("output", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -59,10 +59,10 @@ public class GeneratorTest
 	{
 		System.out.println("gen_process0_1");
 		instance.setState(1);
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("output", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -72,10 +72,10 @@ public class GeneratorTest
 	{
 		System.out.println("gen_process1_0");
 		instance.setState(0);
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("output", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("output", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -85,10 +85,10 @@ public class GeneratorTest
 	{
 		System.out.println("gen_process1_1");
 		instance.setState(1);
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("output", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("output", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}

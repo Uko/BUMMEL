@@ -17,7 +17,7 @@ public class Generator extends BasicElement
 
 	public Generator()
 	{
-		super(new Integer[]{0});//output
+		super(new String[]{"output"});//output
 		setState(1);
 	}
 	/**
@@ -28,7 +28,7 @@ public class Generator extends BasicElement
 	 * </ol>
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		if(getState() == 0)
 		{

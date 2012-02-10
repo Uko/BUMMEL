@@ -13,6 +13,6 @@ public interface Element extends Serializable
 	public void setState(int state);
 	public Point getCoords();
 	public void setCoords(Point point);
-	public List<Integer> getPorts();
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts);
+	public List<String> getPorts();
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts);
 }

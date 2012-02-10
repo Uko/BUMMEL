@@ -17,7 +17,7 @@ public class Or extends BasicElement
 
 	public Or()
 	{
-		super(new Integer[]{0,1,2});//input,input,output
+		super(new String[]{"input1","input2","output"});//input,input,output
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class Or extends BasicElement
 	 * </ol>
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0 || valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
 		{
@@ -40,8 +40,8 @@ public class Or extends BasicElement
 		{
 			valuesOnPorts.put(getPorts().get(2), new Double(0));
 		}
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.);
+		valuesOnPorts.put(getPorts().get(1), 0.);
 		return valuesOnPorts;
 	}
 }

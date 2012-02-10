@@ -19,7 +19,7 @@ public class Analyzer extends BasicElement
 	 */
 	public Analyzer()
 	{
-		super(new Integer[]{0});
+		super(new String[]{"input"});
 		setState(0);
 	}
 	/**Sets analyzers state same as on the input port
@@ -30,13 +30,13 @@ public class Analyzer extends BasicElement
 	 * @return
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0)
 			setState(1);	//light it
 		else
 			setState(0);	//douse it
-		valuesOnPorts.put(0, 0.);
+		valuesOnPorts.put("input", 0.);
 		return valuesOnPorts;
 	}
 }

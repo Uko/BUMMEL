@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class BasicElementTest
 {
 	BasicElement instance;
-	Integer globalPort = -100500;
+	String globalPort = "-100500";
 			
 	public BasicElementTest()
 	{
@@ -122,14 +122,14 @@ public class BasicElementTest
 	{
 		public BasicElementImpl()
 		{
-			super(new Integer[]{globalPort});
+			super(new String[]{globalPort});
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));
 		}
 
 		@Override
-		public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+		public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 		{
 			return null;
 		}

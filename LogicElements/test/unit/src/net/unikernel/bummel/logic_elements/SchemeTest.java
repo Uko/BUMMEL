@@ -33,7 +33,7 @@ public class SchemeTest
 		Analyzer an = new Analyzer();
 		instance.addElement(gen);
 		instance.addElement(an);
-		instance.connectElements(gen, 0, an, 0);
+		instance.connectElements(gen, "output", an, "input");
 		gen.setState(1);
 		for (int i = 0; i < 10; i++)
 		{
@@ -55,8 +55,8 @@ public class SchemeTest
 		instance.addElement(gen);
 		instance.addElement(no);
 		instance.addElement(an);
-		instance.connectElements(gen, 0, no, 0);
-		instance.connectElements(no, 1, an, 0);
+		instance.connectElements(gen, "output", no, "input");
+		instance.connectElements(no, "output", an, "input");
 		gen.setState(1);
 		for (int i = 0; i < 10; i++)
 		{
@@ -86,9 +86,9 @@ public class SchemeTest
 		instance.addElement(gen2);
 		instance.addElement(and);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, and, 0);
-		instance.connectElements(gen2, 0, and, 1);
-		instance.connectElements(and, 2, an, 0);
+		instance.connectElements(gen1, "output", and, "input1");
+		instance.connectElements(gen2, "output", and, "input2");
+		instance.connectElements(and, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(0);
 		for (int i = 0; i < 10; i++)
@@ -125,9 +125,9 @@ public class SchemeTest
 		instance.addElement(gen2);
 		instance.addElement(or);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, or, 0);
-		instance.connectElements(gen2, 0, or, 1);
-		instance.connectElements(or, 2, an, 0);
+		instance.connectElements(gen1, "output", or, "input1");
+		instance.connectElements(gen2, "output", or, "input2");
+		instance.connectElements(or, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(1);
 		for (int i = 0; i < 10; i++)
@@ -168,11 +168,11 @@ public class SchemeTest
 		instance.addElement(or);
 		instance.addElement(and);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, or, 0);
-		instance.connectElements(gen2, 0, or, 1);
-		instance.connectElements(gen3, 0, and, 0);
-		instance.connectElements(or, 2, and, 1);
-		instance.connectElements(and, 2, an, 0);
+		instance.connectElements(gen1, "output", or, "input1");
+		instance.connectElements(gen2, "output", or, "input2");
+		instance.connectElements(gen3, "output", and, "input1");
+		instance.connectElements(or, "output", and, "input2");
+		instance.connectElements(and, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(1);
 		gen3.setState(1);
@@ -222,11 +222,11 @@ public class SchemeTest
 		instance.addElement(or);
 		instance.addElement(and);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, and, 0);
-		instance.connectElements(gen2, 0, and, 1);
-		instance.connectElements(gen3, 0, or, 0);
-		instance.connectElements(and, 2, or, 1);
-		instance.connectElements(or, 2, an, 0);
+		instance.connectElements(gen1, "output", and, "input1");
+		instance.connectElements(gen2, "output", and, "input2");
+		instance.connectElements(gen3, "output", or, "input1");
+		instance.connectElements(and, "output", or, "input2");
+		instance.connectElements(or, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(1);
 		gen3.setState(1);
@@ -285,16 +285,16 @@ public class SchemeTest
 		instance.addElement(spl1);
 		instance.addElement(spl2);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, spl1, 0);
-		instance.connectElements(gen2, 0, spl2, 0);
-		instance.connectElements(spl1, 1, or, 0);
-		instance.connectElements(spl2, 1, or, 1);
-		instance.connectElements(spl1, 2, and1, 0);
-		instance.connectElements(spl2, 2, and1, 1);
-		instance.connectElements(and1, 2, not, 0);
-		instance.connectElements(or, 2, and2, 0);
-		instance.connectElements(not, 1, and2, 1);
-		instance.connectElements(and2, 2, an, 0);
+		instance.connectElements(gen1, "output", spl1, "input");
+		instance.connectElements(gen2, "output", spl2, "input");
+		instance.connectElements(spl1, "output1", or, "input1");
+		instance.connectElements(spl2, "output1", or, "input2");
+		instance.connectElements(spl1, "output2", and1, "input1");
+		instance.connectElements(spl2, "output2", and1, "input2");
+		instance.connectElements(and1, "output", not, "input");
+		instance.connectElements(or, "output", and2, "input1");
+		instance.connectElements(not, "output", and2, "input2");
+		instance.connectElements(and2, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(0);
 		for (int i = 0; i < 10; i++)
@@ -324,9 +324,9 @@ public class SchemeTest
 	 *				not(and1(spl1-gen1, spl2-gen2)))
 	 */
 	@Test
-	public void testSchemeN8()
+	public void testSchemeN7()
 	{
-		System.out.println("scheme_processN8");
+		System.out.println("scheme_processN7");
 		Generator gen1 = new Generator();
 		Generator gen2 = new Generator();
 		Element not = new Element();
@@ -345,16 +345,16 @@ public class SchemeTest
 		instance.addElement(spl1);
 		instance.addElement(spl2);
 		instance.addElement(an);
-		instance.connectElements(gen1, 0, spl1, 0);
-		instance.connectElements(gen2, 0, spl2, 0);
-		instance.connectElements(spl1, 1, or, 0);
-		instance.connectElements(spl2, 1, or, 1);
-		instance.connectElements(spl1, 2, and1, 0);
-		instance.connectElements(spl2, 2, and1, 1);
-		instance.connectElements(and1, 2, not, 0);
-		instance.connectElements(or, 2, and2, 0);
-		instance.connectElements(not, 1, and2, 1);
-		instance.connectElements(and2, 2, an, 0);
+		instance.connectElements(gen1, "output", spl1, "input");
+		instance.connectElements(gen2, "output", spl2, "input");
+		instance.connectElements(spl1, "output1", or, "input1");
+		instance.connectElements(spl2, "output1", or, "input2");
+		instance.connectElements(spl1, "output2", and1, "input1");
+		instance.connectElements(spl2, "output2", and1, "input2");
+		instance.connectElements(and1, "output", not, "input");
+		instance.connectElements(or, "output", and2, "input1");
+		instance.connectElements(not, "output", and2, "input2");
+		instance.connectElements(and2, "output", an, "input");
 		gen1.setState(1);
 		gen2.setState(0);
 		for (int i = 0; i < 10; i++)

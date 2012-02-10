@@ -44,14 +44,14 @@ public class SplitTest
 	public void testProcess000()
 	{
 		System.out.println("split_process000");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 0.);
-		valuesOnPorts.put(2, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
-		expResult.put(2, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output1", 0.);
+		valuesOnPorts.put("output2", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 0.);
+		expResult.put("output2", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -60,14 +60,14 @@ public class SplitTest
 	public void testProcess001()
 	{
 		System.out.println("split_process001");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 0.);
-		valuesOnPorts.put(2, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
-		expResult.put(2, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output1", 0.);
+		valuesOnPorts.put("output2", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 0.);
+		expResult.put("output2", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -76,14 +76,14 @@ public class SplitTest
 	public void testProcess010()
 	{
 		System.out.println("split_process010");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 1.);
-		valuesOnPorts.put(2, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
-		expResult.put(2, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output1", 1.);
+		valuesOnPorts.put("output2", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 0.);
+		expResult.put("output2", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -92,14 +92,14 @@ public class SplitTest
 	public void testProcess011()
 	{
 		System.out.println("split_process011");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 0.);
-		valuesOnPorts.put(1, 1.);
-		valuesOnPorts.put(2, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 0.);
-		expResult.put(2, 0.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 0.);
+		valuesOnPorts.put("output1", 1.);
+		valuesOnPorts.put("output2", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 0.);
+		expResult.put("output2", 0.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -108,14 +108,14 @@ public class SplitTest
 	public void testProcess100()
 	{
 		System.out.println("split_process100");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 0.);
-		valuesOnPorts.put(2, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
-		expResult.put(2, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output1", 0.);
+		valuesOnPorts.put("output2", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 1.);
+		expResult.put("output2", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -124,14 +124,14 @@ public class SplitTest
 	public void testProcess101()
 	{
 		System.out.println("split_process101");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 0.);
-		valuesOnPorts.put(2, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
-		expResult.put(2, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output1", 0.);
+		valuesOnPorts.put("output2", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 1.);
+		expResult.put("output2", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -140,14 +140,14 @@ public class SplitTest
 	public void testProcess110()
 	{
 		System.out.println("split_process110");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 1.);
-		valuesOnPorts.put(2, 0.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
-		expResult.put(2, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output1", 1.);
+		valuesOnPorts.put("output2", 0.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 1.);
+		expResult.put("output2", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}
@@ -156,14 +156,14 @@ public class SplitTest
 	public void testProcess111()
 	{
 		System.out.println("split_process111");
-		Map<Integer, Double> valuesOnPorts = new TreeMap<Integer, Double>();
-		valuesOnPorts.put(0, 1.);
-		valuesOnPorts.put(1, 1.);
-		valuesOnPorts.put(2, 1.);
-		Map expResult = new TreeMap<Integer, Double>();
-		expResult.put(0, 0.);
-		expResult.put(1, 1.);
-		expResult.put(2, 1.);
+		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		valuesOnPorts.put("input", 1.);
+		valuesOnPorts.put("output1", 1.);
+		valuesOnPorts.put("output2", 1.);
+		Map expResult = new TreeMap<String, Double>();
+		expResult.put("input", 0.);
+		expResult.put("output1", 1.);
+		expResult.put("output2", 1.);
 		Map result = instance.process(valuesOnPorts);
 		assertEquals(expResult, result);
 	}

@@ -16,7 +16,7 @@ public class Element extends BasicElement
 
 	public Element()
 	{
-		super(new Integer[]{0,1});//input, output
+		super(new String[]{"input","output"});//input, output
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class Element extends BasicElement
 	 * </ol>
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0)
 		{
@@ -38,7 +38,7 @@ public class Element extends BasicElement
 		{
 			valuesOnPorts.put(getPorts().get(1), new Double(0));
 		}
-		valuesOnPorts.put(0, 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.);
 		return valuesOnPorts;
 	}
 }

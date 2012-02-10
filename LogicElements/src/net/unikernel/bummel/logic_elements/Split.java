@@ -17,7 +17,7 @@ public class Split extends BasicElement
 
 	public Split()
 	{
-		super(new Integer[]{0,1,2});
+		super(new String[]{"input","output1","output2"});
 	}
 	
 	/**
@@ -30,11 +30,11 @@ public class Split extends BasicElement
 	 * </ol>
 	 */
 	@Override
-	public Map<Integer, Double> process(Map<Integer, Double> valuesOnPorts)
+	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		valuesOnPorts.put(getPorts().get(1), valuesOnPorts.get(getPorts().get(0)));
 		valuesOnPorts.put(getPorts().get(2), valuesOnPorts.get(getPorts().get(0)));
-		valuesOnPorts.put(0, 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.);
 		return valuesOnPorts;
 	}
 }
