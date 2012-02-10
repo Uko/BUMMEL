@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    TODO define vocabulary identification data
+    PUBLIC ID  : -//Unikernel//BUMMEL Element Ports 1.0//EN
+    SYSTEM ID  : http://server/path/__NAME__
+-->
+
+<!ELEMENT ports (port+)>
+<!ELEMENT port EMPTY>
+
+<!ATTLIST port name ID #REQUIRED>
+<!ATTLIST port direction (right|left|up|down) #REQUIRED>
+<!ATTLIST port offset CDATA #REQUIRED>
+
