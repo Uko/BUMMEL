@@ -8,8 +8,8 @@
         Purpose of the document follows.
 -->
 
-<!DOCTYPE ports PUBLIC '-//Unikernel//BUMMEL Element Ports 1.0//EN' 'ports.dtd'>
+<!DOCTYPE ports PUBLIC '-//Unikernel//DTD BUMMEL Element Ports 1.0//EN' 'http://cloud.github.com/downloads/Uko/BUMMEL/element-ports10.dtd'>
 <ports>
-	<port name="0" direction="left" offset="0" />
-	<port name="1" direction="right" offset="0" />
+	<port name="input" direction="left" offset="0" />
+	<port name="output" direction="right" offset="0" />
 </ports>

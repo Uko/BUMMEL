@@ -2,8 +2,8 @@
 
 <!--
     TODO define vocabulary identification data
-    PUBLIC ID  : -//Unikernel//BUMMEL Element Ports 1.0//EN
-    SYSTEM ID  : http://server/path/__NAME__
+    PUBLIC ID  : -//Unikernel//DTD BUMMEL Element Ports 1.0//EN
+    SYSTEM ID  : http://cloud.github.com/downloads/Uko/BUMMEL/element-ports10.dtd
 -->
 
 <!ELEMENT ports (port+)>
