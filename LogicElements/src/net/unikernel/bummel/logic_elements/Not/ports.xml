@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ports.xml
+    Created on : 10 лютого 2012, 20:49
+    Author     : uko
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE ports PUBLIC '-//Unikernel//BUMMEL Element Ports 1.0//EN' 'ports.dtd'>
+<ports>
+	<port name="0" direction="left" offset="0" />
+	<port name="1" direction="right" offset="0" />
+</ports>
