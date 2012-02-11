@@ -10,7 +10,6 @@ import org.netbeans.api.visual.action.AcceptProvider;
 import org.netbeans.api.visual.action.ActionFactory;
 import org.netbeans.api.visual.action.ConnectorState;
 import org.netbeans.api.visual.graph.GraphPinScene;
-import org.netbeans.api.visual.vmd.VMDPinWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
 import org.openide.nodes.Node;
@@ -68,7 +67,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 					elNode = new ElementNode(el.getClass().newInstance());
 					CircuitGraphPinScene.this.addNode(elNode)
 						.setPreferredLocation(widget.convertLocalToScene(point));
-				for (Integer i : el.getPorts())
+				for (String i : el.getPorts())
 				{
 					addPin(elNode, elNode.getDisplayName() + i);
 				}
