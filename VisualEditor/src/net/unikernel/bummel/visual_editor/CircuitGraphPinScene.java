@@ -67,9 +67,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 					elNode = new ElementNode(el.getClass().newInstance());
 					CircuitGraphPinScene.this.addNode(elNode)
 						.setPreferredLocation(widget.convertLocalToScene(point));
-				for (String i : el.getPorts())
+				for (String port : el.getPorts())
 				{
-					addPin(elNode, elNode.getDisplayName() + i);
+					addPin(elNode, port);
 				}
 				} catch (InstantiationException ex)
 				{
@@ -85,7 +85,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	@Override
 	protected Widget attachNodeWidget(ElementNode node)
 	{
-		ElementWidget widget = new ElementWidget(this);
+		ElementWidget widget = new ElementWidget(this, node.getLookup().lookup(BasicElement.class));
 		mainLayer.addChild(widget);
 
 		widget.getActions().addAction(createSelectAction());
@@ -105,9 +105,10 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	{
 //		VMDPinWidget widget = new VMDPinWidget(this);
 //		widget.setPinName(pin);
-		ElementPortWidget widget = new ElementPortWidget(this);
+		ElementPortWidget widget = new ElementPortWidget(this, 
+				node.getLookup().lookup(BasicElement.class), pin);
 		widget.setPortName(pin);
-		((ElementWidget) findWidget(node)).attachPortWidget(widget);
+		((ElementWidget) findWidget(node)).attachPortWidget(widget, pin);
 
 //		IconNodeWidget widget = new IconNodeWidget(this);
 //		widget.setLabel ("Pin: " + pin);
