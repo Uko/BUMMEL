@@ -2,6 +2,7 @@ package net.unikernel.bummel.logic_elements.Not;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * <b>Pinout:</b>
@@ -11,6 +12,7 @@ import net.unikernel.bummel.project_model.api.BasicElement;
  * </ol>
  * @author mcangel
  */
+@ServiceProvider(service=BasicElement.class)
 public class Not extends BasicElement
 {
 

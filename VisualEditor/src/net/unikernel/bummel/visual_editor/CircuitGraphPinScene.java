@@ -67,14 +67,11 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 					elNode = new ElementNode(el.getClass().newInstance());
 					CircuitGraphPinScene.this.addNode(elNode)
 						.setPreferredLocation(widget.convertLocalToScene(point));
-				for (String port : el.getPorts())
-				{
-					addPin(elNode, port);
-				}
-				} catch (InstantiationException ex)
-				{
-					Exceptions.printStackTrace(ex);
-				} catch (IllegalAccessException ex)
+					for (String port : el.getPorts())
+					{
+						addPin(elNode, port);
+					}
+				} catch (InstantiationException | IllegalAccessException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}
@@ -85,7 +82,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	@Override
 	protected Widget attachNodeWidget(ElementNode node)
 	{
-		ElementWidget widget = new ElementWidget(this, node.getLookup().lookup(BasicElement.class));
+		ElementWidget widget = new ElementWidget(this, node);
 		mainLayer.addChild(widget);
 
 		widget.getActions().addAction(createSelectAction());
@@ -95,29 +92,22 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	}
 
 	@Override
-	protected Widget attachEdgeWidget(String edge)
-	{
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
 	protected Widget attachPinWidget(ElementNode node, String pin)
 	{
-//		VMDPinWidget widget = new VMDPinWidget(this);
-//		widget.setPinName(pin);
-		ElementPortWidget widget = new ElementPortWidget(this, 
-				node.getLookup().lookup(BasicElement.class), pin);
-		widget.setPortName(pin);
-		((ElementWidget) findWidget(node)).attachPortWidget(widget, pin);
-
-//		IconNodeWidget widget = new IconNodeWidget(this);
-//		widget.setLabel ("Pin: " + pin);
-//		mainLayer.addChild (widget);
+		ElementPortWidget widget = new ElementPortWidget(this, node, pin);
+		widget.setPort(pin);
+		((ElementWidget) findWidget(node)).attachPortWidget(widget);
 
 		widget.getActions().addAction(createObjectHoverAction());
 		widget.getActions().addAction(createSelectAction());
 
 		return widget;
+	}
+	
+	@Override
+	protected Widget attachEdgeWidget(String edge)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
