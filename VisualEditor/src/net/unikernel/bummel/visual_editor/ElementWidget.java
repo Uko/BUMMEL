@@ -50,22 +50,23 @@ public class ElementWidget extends Widget
 	{
 		widget.setCheckClipping(true);
 		addChild(widget);
-		switch(elNode.getPortDirection(widget.getPort()))
+		
+		if(elNode.getPortDirection(widget.getPort()).equals("right"))
 		{
-			default:
-			case "right":
-				widget.setPreferredLocation(new Point(width, 
+			widget.setPreferredLocation(new Point(width, 
 						//offset from the middle, offset in "percents" of the height half
 						(int) (height*0.5*(1+0.5*elNode.getPortOffset(widget.getPort()).doubleValue()))));
-				break;
-			case "left":
-				widget.setPreferredLocation(new Point(0, 
+		} else if (elNode.getPortDirection(widget.getPort()).equals("left"))
+		{
+			widget.setPreferredLocation(new Point(0, 
 						//offset from the middle, offset in "percents" of the height half
 						(int) (height*0.5*(1+0.5*elNode.getPortOffset(widget.getPort()).doubleValue()))));
-				break;
-			case "up":
-			case "down":
-				break;
+		} else if (elNode.getPortDirection(widget.getPort()).equals("up"))
+		{
+			
+		} else if (elNode.getPortDirection(widget.getPort()).equals("down"))
+		{
+			
 		}
 	}
 

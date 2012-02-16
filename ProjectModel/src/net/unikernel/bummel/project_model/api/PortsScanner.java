@@ -54,9 +54,7 @@ public class PortsScanner
 	 */
 	public PortsScanner(BasicElement element) throws IOException, SAXException
 	{
-		//TODO: add *.xml files searching through class annotations.
-		this(XMLUtil.parse(new InputSource(element.getClass()
-				.getResourceAsStream("ports.xml")), true, false, null, null));
+		this(XMLUtil.parse(new InputSource(element.getClass().getResourceAsStream(element.getClass().getAnnotation(PortsData.class)==null?"ports.xml":element.getClass().getAnnotation(PortsData.class).portsFile())), true, false, null, null));
 	}
 	
 	public String getPortDirection(String port)

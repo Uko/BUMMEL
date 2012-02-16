@@ -29,7 +29,11 @@ public class ElementNode extends AbstractNode
 		try
 		{
 			ps = new PortsScanner(this.getLookup().lookup(BasicElement.class));
-		} catch (IOException | SAXException ex)
+		} catch (IOException ex)
+		{
+			Exceptions.printStackTrace(ex);
+		}
+		catch (SAXException ex)
 		{
 			Exceptions.printStackTrace(ex);
 		}

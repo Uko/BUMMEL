@@ -2,6 +2,7 @@ package net.unikernel.bummel.logic_elements.Or;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.PortsData;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -14,6 +15,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author mcangel
  */
 @ServiceProvider(service=BasicElement.class)
+@PortsData(portsFile="ports.xml")
 public class Or extends BasicElement
 {
 

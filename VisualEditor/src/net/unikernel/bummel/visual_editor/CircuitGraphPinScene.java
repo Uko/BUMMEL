@@ -71,7 +71,11 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 					{
 						addPin(elNode, port);
 					}
-				} catch (InstantiationException | IllegalAccessException ex)
+				} catch (InstantiationException ex)
+				{
+					Exceptions.printStackTrace(ex);
+				}
+				catch (IllegalAccessException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}
