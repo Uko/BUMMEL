@@ -46,11 +46,11 @@ public class OrTest
 	public void testProcess000()
 	{
 		System.out.println("or_process000");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -62,11 +62,11 @@ public class OrTest
 	public void testProcess001()
 	{
 		System.out.println("or_process001");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 0.);
@@ -78,11 +78,11 @@ public class OrTest
 	public void testProcess010()
 	{
 		System.out.println("or_process010");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -94,11 +94,11 @@ public class OrTest
 	public void testProcess011()
 	{
 		System.out.println("or_process011");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 0.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -110,11 +110,11 @@ public class OrTest
 	public void testProcess100()
 	{
 		System.out.println("or_process100");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -126,11 +126,11 @@ public class OrTest
 	public void testProcess101()
 	{
 		System.out.println("or_process101");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 0.);
 		valuesOnPorts.put("output", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -142,11 +142,11 @@ public class OrTest
 	public void testProcess110()
 	{
 		System.out.println("or_process110");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);
@@ -158,11 +158,11 @@ public class OrTest
 	public void testProcess111()
 	{
 		System.out.println("or_process111");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input1", 1.);
 		valuesOnPorts.put("input2", 1.);
 		valuesOnPorts.put("output", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input1", 0.);
 		expResult.put("input2", 0.);
 		expResult.put("output", 1.);

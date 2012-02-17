@@ -29,9 +29,9 @@ public class BasicCircuit implements Circuit, Element
 	{
 		label = "";
 		coords = new Point(0, 0);
-		elements = new HashSet<Element>();
-		connections = new HashMap<Connection, Double>();
-		ElementPortConnection = new HashMap<Element, Map<String, Connection>>();
+		elements = new HashSet<>();
+		connections = new HashMap<>();
+		ElementPortConnection = new HashMap<>();
 	}
 	
 	@Override
@@ -90,7 +90,7 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public void step()
 	{
-		Map<Connection,ArrayList<Double>> tempoMap = new HashMap<Connection,ArrayList<Double>>();
+		Map<Connection,ArrayList<Double>> tempoMap = new HashMap<>();
 		for (Connection i : connections.keySet())
 		{
 			tempoMap.put(i, new ArrayList<Double>());
@@ -100,7 +100,7 @@ public class BasicCircuit implements Circuit, Element
 			//check whether element is at least connected to something
 			if(ElementPortConnection.containsKey(i))
 			{
-				Map<String, Double> portsMap = new TreeMap<String, Double>();
+				Map<String, Double> portsMap = new TreeMap<>();
 				//copy values from connections to the current element ports
 				for (Map.Entry<String, Connection> j : ElementPortConnection.get(i).entrySet())
 				{
@@ -183,7 +183,7 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public List<String> getPorts()
 	{
-		return new ArrayList<String>();	//Merry Christmas
+		return new ArrayList<>();	//Merry Christmas
 	}
 	
 	private class Connection

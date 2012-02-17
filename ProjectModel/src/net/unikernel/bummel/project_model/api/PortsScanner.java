@@ -18,8 +18,8 @@ import org.xml.sax.SAXException;
  */
 public class PortsScanner
 {
-	HashMap<String, String> portsDirections = new HashMap<String, String>();
-	HashMap<String, Double> portsOffsets = new HashMap<String, Double>();
+	HashMap<String, String> portsDirections = new HashMap<>();
+	HashMap<String, Double> portsOffsets = new HashMap<>();
 
 	/**
 	 * Create new PortsScanner with org.w3c.dom.Document.

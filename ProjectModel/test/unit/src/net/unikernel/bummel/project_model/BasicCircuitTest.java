@@ -236,7 +236,7 @@ public class BasicCircuitTest
 		public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 		{
 			//evil code to crash scheme ]:P
-			HashMap<String, Double> map = new HashMap<String, Double>();
+			HashMap<String, Double> map = new HashMap<>();
 			map.put("in", 0.);
 			map.put("out", 1.);
 			map.put("this way", 0.);
