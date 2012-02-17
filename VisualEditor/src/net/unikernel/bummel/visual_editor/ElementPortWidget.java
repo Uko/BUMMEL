@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import org.netbeans.api.visual.anchor.Anchor;
+import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.layout.LayoutFactory;
 import org.netbeans.api.visual.model.ObjectState;
 import org.netbeans.api.visual.widget.ImageWidget;
@@ -24,6 +26,7 @@ public class ElementPortWidget extends Widget
 	ImageWidget anchorWidget;
 	LabelWidget nameWidget;
 	List<Image> glyphs;
+	//Anchor anchor;
 	
 	int length = 15;
 
@@ -120,5 +123,19 @@ public class ElementPortWidget extends Widget
 			nameWidget.setOrientation(LabelWidget.Orientation.NORMAL);
 			anchorWidget.setImage(glyphs.get(0));
 		}
-	}	
+	}
+	
+//	public Anchor getAnchor()
+//	{
+//		if(anchor == null)
+//		{
+//			anchor = AnchorFactory.createRectangularAnchor(anchorWidget);
+//		}
+//		return anchor;
+//	}
+//	
+//	public Widget getAnchorWidget()
+//	{
+//		return imageWidget;
+//	}
 }

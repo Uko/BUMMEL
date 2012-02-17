@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.netbeans.api.visual.widget.Scene;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.ActionID;
@@ -74,6 +75,7 @@ public final class EditorTopComponent extends TopComponent
 	private Saver saver = new Saver();
 //	private static Opener opener = new Opener();
 	private ProjectModel project;
+	private CircuitGraphPinScene scene;
 
 	public EditorTopComponent()
 	{
@@ -97,7 +99,8 @@ public final class EditorTopComponent extends TopComponent
 				new AbstractLookup(content)));
 		//associateLookup(new AbstractLookup(content));
 		
-		vlEditorView = new CircuitGraphPinScene().createView();
+		scene = new CircuitGraphPinScene();
+		vlEditorView = scene.createView();
 		jScrollPane1.setViewportView(vlEditorView);
 
 		enableSaveAction(true);
