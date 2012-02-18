@@ -50,7 +50,7 @@ public final class EditorTopComponent extends TopComponent
 	 */
 	private static int counter = 0;
 	private static Map<File, EditorTopComponent> tcByFile =
-			new HashMap<File, EditorTopComponent>();
+			new HashMap<>();
 
 	public static EditorTopComponent findInstance(File f)
 	{
@@ -261,11 +261,12 @@ public final class EditorTopComponent extends TopComponent
 
 		private void save(File f) throws IOException
 		{
-			FileOutputStream fos = new FileOutputStream(f);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(project);
-			out.close();
-			fos.close();
+			try (FileOutputStream fos = new FileOutputStream(f))
+			{
+				ObjectOutputStream out = new ObjectOutputStream(fos);
+				out.writeObject(project);
+				out.close();
+			}
 			String savedMessage = NbBundle.getMessage(Saver.class, "MSG_Saved", f.getName());
 			StatusDisplayer.getDefault().setStatusText(savedMessage);
 			FileObject fob = FileUtil.toFileObject(FileUtil.normalizeFile(f));
@@ -311,10 +312,7 @@ public final class EditorTopComponent extends TopComponent
 //					{
 //						System.out.println("Serialization succeded.");
 //					}
-				} catch (IOException ex)
-				{
-					Exceptions.printStackTrace(ex);
-				} catch (ClassNotFoundException ex)
+				} catch (		IOException | ClassNotFoundException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}

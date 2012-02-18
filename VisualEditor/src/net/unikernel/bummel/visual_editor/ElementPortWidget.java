@@ -47,14 +47,12 @@ public class ElementPortWidget extends Widget
 		addChild(anchorWidget);
 		switch (node.getPortDirection(port))
 		{
-			default:
 			case "right":
 				imageWidget = new ImageWidget(scene,
 						new BufferedImage(length, 1, BufferedImage.TYPE_INT_ARGB));
 				g2d = ((Graphics2D) imageWidget.getImage().getGraphics());
 				g2d.setPaint(Color.BLACK);
 				g2d.drawLine(0, 0, length - 1, 0);
-
 				g2d = ((Graphics2D) glyphs.get(1).getGraphics());
 				g2d.setPaint(Color.WHITE);
 				g2d.drawLine(1, 1, 2, 1);
@@ -71,7 +69,6 @@ public class ElementPortWidget extends Widget
 				g2d.setPaint(Color.BLACK);
 				g2d.drawLine(0, 0, length - 1, 0);
 				imageWidget.setPreferredLocation(new Point(-length, 0));
-
 				g2d = ((Graphics2D) glyphs.get(1).getGraphics());
 				g2d.setPaint(Color.WHITE);
 				g2d.drawLine(0, 1, 1, 1);
@@ -82,6 +79,12 @@ public class ElementPortWidget extends Widget
 				anchorWidget.setPreferredLocation(new Point(-length - 3, -1));
 				break;
 			case "up":
+				imageWidget = new ImageWidget(scene,
+						new BufferedImage(1, length, BufferedImage.TYPE_INT_ARGB));
+				g2d = ((Graphics2D) imageWidget.getImage().getGraphics());
+				g2d.setPaint(Color.BLACK);
+				g2d.drawLine(0, 0, 0, length - 1);
+				break;
 			case "down":
 				imageWidget = new ImageWidget(scene,
 						new BufferedImage(1, length, BufferedImage.TYPE_INT_ARGB));

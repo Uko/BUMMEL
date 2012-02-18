@@ -45,11 +45,11 @@ public class SplitTest
 	public void testProcess000()
 	{
 		System.out.println("split_process000");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -61,11 +61,11 @@ public class SplitTest
 	public void testProcess001()
 	{
 		System.out.println("split_process001");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -77,11 +77,11 @@ public class SplitTest
 	public void testProcess010()
 	{
 		System.out.println("split_process010");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -93,11 +93,11 @@ public class SplitTest
 	public void testProcess011()
 	{
 		System.out.println("split_process011");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 0.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 0.);
 		expResult.put("output2", 0.);
@@ -109,11 +109,11 @@ public class SplitTest
 	public void testProcess100()
 	{
 		System.out.println("split_process100");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -125,11 +125,11 @@ public class SplitTest
 	public void testProcess101()
 	{
 		System.out.println("split_process101");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 0.);
 		valuesOnPorts.put("output2", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -141,11 +141,11 @@ public class SplitTest
 	public void testProcess110()
 	{
 		System.out.println("split_process110");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 0.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);
@@ -157,11 +157,11 @@ public class SplitTest
 	public void testProcess111()
 	{
 		System.out.println("split_process111");
-		Map<String, Double> valuesOnPorts = new TreeMap<String, Double>();
+		Map<String, Double> valuesOnPorts = new TreeMap<>();
 		valuesOnPorts.put("input", 1.);
 		valuesOnPorts.put("output1", 1.);
 		valuesOnPorts.put("output2", 1.);
-		Map<String, Double> expResult= new TreeMap<String, Double>();
+		Map<String, Double> expResult= new TreeMap<>();
 		expResult.put("input", 0.);
 		expResult.put("output1", 1.);
 		expResult.put("output2", 1.);

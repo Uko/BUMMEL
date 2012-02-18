@@ -19,7 +19,7 @@ public abstract class BasicElement implements Element
 
 	public BasicElement(String[] availablePorts)
 	{
-		this.availablePorts = new ArrayList<String>(Arrays.asList(availablePorts));
+		this.availablePorts = new ArrayList<>(Arrays.asList(availablePorts));
 	}
 	
 	@Override
