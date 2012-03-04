@@ -99,7 +99,7 @@ public final class EditorTopComponent extends TopComponent
 				new AbstractLookup(content)));
 		//associateLookup(new AbstractLookup(content));
 		
-		scene = new CircuitGraphPinScene();
+		scene = new CircuitGraphPinScene(project.getModel());
 		vlEditorView = scene.createView();
 		jScrollPane1.setViewportView(vlEditorView);
 
@@ -158,6 +158,11 @@ public final class EditorTopComponent extends TopComponent
 	{
 		String version = p.getProperty("version");
 		// TODO read your settings according to their version
+	}
+	
+	ProjectModel getProject()
+	{
+		return project;
 	}
 
 	private void enableSaveAction(boolean canSave)

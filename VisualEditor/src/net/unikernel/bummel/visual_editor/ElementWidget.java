@@ -2,6 +2,9 @@ package net.unikernel.bummel.visual_editor;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import net.unikernel.bummel.project_model.api.BasicElement;
 import org.netbeans.api.visual.layout.LayoutFactory;
 import org.netbeans.api.visual.widget.ImageWidget;
 import org.netbeans.api.visual.widget.LabelWidget;
@@ -12,11 +15,12 @@ import org.netbeans.api.visual.widget.Widget;
  *
  * @author mcangel
  */
-public class ElementWidget extends Widget
+public class ElementWidget extends Widget implements PropertyChangeListener
 {
 	private Widget body;
 	private ImageWidget imageWidget;
 	private LabelWidget labelWidget;
+	private LabelWidget stateWidget;
 	private ElementNode elNode;
 	
 	int width = 20;
@@ -26,6 +30,8 @@ public class ElementWidget extends Widget
 	{
 		super(scene);
 		this.elNode = element;
+		this.elNode.getLookup().lookup(BasicElement.class)
+				.addPropertyChangeListener(this);
 		
 		body = new Widget(scene);
 		body.setLayout(LayoutFactory.createVerticalFlowLayout());
@@ -36,8 +42,11 @@ public class ElementWidget extends Widget
 		imageWidget.getImage().getGraphics().drawRect(width/4, height/4, width/2, height/2);
 		body.addChild(imageWidget);
 		
-		labelWidget = new LabelWidget(scene, "Label:"+element.getDisplayName());
+		labelWidget = new LabelWidget(scene, "Label:"+elNode.getDisplayName());
 		body.addChild(labelWidget);
+		stateWidget = new LabelWidget(scene, "State:"+elNode.getLookup()
+				.lookup(BasicElement.class).getState());
+		body.addChild(stateWidget);
 	}
 	
 	/**
@@ -66,6 +75,15 @@ public class ElementWidget extends Widget
 				break;
 			case "down":
 				break;
+		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt)
+	{
+		if(BasicElement.PROP_STATE.equals(evt.getPropertyName()))
+		{
+			stateWidget.setLabel("State:"+evt.getNewValue());
 		}
 	}
 

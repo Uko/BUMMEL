@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Circuit;
 import org.netbeans.api.visual.action.*;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
@@ -33,9 +34,11 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	private long edgeCounter = 0;
 	private WidgetAction connectAction = ActionFactory.createConnectAction(interractionLayer, new SceneConnectProvider());
 	private WidgetAction reconnetAction = ActionFactory.createReconnectAction(new SceneReconnectProvider());
+	private Circuit circuit;
 
-	public CircuitGraphPinScene()
+	public CircuitGraphPinScene(final Circuit circuit)
 	{
+		this.circuit = circuit;
 		this.addChild(mainLayer);
 		this.addChild(connectionLayer);
 		this.addChild(interractionLayer);
@@ -82,7 +85,11 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 					{
 						addPin(elNode, port);
 					}
-				} catch (		InstantiationException | IllegalAccessException ex)
+					
+					//add element to the model
+					circuit.addElement(elNode.getLookup().lookup(BasicElement.class));
+					
+				} catch (InstantiationException | IllegalAccessException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}
@@ -168,6 +175,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		@Override
 		public ConnectorState isTargetWidget(Widget sourceWidget, Widget targetWidget)
 		{
+			//TODO: add single connection check
 			Object object = findObject(targetWidget);
 			target = isPin(object) ? (String) object : null;
 			if (target != null)
@@ -196,6 +204,19 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 			addEdge(edge);
 			setEdgeSource(edge, source);
 			setEdgeTarget(edge, target);
+			
+			//connect elements in the model
+			BasicElement srcElem = (getPinNode((String)findObject(sourceWidget)))
+					.getLookup().lookup(BasicElement.class);
+			BasicElement tgtElem = (getPinNode((String)findObject(targetWidget)))
+					.getLookup().lookup(BasicElement.class);
+			circuit.connectElements(srcElem, (String)findObject(sourceWidget), 
+					tgtElem, (String)findObject(targetWidget));
+			circuit.step();
+			circuit.step();
+			circuit.step();
+			circuit.step();
+			circuit.step();
 		}
 	}
 

@@ -1,6 +1,7 @@
 package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -184,6 +185,18 @@ public class BasicCircuit implements Circuit, Element
 	public List<String> getPorts()
 	{
 		return new ArrayList<>();	//Merry Christmas
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 	private class Connection
