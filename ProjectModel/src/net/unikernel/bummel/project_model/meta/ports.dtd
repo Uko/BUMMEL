@@ -6,11 +6,9 @@
     SYSTEM ID  : http://cloud.github.com/downloads/Uko/BUMMEL/element-ports10.dtd
 -->
 
-<!DOCTYPE ports [
 <!ELEMENT ports (port+)>
 <!ELEMENT port EMPTY>
 
 <!ATTLIST port name ID #REQUIRED>
 <!ATTLIST port direction (right|left|up|down) #REQUIRED>
 <!ATTLIST port offset CDATA #REQUIRED>
-]>

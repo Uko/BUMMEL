@@ -4,10 +4,9 @@
 	<folder name="xml">
 		<folder name="entities">
 			<folder name="Unikernel">
-				<file name="DTD_BUMMEL_Element_Ports_1_0"
-			   url="net/unikernel/bummel/project_model/meta/ports.dtd">
+				<file name="DTD_BUMMEL_Element_Ports_1_0" url="meta/ports.dtd">
 					<attr name="hint.originalPublicID"
-				 stringvalue="-//Unikernel//DTD BUMMEL Element Ports 1.0//EN"/>
+						stringvalue="-//Unikernel//DTD BUMMEL Element Ports 1.0//EN"/>
 				</file>
 			</folder>
 		</folder>

@@ -7,8 +7,10 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
 import org.openide.util.Exceptions;
+import org.openide.xml.EntityCatalog;
 import org.openide.xml.XMLUtil;
 import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -54,7 +56,14 @@ public class PortsScanner
 	 */
 	public PortsScanner(BasicElement element) throws IOException, SAXException
 	{
-		this(XMLUtil.parse(new InputSource(element.getClass().getResourceAsStream(element.getClass().getAnnotation(PortsData.class)==null?"ports.xml":element.getClass().getAnnotation(PortsData.class).portsFile())), true, false, null, null));
+		this(XMLUtil.parse(new InputSource(element.getClass().getResourceAsStream(
+				//check if path to the xml file with data is annotated
+				element.getClass().getAnnotation(PortsData.class)==null?
+				//if not - default
+				"ports.xml":
+				//if annotated - get it
+				element.getClass().getAnnotation(PortsData.class).portsFile())),
+				true, false, null, EntityCatalog.getDefault()));
 	}
 	
 	public String getPortDirection(String port)
