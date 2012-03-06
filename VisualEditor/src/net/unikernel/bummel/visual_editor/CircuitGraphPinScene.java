@@ -18,15 +18,19 @@ import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
+import org.openide.nodes.AbstractNode;
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.nodes.NodeTransfer;
 import org.openide.util.Exceptions;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.Lookups;
 
 /**
  *
  * @author mcangel
  */
-public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, String>
+public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, ElementPortNode>
 {
 	private LayerWidget mainLayer = new LayerWidget(this);
 	private LayerWidget connectionLayer = new LayerWidget(this);
@@ -83,7 +87,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 						.setPreferredLocation(widget.convertLocalToScene(point));
 					for (String port : el.getPorts())
 					{
-						addPin(elNode, port);
+						addPin(elNode, new ElementPortNode(port));
 					}
 					
 					//add element to the model
@@ -111,10 +115,10 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	}
 
 	@Override
-	protected Widget attachPinWidget(ElementNode node, String pin)
+	protected Widget attachPinWidget(ElementNode node, ElementPortNode pin)
 	{
-		ElementPortWidget widget = new ElementPortWidget(this, node, pin);
-		widget.setPort(pin);
+		ElementPortWidget widget = new ElementPortWidget(this, node, pin.getPort());
+		widget.setPort(pin.getPort());
 		((ElementWidget) findWidget(node)).attachPortWidget(widget);
 
 		widget.getActions().addAction(createObjectHoverAction());
@@ -142,7 +146,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	}
 
 	@Override
-	protected void attachEdgeSourceAnchor(String edge, String oldSourcePin, String sourcePin)
+	protected void attachEdgeSourceAnchor(String edge, ElementPortNode oldSourcePin, ElementPortNode sourcePin)
 	{
 		Widget w = sourcePin != null ? findWidget(sourcePin) : null;
 		((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
@@ -151,7 +155,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	}
 
 	@Override
-	protected void attachEdgeTargetAnchor(String edge, String oldTargetPin, String targetPin)
+	protected void attachEdgeTargetAnchor(String edge, ElementPortNode oldTargetPin, ElementPortNode targetPin)
 	{
 		Widget w = targetPin != null ? findWidget(targetPin) : null;
 		((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
@@ -161,14 +165,14 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 
 	private class SceneConnectProvider implements ConnectProvider
 	{
-		private String source = null;
-		private String target = null;
+		private ElementPortNode source = null;
+		private ElementPortNode target = null;
 
 		@Override
 		public boolean isSourceWidget(Widget sourceWidget)
 		{
 			Object object = findObject(sourceWidget);
-			source = isPin(object) ? (String) object : null;
+			source = isPin(object) ? (ElementPortNode) object : null;
 			return source != null;
 		}
 
@@ -177,7 +181,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		{
 			//TODO: add single connection check
 			Object object = findObject(targetWidget);
-			target = isPin(object) ? (String) object : null;
+			target = isPin(object) ? (ElementPortNode) object : null;
 			if (target != null)
 			{
 				return !source.equals(target) ? ConnectorState.ACCEPT : ConnectorState.REJECT_AND_STOP;
@@ -201,12 +205,12 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		public void createConnection(Widget sourceWidget, Widget targetWidget)
 		{
 			//connect elements in the model
-			BasicElement srcElem = (getPinNode(source))
+			BasicElement srcElem = getPinNode(source)
 					.getLookup().lookup(BasicElement.class);
-			BasicElement tgtElem = (getPinNode(target))
+			BasicElement tgtElem = getPinNode(target)
 					.getLookup().lookup(BasicElement.class);
-			circuit.connectElements(srcElem, source, 
-					tgtElem, target);
+			circuit.connectElements(srcElem, source.getPort(), 
+					tgtElem, target.getPort());
 			//run circuit to see result
 			for(int i = 0; i < 5; i++, circuit.step()){}
 			
@@ -220,8 +224,8 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 	private class SceneReconnectProvider implements ReconnectProvider
 	{
 		String edge;
-		String originalNode;
-		String replacementNode;
+		ElementPortNode originalNode;
+		ElementPortNode replacementNode;
 
 		@Override
 		public void reconnectingStarted(ConnectionWidget connectionWidget, boolean reconnectingSource)
@@ -255,7 +259,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		public ConnectorState isReplacementWidget(ConnectionWidget connectionWidget, Widget replacementWidget, boolean reconnectingSource)
 		{
 			Object object = findObject(replacementWidget);
-			replacementNode = isPin(object) ? (String) object : null;
+			replacementNode = isPin(object) ? (ElementPortNode) object : null;
 			if (replacementNode != null)
 			{
 				return ConnectorState.ACCEPT;
@@ -278,26 +282,39 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		@Override
 		public void reconnect(ConnectionWidget connectionWidget, Widget replacementWidget, boolean reconnectingSource)
 		{
+			//remove old connection from the model
+			BasicElement srcElem = getPinNode(getEdgeSource(edge))
+					.getLookup().lookup(BasicElement.class);
+			BasicElement tgtElem = getPinNode(getEdgeTarget(edge))
+					.getLookup().lookup(BasicElement.class);
+			circuit.disconnectElements(srcElem, getEdgeSource(edge).getPort(),
+					tgtElem, getEdgeTarget(edge).getPort());
 			if (replacementWidget == null)
 			{
-				//connect elements in the model
-				BasicElement srcElem = getPinNode(getEdgeSource(edge))
-						.getLookup().lookup(BasicElement.class);
-				BasicElement tgtElem = (getPinNode(getEdgeTarget(edge)))
-						.getLookup().lookup(BasicElement.class);
-				circuit.disconnectElements(srcElem, getEdgeSource(edge),
-						tgtElem, getEdgeTarget(edge));
-				//run circuit to see result
-				for (int i = 0; i < 5; i++, circuit.step()){}
-
+				//disconnection already done
 				removeEdge(edge);
 			} else if (reconnectingSource)
 			{
+				//create new connection in the model
+				srcElem = getPinNode(replacementNode)
+						.getLookup().lookup(BasicElement.class);
+				circuit.connectElements(srcElem, replacementNode.getPort(),
+						tgtElem, getEdgeTarget(edge).getPort());
+				
 				setEdgeSource(edge, replacementNode);
 			} else
 			{
+				//create new connection in the model
+				tgtElem = getPinNode(replacementNode)
+						.getLookup().lookup(BasicElement.class);
+				circuit.connectElements(srcElem, getEdgeSource(edge).getPort(),
+						tgtElem, replacementNode.getPort());
+				
 				setEdgeTarget(edge, replacementNode);
 			}
+			
+			//run circuit to see result
+			for (int i = 0; i < 5; i++, circuit.step()){}
 		}
 	}
 }
