@@ -3,6 +3,7 @@ package net.unikernel.bummel.project_model;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import java.util.ArrayList;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Circuit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -106,8 +107,8 @@ public class ProjectModelTest
 	{
 		System.out.println("getModel");
 		ProjectModel instance = new ProjectModel();
-		ArrayList expResult = null;
-		ArrayList result = instance.getModel();
+		Circuit expResult = null;
+		Circuit result = instance.getModel();
 		assertEquals(expResult, result);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
@@ -120,7 +121,7 @@ public class ProjectModelTest
 	public void testSetModel()
 	{
 		System.out.println("setModel");
-		ArrayList<BasicElement> model = null;
+		BasicCircuit model = null;
 		ProjectModel instance = new ProjectModel();
 		instance.setModel(model);
 		// TODO review the generated test code and remove the default call to fail.

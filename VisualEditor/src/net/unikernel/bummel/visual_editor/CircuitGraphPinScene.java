@@ -200,23 +200,20 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		@Override
 		public void createConnection(Widget sourceWidget, Widget targetWidget)
 		{
+			//connect elements in the model
+			BasicElement srcElem = (getPinNode(source))
+					.getLookup().lookup(BasicElement.class);
+			BasicElement tgtElem = (getPinNode(target))
+					.getLookup().lookup(BasicElement.class);
+			circuit.connectElements(srcElem, source, 
+					tgtElem, target);
+			//run circuit to see result
+			for(int i = 0; i < 5; i++, circuit.step()){}
+			
 			String edge = "edge" + edgeCounter++;
 			addEdge(edge);
 			setEdgeSource(edge, source);
 			setEdgeTarget(edge, target);
-			
-			//connect elements in the model
-			BasicElement srcElem = (getPinNode((String)findObject(sourceWidget)))
-					.getLookup().lookup(BasicElement.class);
-			BasicElement tgtElem = (getPinNode((String)findObject(targetWidget)))
-					.getLookup().lookup(BasicElement.class);
-			circuit.connectElements(srcElem, (String)findObject(sourceWidget), 
-					tgtElem, (String)findObject(targetWidget));
-			circuit.step();
-			circuit.step();
-			circuit.step();
-			circuit.step();
-			circuit.step();
 		}
 	}
 
@@ -283,6 +280,16 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Str
 		{
 			if (replacementWidget == null)
 			{
+				//connect elements in the model
+				BasicElement srcElem = getPinNode(getEdgeSource(edge))
+						.getLookup().lookup(BasicElement.class);
+				BasicElement tgtElem = (getPinNode(getEdgeTarget(edge)))
+						.getLookup().lookup(BasicElement.class);
+				circuit.disconnectElements(srcElem, getEdgeSource(edge),
+						tgtElem, getEdgeTarget(edge));
+				//run circuit to see result
+				for (int i = 0; i < 5; i++, circuit.step()){}
+
 				removeEdge(edge);
 			} else if (reconnectingSource)
 			{

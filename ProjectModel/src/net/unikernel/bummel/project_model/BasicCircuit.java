@@ -72,17 +72,18 @@ public class BasicCircuit implements Circuit, Element
 	}
 	
 	@Override
-	public void disconectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+	public void disconnectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
-		if (connections.remove(new Connection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
+		if (connections.remove(new Connection(firstElement, firstElementPort, 
+				secondElement, secondElementPort))!=null)
 		{
 			ElementPortConnection.get(firstElement).remove(firstElementPort);
 			ElementPortConnection.get(secondElement).remove(secondElementPort);
-			if(ElementPortConnection.get(secondElement).isEmpty())
+			if(ElementPortConnection.get(firstElement).isEmpty())
 			{
 				ElementPortConnection.remove(firstElement);
 			}
-			if(ElementPortConnection.get(firstElement).isEmpty())
+			if(ElementPortConnection.get(secondElement).isEmpty())
 			{
 				ElementPortConnection.remove(secondElement);
 			}

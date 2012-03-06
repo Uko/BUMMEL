@@ -84,7 +84,7 @@ public class BasicCircuitTest
 	}
 	
 	/**
-	 * Test of disconectElements method, of class BasicCircuit.
+	 * Test of disconnectElements method, of class BasicCircuit.
 	 */
 	@Test
 	public void testDisconectElements()
@@ -97,7 +97,7 @@ public class BasicCircuitTest
 		instance.addElement(firstElement);
 		instance.addElement(secondElement);
 		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
-		instance.disconectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		instance.disconnectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 	}
 	
 	/**
@@ -137,6 +137,19 @@ public class BasicCircuitTest
 		instance.addElement(elem2);
 		instance.addElement(elem3);
 		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.step();
+	}
+	
+	@Test
+	public void testStepWithDisconnection()
+	{
+		System.out.println("stepWithDisconnection");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.disconnectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
 		instance.step();
 	}
 	

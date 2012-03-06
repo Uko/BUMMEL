@@ -17,7 +17,7 @@ public interface Circuit
 	 * @return set of elements
 	 */
 	public Set<Element> getElements();
-	public void disconectElements (Element firstElement, String firstElementPort, Element secondElement, String secondElementPort);
+	public void disconnectElements (Element firstElement, String firstElementPort, Element secondElement, String secondElementPort);
 	//public void removeConnection (int connectionId);
 	public void step();
 }
