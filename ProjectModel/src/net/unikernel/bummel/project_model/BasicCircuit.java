@@ -43,6 +43,10 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public boolean removeElement(Element element)
 	{
+                for(Connection i: ElementPortConnection.get(element).values()) 
+                {
+                    disconectElements(i.getFirstElement(), i.getFirstElementPort(),i.getSecondElement(), i.getSecondElementPort());
+                }
 		return this.elements.remove(element);
 	}
 	@Override
@@ -228,7 +232,7 @@ public class BasicCircuit implements Circuit, Element
 			}
 			return false;
 		}
-		
+
 		@Override
 		public int hashCode()
 		{
