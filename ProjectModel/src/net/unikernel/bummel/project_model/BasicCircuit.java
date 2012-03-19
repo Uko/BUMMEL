@@ -45,7 +45,7 @@ public class BasicCircuit implements Circuit, Element
 	{
                 for(Connection i: ElementPortConnection.get(element).values()) 
                 {
-                    disconectElements(i.getFirstElement(), i.getFirstElementPort(),i.getSecondElement(), i.getSecondElementPort());
+                    this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),i.getSecondElement(), i.getSecondElementPort());
                 }
 		return this.elements.remove(element);
 	}
