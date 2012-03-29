@@ -1,8 +1,6 @@
 package net.unikernel.bummel.project_model.api;
 
-import net.unikernel.bummel.project_model.api.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import net.unikernel.bummel.project_model.BasicCircuit;
 
 /**

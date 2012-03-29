@@ -2,8 +2,8 @@ package net.unikernel.bummel.visual_editor;
 
 import java.io.IOException;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.BasicElementInfo;
 import net.unikernel.bummel.project_model.api.Element;
-import net.unikernel.bummel.project_model.api.PortsScanner;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.util.Exceptions;
@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
  */
 public class ElementNode extends AbstractNode
 {
-	PortsScanner ps;
+	BasicElementInfo ps;
 	
 	public ElementNode(Element element)
 	{
@@ -28,14 +28,14 @@ public class ElementNode extends AbstractNode
 	{
 		try
 		{
-			ps = new PortsScanner(this.getLookup().lookup(BasicElement.class));
+			ps = new BasicElementInfo(this.getLookup().lookup(BasicElement.class));
 		} catch (IOException | SAXException ex)
 		{
 			Exceptions.printStackTrace(ex);
 		}
 	}
 	
-	//TODO: find out if there is a possibility to realize below methods through BeanInfo (from PortsScanner)
+	//TODO: find out if there is a possibility to realize below methods through BeanInfo (from BasicElementInfo)
 	
 	public String getPortDirection(String port)
 	{
