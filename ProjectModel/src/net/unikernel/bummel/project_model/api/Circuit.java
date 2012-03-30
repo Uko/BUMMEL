@@ -10,7 +10,7 @@ public interface Circuit
 {
 	public void addElement (Element element);
 	public boolean removeElement (Element element);
-	public void connectElements (Element firstElement, String firstElementPort, Element secondElement, String secondElementPort);
+	public boolean connectElements (Element firstElement, String firstElementPort, Element secondElement, String secondElementPort);
 	
 	/**
 	 * Gives away all the elements of the circuit

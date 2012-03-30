@@ -48,13 +48,20 @@ public class BasicCircuit implements Circuit, Element
 		return this.elements.remove(element);
 	}
 	@Override
-	public void connectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+	public boolean connectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
 		//if the specified elements are in the circuit
 		if(elements.contains(firstElement) && elements.contains(secondElement))
 		{
 			//make a connection
 			Connection conn = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
+			
+			//check if none of elements ports are already used
+			if(ElementPortConnection.containsKey(firstElement) && ElementPortConnection.get(firstElement).containsKey(firstElementPort)
+					|| ElementPortConnection.containsKey(secondElement) && ElementPortConnection.get(firstElement).containsKey(secondElementPort))
+			{//if some of them is - cancel current connection
+				return false;
+			}
 
 			//put it in the connections
 			connections.put(conn, 0.);
@@ -70,7 +77,9 @@ public class BasicCircuit implements Circuit, Element
 			}
 			ElementPortConnection.get(firstElement).put(firstElementPort, conn);
 			ElementPortConnection.get(secondElement).put(secondElementPort, conn);
+			return true;
 		}
+		return false;
 	}
 	
 	@Override

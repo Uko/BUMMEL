@@ -61,7 +61,7 @@ public class BasicCircuitTest
 		System.out.println("removeElement");
 		Element element = new BasicElementImpl();
 		instance.addElement(element);
-		instance.removeElement(element);
+		assertTrue(instance.removeElement(element));
 		assertFalse(instance.getElements().contains(element));
 	}
 	@Test
@@ -72,8 +72,8 @@ public class BasicCircuitTest
 		Element elem2 = new BasicElementImpl();
 		instance.addElement(elem1);
 		instance.addElement(elem2);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
-		instance.removeElement(elem1);
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
+		assertTrue(instance.removeElement(elem1));
 		assertFalse(instance.getElements().contains(elem1));
 	}
 	@Test
@@ -86,9 +86,9 @@ public class BasicCircuitTest
 		instance.addElement(elem1);
 		instance.addElement(elem2);
 		instance.addElement(elem3);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
-		instance.connectElements(elem2, elem2.getPorts().get(0), elem3, elem3.getPorts().get(1));
-		instance.removeElement(elem2);
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
+		assertTrue(instance.connectElements(elem2, elem2.getPorts().get(1), elem3, elem3.getPorts().get(0)));
+		assertTrue(instance.removeElement(elem2));
 		assertFalse(instance.getElements().contains(elem2));
 	}
 	@Test
@@ -109,8 +109,8 @@ public class BasicCircuitTest
 		Element elem2 = new BasicElementImpl();
 		instance.addElement(elem1);
 		instance.addElement(elem2);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
-		instance.removeElement(elem1);
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
+		assertTrue(instance.removeElement(elem1));
 		assertFalse(instance.getElements().contains(elem1));
 		for(int i = 0; i++ < 5; instance.step());
 	}
@@ -124,9 +124,9 @@ public class BasicCircuitTest
 		instance.addElement(elem1);
 		instance.addElement(elem2);
 		instance.addElement(elem3);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
-		instance.connectElements(elem2, elem2.getPorts().get(1), elem3, elem3.getPorts().get(0));
-		instance.removeElement(elem2);
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
+		assertTrue(instance.connectElements(elem2, elem2.getPorts().get(1), elem3, elem3.getPorts().get(0)));
+		assertTrue(instance.removeElement(elem2));
 		assertFalse(instance.getElements().contains(elem2));
 		for(int i = 0; i++ < 5; instance.step());
 	}
@@ -134,16 +134,36 @@ public class BasicCircuitTest
 	 * Test of connectElements method, of class BasicCircuit.
 	 */
 	@Test
-	public void testConnectElements()
+	public void testConnectElements1()
 	{
-		System.out.println("connectElements");
+		System.out.println("connectElements1");
 		Element firstElement = new BasicElementImpl();
-		String firstElementPort = "in";
 		Element secondElement = new BasicElementImpl();
-		String secondElementPort = "out";
-		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		instance.addElement(firstElement);
+		instance.addElement(secondElement);
+		assertTrue(instance.connectElements(firstElement, firstElement.getPorts().get(0), secondElement, secondElement.getPorts().get(1)));
 	}
-	
+	@Test
+	public void testConnectElements2()
+	{
+		System.out.println("connectElements2");
+		Element firstElement = new BasicElementImpl();
+		Element secondElement = new BasicElementImpl();
+		assertFalse(instance.connectElements(firstElement, firstElement.getPorts().get(0), secondElement, secondElement.getPorts().get(1)));
+	}
+	@Test
+	public void testConnectElements3()
+	{
+		System.out.println("connectElements3");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		Element elem3 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.addElement(elem3);
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
+		assertFalse(instance.connectElements(elem2, elem2.getPorts().get(0), elem3, elem3.getPorts().get(0)));
+	}
 	/**
 	 * Test of disconnectElements method, of class BasicCircuit.
 	 */
@@ -157,7 +177,7 @@ public class BasicCircuitTest
 		String secondElementPort = "out";
 		instance.addElement(firstElement);
 		instance.addElement(secondElement);
-		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		assertTrue(instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort));
 		instance.disconnectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 	}
 	
@@ -174,7 +194,7 @@ public class BasicCircuitTest
 		String secondElementPort = "out";
 		instance.addElement(firstElement);
 		instance.addElement(secondElement);
-		instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort);
+		assertTrue(instance.connectElements(firstElement, firstElementPort, secondElement, secondElementPort));
 		instance.step();
 	}
 	
@@ -197,7 +217,7 @@ public class BasicCircuitTest
 		instance.addElement(elem1);
 		instance.addElement(elem2);
 		instance.addElement(elem3);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
 		instance.step();
 	}
 	
@@ -209,7 +229,7 @@ public class BasicCircuitTest
 		Element elem2 = new BasicElementImpl();
 		instance.addElement(elem1);
 		instance.addElement(elem2);
-		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		assertTrue(instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0)));
 		instance.disconnectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
 		instance.step();
 	}
