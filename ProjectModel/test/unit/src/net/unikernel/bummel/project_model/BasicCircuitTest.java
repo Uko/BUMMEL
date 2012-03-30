@@ -1,16 +1,12 @@
 package net.unikernel.bummel.project_model;
 
-import org.junit.After;
-import org.junit.Before;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Element;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.*;
 
 /**
  *
@@ -68,7 +64,72 @@ public class BasicCircuitTest
 		instance.removeElement(element);
 		assertFalse(instance.getElements().contains(element));
 	}
-	
+	@Test
+	public void testRemoveElement2()
+	{
+		System.out.println("removeElement2");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.removeElement(elem1);
+		assertFalse(instance.getElements().contains(elem1));
+	}
+	@Test
+	public void testRemoveElement3()
+	{
+		System.out.println("removeElement3");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		Element elem3 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.addElement(elem3);
+		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.connectElements(elem2, elem2.getPorts().get(0), elem3, elem3.getPorts().get(1));
+		instance.removeElement(elem2);
+		assertFalse(instance.getElements().contains(elem2));
+	}
+	@Test
+	public void testRemoveRunElement()
+	{
+		System.out.println("removeRunElement");
+		Element element = new BasicElementImpl();
+		instance.addElement(element);
+		instance.removeElement(element);
+		assertFalse(instance.getElements().contains(element));
+		for(int i = 0; i++ < 5; instance.step());
+	}
+	@Test
+	public void testRemoveRunElement2()
+	{
+		System.out.println("removeRunElement2");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.removeElement(elem1);
+		assertFalse(instance.getElements().contains(elem1));
+		for(int i = 0; i++ < 5; instance.step());
+	}
+	@Test
+	public void testRemoveRunElement3()
+	{
+		System.out.println("removeRunElement3");
+		Element elem1 = new BasicElementImpl();
+		Element elem2 = new BasicElementImpl();
+		Element elem3 = new BasicElementImpl();
+		instance.addElement(elem1);
+		instance.addElement(elem2);
+		instance.addElement(elem3);
+		instance.connectElements(elem1, elem1.getPorts().get(1), elem2, elem2.getPorts().get(0));
+		instance.connectElements(elem2, elem2.getPorts().get(1), elem3, elem3.getPorts().get(0));
+		instance.removeElement(elem2);
+		assertFalse(instance.getElements().contains(elem2));
+		for(int i = 0; i++ < 5; instance.step());
+	}
 	/**
 	 * Test of connectElements method, of class BasicCircuit.
 	 */
@@ -258,5 +319,4 @@ public class BasicCircuitTest
 			return map;
 		}
 	}
-	
 }

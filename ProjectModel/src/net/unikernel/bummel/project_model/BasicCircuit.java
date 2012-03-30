@@ -2,14 +2,7 @@ package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
 import org.openide.util.lookup.ServiceProvider;
@@ -43,10 +36,15 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public boolean removeElement(Element element)
 	{
-                for(Connection i: ElementPortConnection.get(element).values()) 
-                {
-                    this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),i.getSecondElement(), i.getSecondElementPort());
-                }
+		if(ElementPortConnection.containsKey(element))
+		{
+			for(Object con : ElementPortConnection.get(element).values().toArray())
+			{
+				Connection i = (Connection)con;
+				this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),
+						i.getSecondElement(), i.getSecondElementPort());
+			}
+		}
 		return this.elements.remove(element);
 	}
 	@Override
@@ -138,6 +136,7 @@ public class BasicCircuit implements Circuit, Element
 				}
 			}
 		}
+		//sets values on the connections as a middle of the edges values
 		for (Map.Entry<Connection,ArrayList<Double>> i : tempoMap.entrySet())
 		{
 			connections.put(i.getKey(), (i.getValue().get(0) +i.getValue().get(1))/2);
