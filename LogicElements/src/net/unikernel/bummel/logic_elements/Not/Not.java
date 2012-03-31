@@ -2,7 +2,7 @@ package net.unikernel.bummel.logic_elements.Not;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
-import net.unikernel.bummel.project_model.api.PortsData;
+import net.unikernel.bummel.project_model.api.ElementData;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -14,7 +14,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author mcangel
  */
 @ServiceProvider(service=BasicElement.class)
-@PortsData(portsFile="ports.xml")
+@ElementData(dataFile="element_info.xml")
 public class Not extends BasicElement
 {
 

@@ -15,11 +15,11 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface PortsData
+public @interface ElementData
 {
 	/**
 	 * Path to a datafile starting from classes directory. Default: "ports.xml"
 	 * @return path to ports XML data file.
 	 */
-	String portsFile() default "ports.xml";
+	String dataFile() default "element_info.xml";
 }
