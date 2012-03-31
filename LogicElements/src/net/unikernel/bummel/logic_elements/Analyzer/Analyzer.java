@@ -2,7 +2,7 @@ package net.unikernel.bummel.logic_elements.Analyzer;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
-import net.unikernel.bummel.project_model.api.ElementData;
+import net.unikernel.bummel.project_model.api.Element.ElementData;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
