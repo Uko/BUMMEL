@@ -4,7 +4,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Circuit;
 import org.netbeans.api.visual.action.*;
@@ -18,13 +23,9 @@ import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
-import org.openide.nodes.AbstractNode;
-import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.nodes.NodeTransfer;
 import org.openide.util.Exceptions;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.Lookups;
 
 /**
  *
@@ -110,8 +111,70 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 
 		widget.getActions().addAction(createSelectAction());
 		widget.getActions().addAction(ActionFactory.createMoveAction());
+		widget.getActions().addAction(ActionFactory.createPopupMenuAction(new PopupMenuProvider()
+		{
+			@Override
+			public JPopupMenu getPopupMenu(Widget widget, Point localLocation)
+			{
+				final Widget w = widget;
+				JPopupMenu menu = new JPopupMenu("Menu");
+				JMenuItem mi = new JMenuItem(new AbstractAction()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						circuit.removeElement(((ElementNode)findObject(w))
+								.getLookup().lookup(BasicElement.class));
+						CircuitGraphPinScene.this.internalNodeRemove((ElementNode)findObject(w));
+						
+						hardcodedCircuitRun();
+					}
+				});
+				mi.setText("Remove");
+				menu.add(mi);
+				return menu;
+			}
+		}));
 
 		return widget;
+	}
+	
+	//TODO - remake this through another thread!!!
+	private void hardcodedCircuitRun()
+	{
+		for(int i = 0; i < 5; i++, circuit.step()){}
+	}
+	
+	/**
+	 * Removes object and it's widget from the scene.
+	 * @param object - object to be removed.
+	 */
+	private void internalObjectRemove(final Object object)
+	{
+		final List<Widget> widgets = findWidgets(object);
+
+		//removeObject() does not remove widgets
+		for (final Widget widget : widgets)
+		{
+			widget.removeFromParent();
+		}
+	}
+	
+	private void internalNodeRemove(final ElementNode node)
+	{
+		//first remove all node pins
+		for(ElementPortNode pin : getNodePins(node))
+		{
+			//removing pin first romeve all connected edges
+			for(String edge : findPinEdges(pin, true, true))
+			{
+				internalObjectRemove(edge);
+			}
+			//remove pin itself
+			internalObjectRemove(pin);
+		}
+		//remove node itself
+		internalObjectRemove(node);
 	}
 
 	@Override
@@ -211,8 +274,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 					.getLookup().lookup(BasicElement.class);
 			circuit.connectElements(srcElem, source.getPort(), 
 					tgtElem, target.getPort());
-			//run circuit to see result
-			for(int i = 0; i < 5; i++, circuit.step()){}
+			hardcodedCircuitRun();
 			
 			String edge = "edge" + edgeCounter++;
 			addEdge(edge);
@@ -313,8 +375,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 				setEdgeTarget(edge, replacementNode);
 			}
 			
-			//run circuit to see result
-			for (int i = 0; i < 5; i++, circuit.step()){}
+			hardcodedCircuitRun();
 		}
 	}
 }

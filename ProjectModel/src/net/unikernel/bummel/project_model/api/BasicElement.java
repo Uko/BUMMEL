@@ -18,10 +18,10 @@ public abstract class BasicElement implements Element
 	public static final String PROP_LBL = "label";
 	public static final String PROP_COORDS = "coordinates";
 	
-	String label;
-	int state;
-	Point coords;
-	ArrayList<String> availablePorts;
+	private String label;
+	private int state;
+	private Point coords;
+	private ArrayList<String> availablePorts;
 	private PropertyChangeSupport pcs;
 
 	public BasicElement(String[] availablePorts)
