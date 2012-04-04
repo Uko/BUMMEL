@@ -1,10 +1,13 @@
 package net.unikernel.bummel.visual_editor;
 
+import com.kitfox.svg.SVGException;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -106,7 +109,12 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	@Override
 	protected Widget attachNodeWidget(ElementNode node)
 	{
-		ElementWidget widget = new ElementWidget(this, node);
+		ElementWidget widget = null;
+        try {
+            widget = new ElementWidget(this, node);
+        } catch (MalformedURLException | FileNotFoundException  | SVGException ex) {
+            Exceptions.printStackTrace(ex);
+        }
 		mainLayer.addChild(widget);
 
 		widget.getActions().addAction(createSelectAction());

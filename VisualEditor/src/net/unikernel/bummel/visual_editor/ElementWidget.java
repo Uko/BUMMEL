@@ -1,16 +1,20 @@
 package net.unikernel.bummel.visual_editor;
 
+import com.kitfox.svg.SVGDiagram;
+import com.kitfox.svg.SVGException;
+import com.kitfox.svg.SVGUniverse;
+import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import org.netbeans.api.visual.layout.LayoutFactory;
-import org.netbeans.api.visual.widget.ImageWidget;
 import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
-
 /**
  *
  * @author mcangel
@@ -18,7 +22,7 @@ import org.netbeans.api.visual.widget.Widget;
 public class ElementWidget extends Widget implements PropertyChangeListener
 {
 	private Widget body;
-	private ImageWidget imageWidget;
+	private SvgWidget imageWidget;
 	private LabelWidget labelWidget;
 	private LabelWidget stateWidget;
 	private ElementNode elNode;
@@ -26,7 +30,7 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	int width = 20;
 	int height = 20;
 
-	public ElementWidget(Scene scene, ElementNode element)
+	public ElementWidget(Scene scene, ElementNode element) throws MalformedURLException, SVGException, FileNotFoundException
 	{
 		super(scene);
 		this.elNode = element;
@@ -36,10 +40,19 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		body = new Widget(scene);
 		body.setLayout(LayoutFactory.createVerticalFlowLayout());
 		addChild(body);
+                
+                String path_to_svg = "C:\\Users\\Main\\Desktop\\1.svg";
+                File f = new File(path_to_svg);
+                if(!f.exists())
+                {
+                    throw new FileNotFoundException("File with component image not found.");
+                }
+                SVGUniverse svgUniverse = new SVGUniverse();
+                SVGDiagram diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(f.toURL()));
+                imageWidget = new SvgWidget(scene, diagram);
+		//imageWidget.set(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
+                //Graphics2D tmp = imageWidget.getScene().getGraphics();
 		
-		imageWidget = new ImageWidget(scene);
-		imageWidget.setImage(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
-		imageWidget.getImage().getGraphics().drawRect(width/4, height/4, width/2, height/2);
 		body.addChild(imageWidget);
 		
 		labelWidget = new LabelWidget(scene, "Label:"+elNode.getDisplayName());
