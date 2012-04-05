@@ -6,8 +6,10 @@ package net.unikernel.bummel.visual_editor;
 
 import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
-import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.Rectangle;
+import javax.swing.BorderFactory;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
 import org.openide.util.Exceptions;
@@ -23,15 +25,17 @@ public class SvgWidget extends Widget
     {
         super (scene);
         diagram = _diagram;
+        //this.setPreferredLocation(new Point(0, 0));
+        //this.setPreferredSize(diagram.getViewRect().getBounds().getSize());
     }
     @Override
-    protected Rectangle calculateClientArea () {
-        return new Rectangle (-40, -40, 40, 40);
+    protected Rectangle calculateClientArea () 
+    {
+        return diagram.getViewRect().getBounds();
     }
     @Override
     protected void paintWidget () 
     {
-        Graphics2D g = getGraphics ();
         try 
         {
             diagram.render(getScene().getGraphics());

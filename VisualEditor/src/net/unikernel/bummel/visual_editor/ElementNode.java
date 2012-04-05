@@ -54,4 +54,13 @@ public class ElementNode extends AbstractNode
 		}
 		return ps.getPortOffset(port);
 	}
+        
+        public String getGraphicsFilename(int state)
+	{
+		if(ps == null)
+		{
+			constructPortsScanner();
+		}
+		return ps.getStateGraphics(state);
+	}
 }

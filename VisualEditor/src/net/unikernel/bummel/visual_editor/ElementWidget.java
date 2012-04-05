@@ -3,14 +3,16 @@ package net.unikernel.bummel.visual_editor;
 import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
 import com.kitfox.svg.SVGUniverse;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import javax.swing.BorderFactory;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import org.netbeans.api.visual.layout.Layout;
 import org.netbeans.api.visual.layout.LayoutFactory;
 import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.Scene;
@@ -26,7 +28,7 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	private LabelWidget labelWidget;
 	private LabelWidget stateWidget;
 	private ElementNode elNode;
-	
+	private SVGDiagram diagram;
 	int width = 20;
 	int height = 20;
 
@@ -38,28 +40,23 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 				.addPropertyChangeListener(this);
 		
 		body = new Widget(scene);
-		body.setLayout(LayoutFactory.createVerticalFlowLayout());
-		addChild(body);
-                
-                String path_to_svg = "C:\\Users\\Main\\Desktop\\1.svg";
+		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
+                //body.setBorder(BorderFactory.createLineBorder(Color.black));//TODO:remove this for the release
+                addChild(body);
+                //this string should contain relative path. in contains shit now...
+                String path_to_svg = this.elNode.getGraphicsFilename(0);//"C:\\DevRepos\\BUMMEL\\LogicElements\\src\\net\\unikernel\\bummel\\logic_elements\\Analyzer\\1.svg";
                 File f = new File(path_to_svg);
                 if(!f.exists())
                 {
                     throw new FileNotFoundException("File with component image not found.");
                 }
                 SVGUniverse svgUniverse = new SVGUniverse();
-                SVGDiagram diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(f.toURL()));
+                diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(f.toURI().toURL()));
                 imageWidget = new SvgWidget(scene, diagram);
-		//imageWidget.set(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
-                //Graphics2D tmp = imageWidget.getScene().getGraphics();
-		
 		body.addChild(imageWidget);
-		
-		labelWidget = new LabelWidget(scene, "Label:"+elNode.getDisplayName());
-		body.addChild(labelWidget);
-		stateWidget = new LabelWidget(scene, "State:"+elNode.getLookup()
-				.lookup(BasicElement.class).getState());
-		body.addChild(stateWidget);
+		body.addChild(new LabelWidget(scene, "Label:"+elNode.getDisplayName()));
+		body.addChild(new LabelWidget(scene, "State:"+elNode.getLookup().lookup(BasicElement.class).getState()));
+                body.repaint();//first repaint must be called ater dropping.
 	}
 	
 	/**
@@ -99,5 +96,10 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 			stateWidget.setLabel("State:"+evt.getNewValue());
 		}
 	}
+        @Override
+        protected Rectangle calculateClientArea () 
+        {
+            return new Rectangle (0,0, (int)diagram.getWidth(), (int)diagram.getHeight());
+        }
 
 }
