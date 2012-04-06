@@ -1,6 +1,7 @@
 package net.unikernel.bummel.visual_editor;
 
 import java.io.IOException;
+import java.net.URL;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.BasicElementInfo;
 import net.unikernel.bummel.project_model.api.Element;
@@ -54,13 +55,13 @@ public class ElementNode extends AbstractNode
 		}
 		return ps.getPortOffset(port);
 	}
-        
-        public String getGraphicsFilename(int state)
+
+	public URL getGraphicsURL(int state)
 	{
 		if(ps == null)
 		{
 			constructPortsScanner();
 		}
-		return ps.getStateGraphics(state);
+		return ps.getGraphicsURL(state);
 	}
 }

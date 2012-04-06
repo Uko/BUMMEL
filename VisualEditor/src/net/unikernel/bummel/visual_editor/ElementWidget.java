@@ -43,15 +43,8 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
                 //body.setBorder(BorderFactory.createLineBorder(Color.black));//TODO:remove this for the release
                 addChild(body);
-                //this string should contain relative path. in contains shit now...
-                String path_to_svg = this.elNode.getGraphicsFilename(0);//"C:\\DevRepos\\BUMMEL\\LogicElements\\src\\net\\unikernel\\bummel\\logic_elements\\Analyzer\\1.svg";
-                File f = new File(path_to_svg);
-                if(!f.exists())
-                {
-                    throw new FileNotFoundException("File with component image not found.");
-                }
                 SVGUniverse svgUniverse = new SVGUniverse();
-                diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(f.toURI().toURL()));
+                diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(this.elNode.getGraphicsURL(0)));
                 imageWidget = new SvgWidget(scene, diagram);
 		body.addChild(imageWidget);
 		body.addChild(new LabelWidget(scene, "Label:"+elNode.getDisplayName()));

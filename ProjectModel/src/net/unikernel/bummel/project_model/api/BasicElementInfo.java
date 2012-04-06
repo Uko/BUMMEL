@@ -1,6 +1,7 @@
 package net.unikernel.bummel.project_model.api;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -18,51 +19,53 @@ import org.xml.sax.SAXException;
  */
 public class BasicElementInfo
 {
-	HashMap<Integer, String> statesGraphics = new HashMap<>();
+	HashMap<Integer, URL> statesGraphicsURLS = new HashMap<>();
 	
 	HashMap<String, String> portsDirections = new HashMap<>();
 	HashMap<String, Double> portsOffsets = new HashMap<>();
 	HashMap<String, Double> portsIndents = new HashMap<>();
 
 	/**
-	 * Create new BasicElementInfo with org.w3c.dom.Document.
+	 * Create new BasicElementInfo for the provided BasicElement.
 	 */
-	public BasicElementInfo(Document document)
+	public BasicElementInfo(BasicElement element) throws IOException, SAXException
 	{
-		org.w3c.dom.Element rootElement = 
+		//get element's xml file with ports info and parse it - get org.w3c.dom.Document object
+		Document document = XMLUtil.parse(new InputSource(element.getClass().getResourceAsStream(
+				//check if path to the xml file with data is annotated
+				element.getClass().getAnnotation(Element.ElementData.class)==null?
+				//if not - default
+				"element_info.xml":
+				//if annotated - get it
+				element.getClass().getAnnotation(Element.ElementData.class).dataFile()
+				)),	true, false, null, EntityCatalog.getDefault());
+		
+		//take useful info from the Document object to specific containers
+		org.w3c.dom.Element rootElement =
 				((org.w3c.dom.Element) document.getElementsByTagName("element_info").item(0));
-		org.w3c.dom.NodeList graphicsNodes = 
-				((org.w3c.dom.Element) rootElement.getElementsByTagName("images")
-				.item(0)).getElementsByTagName("graphics");
+		org.w3c.dom.NodeList graphicsNodes =
+				((org.w3c.dom.Element) rootElement.getElementsByTagName("images").item(0)).getElementsByTagName("graphics");
 		for (int i = 0; i < graphicsNodes.getLength(); i++)
-		{
+		{//graphics per state
 			org.w3c.dom.Element el = (org.w3c.dom.Element) graphicsNodes.item(i);
-			statesGraphics.put(Integer.valueOf(el.getAttribute("state")),
-					el.getAttribute("filename"));
+			statesGraphicsURLS.put(Integer.valueOf(el.getAttribute("state")),
+					element.getClass().getResource(el.getAttribute("filename")));
 		}
 		
-		org.w3c.dom.NodeList portNodes = 
+		org.w3c.dom.NodeList portNodes =
 				((org.w3c.dom.Element) rootElement.getElementsByTagName("ports")
 				.item(0)).getElementsByTagName("port");
 		for (int i = 0; i < portNodes.getLength(); i++)
-		{
+		{//port specific info
 			org.w3c.dom.Element el = (org.w3c.dom.Element) portNodes.item(i);
 			portsDirections.put(el.getAttribute("name"),
 					el.getAttribute("direction"));
 			try
 			{
 				portsOffsets.put(el.getAttribute("name"),
-						NumberFormat.getNumberInstance()
-						.parse(el.getAttribute("offset")
-						.replaceAll("\\.", 
-						new String(new char[]{DecimalFormatSymbols.getInstance()
-						.getDecimalSeparator()}))).doubleValue());
+						NumberFormat.getNumberInstance().parse(nds(el.getAttribute("offset"))).doubleValue());
 				portsIndents.put(el.getAttribute("name"),
-						NumberFormat.getNumberInstance()
-						.parse(el.getAttribute("indent")
-						.replaceAll("\\.", 
-						new String(new char[]{DecimalFormatSymbols.getInstance()
-						.getDecimalSeparator()}))).doubleValue());
+						NumberFormat.getNumberInstance().parse(nds(el.getAttribute("indent"))).doubleValue());
 			} catch (ParseException ex)
 			{
 				Exceptions.printStackTrace(ex);
@@ -71,19 +74,18 @@ public class BasicElementInfo
 	}
 	
 	/**
-	 * Create new BasicElementInfo for the provided BasicElement.
+	 * Normalise decimal separator.
+	 * Replaces any separator (in case of one from the different standard) for the current locale one.
+	 * @param value - string value with unknown or different from current decimal separator
+	 * @return String with replaced decimal separator for the current locale one.
 	 */
-	public BasicElementInfo(BasicElement element) throws IOException, SAXException
+	private String nds(String value)
 	{
-		//get element's xml file with ports info and parse it - get org.w3c.dom.Document object
-		this(XMLUtil.parse(new InputSource(element.getClass().getResourceAsStream(
-				//check if path to the xml file with data is annotated
-				//element.getClass().getAnnotation(PortsData.class)==null?
-				//if not - default
-				"element_info.xml"	//:
-				//if annotated - get it
-				//element.getClass().getAnnotation(PortsData.class).portsFile()
-				)),	true, false, null, EntityCatalog.getDefault()));
+		return value.replaceAll("\\.",
+				new String(new char[]
+				{
+					DecimalFormatSymbols.getInstance().getDecimalSeparator()
+				}));
 	}
 	
 	public String getPortDirection(String port)
@@ -96,8 +98,8 @@ public class BasicElementInfo
 		return portsOffsets.get(port);
 	}
 
-	public String getStateGraphics(Integer state)
+	public URL getGraphicsURL(Integer state)
 	{
-		return statesGraphics.get(state);
+		return statesGraphicsURLS.get(state);
 	}
 }
