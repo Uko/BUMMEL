@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<path fill="none" style="stroke: #000000; stroke-width: 8; " d="M25,4 Q80,10 96,50 Q80,90 25,96 H4 Q30,50 4,4 Z"/>
+	<path d="M25,4 Q80,10 96,50 Q80,90 25,96 H4 Q30,50 4,4 Z" style="stroke: #000000; stroke-width: 8; fill:none" />
 </svg>

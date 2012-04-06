@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    Document   : graphic.xml
-    Created on : 10 лютого 2012, 21:16
-    Author     : uko
-    Description:
-        Purpose of the document follows.
--->
-
 <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<circle cx="50" cy="50" r="20" style="stroke: #000000; stroke-width: 4; fill: yellow;" />
-	<path d="M55,20 A30,30 0 0 1 80,45 M80,55 A30,30 0 0 1 55,80 M45,80 A30,30 0 0 1 20,55 M20,45 A30,30 0 0 1 45,20" style="stroke: yellow; stroke-width: 8;  fill:none; " />
+	<circle cx="50" cy="50" r="20" style="stroke: #000000; stroke-width: 4; fill: yellow" />
+	<path d="M55,20 A30,30 0 0 1 80,45 M80,55 A30,30 0 0 1 55,80 M45,80 A30,30 0 0 1 20,55 M20,45 A30,30 0 0 1 45,20" style="stroke: yellow; stroke-width: 8; fill: none" />
 </svg>
