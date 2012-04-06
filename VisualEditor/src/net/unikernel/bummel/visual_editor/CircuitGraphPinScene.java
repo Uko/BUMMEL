@@ -82,7 +82,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 				//Rectangle visRect = view.getVisibleRect();
 				//view.paintImmediately(visRect.x, visRect.y, visRect.width, visRect.height);
 
-				BasicElement el = node.getLookup().lookup(BasicElement.class);  //Get BasicElement instance 
+				BasicElement el = node.getLookup().lookup(BasicElement.class);  //Get BasicElement instance
 				ElementNode elNode;
 				try
 				{
