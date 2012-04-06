@@ -4,7 +4,6 @@ import com.kitfox.svg.SVGException;
 import java.awt.Point;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -96,7 +95,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
             {
                 widget = new ElementWidget(this, node);
             } 
-            catch (MalformedURLException | FileNotFoundException  | SVGException ex) 
+            catch (MalformedURLException | SVGException ex) 
             {
                 Exceptions.printStackTrace(ex);
             }

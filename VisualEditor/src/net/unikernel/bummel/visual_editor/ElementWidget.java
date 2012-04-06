@@ -1,14 +1,11 @@
 package net.unikernel.bummel.visual_editor;
 
-import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
-import com.kitfox.svg.SVGUniverse;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import org.netbeans.api.visual.layout.LayoutFactory;
@@ -23,11 +20,10 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	private Widget body;
 	private Widget imageWidget;
 	private ElementNode elNode;
-	private SVGDiagram diagram;
 	int width = 20;
 	int height = 20;
 
-	public ElementWidget(Scene scene, ElementNode element) throws MalformedURLException, SVGException, FileNotFoundException
+	public ElementWidget(Scene scene, ElementNode element) throws MalformedURLException, SVGException
 	{
 		super(scene);
 		this.elNode = element;
@@ -39,14 +35,11 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
 //                body.setBorder(BorderFactory.createLineBorder(Color.red));//TODO:remove this for the release
                 addChild(body);
-                SVGUniverse svgUniverse = new SVGUniverse();
-				if(this.elNode.getGraphicsURL(0) != null)
-					diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(this.elNode.getGraphicsURL(0)));
-				if(diagram != null)
+				imageWidget = new SvgWidget(scene, this.elNode.getGraphicsURL(0));
+				if(((SvgWidget)imageWidget).getDiagram() != null)
 				{
-					imageWidget = new SvgWidget(scene, diagram);
-					width = (int) diagram.getWidth();
-					height = (int) diagram.getHeight();
+					width = imageWidget.getPreferredBounds().width;
+					height = imageWidget.getPreferredBounds().height;
 				}
 				else
 				{
