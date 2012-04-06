@@ -3,16 +3,14 @@ package net.unikernel.bummel.visual_editor;
 import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
 import com.kitfox.svg.SVGUniverse;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import javax.swing.BorderFactory;
 import net.unikernel.bummel.project_model.api.BasicElement;
-import org.netbeans.api.visual.layout.Layout;
 import org.netbeans.api.visual.layout.LayoutFactory;
 import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.Scene;
@@ -24,7 +22,7 @@ import org.netbeans.api.visual.widget.Widget;
 public class ElementWidget extends Widget implements PropertyChangeListener
 {
 	private Widget body;
-	private SvgWidget imageWidget;
+	private Widget imageWidget;
 	private LabelWidget labelWidget;
 	private LabelWidget stateWidget;
 	private ElementNode elNode;
@@ -40,12 +38,37 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 				.addPropertyChangeListener(this);
 		
 		body = new Widget(scene);
+		body.setCheckClipping(true);	//to prevent element "pointing" on dragging
 		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
-                //body.setBorder(BorderFactory.createLineBorder(Color.black));//TODO:remove this for the release
+//                body.setBorder(BorderFactory.createLineBorder(Color.red));//TODO:remove this for the release
                 addChild(body);
                 SVGUniverse svgUniverse = new SVGUniverse();
-                diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(this.elNode.getGraphicsURL(0)));
-                imageWidget = new SvgWidget(scene, diagram);
+				if(this.elNode.getGraphicsURL(0) != null)
+					diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(this.elNode.getGraphicsURL(0)));
+				if(diagram != null)
+				{
+					imageWidget = new SvgWidget(scene, diagram);
+					width = (int) diagram.getWidth();
+					height = (int) diagram.getHeight();
+				}
+				else
+				{
+					imageWidget = new Widget(scene){
+						@Override
+						protected Rectangle calculateClientArea()
+						{
+							return new Rectangle(-width/2, -height/2, width+1, height+1);
+						}
+
+						@Override
+						protected void paintWidget()
+						{
+							Graphics2D g = getGraphics();
+							g.setColor(getForeground());
+							g.drawOval(-width/2, -height/2, width, height);
+						}
+					};
+				}
 		body.addChild(imageWidget);
 		body.addChild(new LabelWidget(scene, "Label:"+elNode.getDisplayName()));
 		body.addChild(new LabelWidget(scene, "State:"+elNode.getLookup().lookup(BasicElement.class).getState()));
@@ -57,7 +80,6 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	 *
 	 * @param widget the pin widget
 	 */
-	
 	public void attachPortWidget(ElementPortWidget widget)
 	{
 		widget.setCheckClipping(true);
@@ -89,10 +111,4 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 			stateWidget.setLabel("State:"+evt.getNewValue());
 		}
 	}
-        @Override
-        protected Rectangle calculateClientArea () 
-        {
-            return new Rectangle (0,0, (int)diagram.getWidth(), (int)diagram.getHeight());
-        }
-
 }
