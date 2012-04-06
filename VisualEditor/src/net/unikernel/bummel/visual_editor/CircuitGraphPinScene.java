@@ -1,16 +1,13 @@
 package net.unikernel.bummel.visual_editor;
 
 import com.kitfox.svg.SVGException;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.List;
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import net.unikernel.bummel.project_model.api.BasicElement;
@@ -177,7 +174,6 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	protected Widget attachPinWidget(ElementNode node, ElementPortNode pin)
 	{
 		ElementPortWidget widget = new ElementPortWidget(this, node, pin.getPort());
-		widget.setPort(pin.getPort());
 		((ElementWidget) findWidget(node)).attachPortWidget(widget);
 
 		widget.getActions().addAction(createObjectHoverAction());

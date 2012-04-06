@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import org.netbeans.api.visual.layout.LayoutFactory;
-import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
 /**
@@ -23,8 +22,6 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 {
 	private Widget body;
 	private Widget imageWidget;
-	private LabelWidget labelWidget;
-	private LabelWidget stateWidget;
 	private ElementNode elNode;
 	private SVGDiagram diagram;
 	int width = 20;
@@ -70,8 +67,6 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 					};
 				}
 		body.addChild(imageWidget);
-		body.addChild(new LabelWidget(scene, "Label:"+elNode.getDisplayName()));
-		body.addChild(new LabelWidget(scene, "State:"+elNode.getLookup().lookup(BasicElement.class).getState()));
 	}
 	
 	/**
@@ -107,7 +102,6 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	{
 		if(BasicElement.PROP_STATE.equals(evt.getPropertyName()))
 		{
-			stateWidget.setLabel("State:"+evt.getNewValue());
 		}
 	}
 }
