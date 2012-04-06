@@ -72,7 +72,6 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		body.addChild(imageWidget);
 		body.addChild(new LabelWidget(scene, "Label:"+elNode.getDisplayName()));
 		body.addChild(new LabelWidget(scene, "State:"+elNode.getLookup().lookup(BasicElement.class).getState()));
-                body.repaint();//first repaint must be called ater dropping.
 	}
 	
 	/**

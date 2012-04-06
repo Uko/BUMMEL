@@ -58,19 +58,8 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 			{
 				Node node = NodeTransfer.node(transferable,	NodeTransfer.DND_COPY);
 				if (node != null && (node.getLookup().lookup(BasicElement.class)) != null)
-				{
-					//JComponent view = getView();
-					//Graphics2D g2 = (Graphics2D) view.getGraphics();
-					//Rectangle visRect = view.getVisibleRect();
-					//view.paintImmediately(visRect);
-					//g2.drawString(node.getDisplayName(),
-							//(float) point.getLocation().getX(),
-							//(float) point.getLocation().getY());
 					return ConnectorState.ACCEPT;
-				} else
-				{
-					return ConnectorState.REJECT_AND_STOP;
-				}
+				return ConnectorState.REJECT_AND_STOP;
 			}
 
 			@Override
@@ -78,30 +67,26 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 			{
 				Node node = NodeTransfer.node(transferable, NodeTransfer.DND_COPY);//Defines the instance from drag and drop action.
 				
-				//JComponent view = getView();
-				//Rectangle visRect = view.getVisibleRect();
-				//view.paintImmediately(visRect.x, visRect.y, visRect.width, visRect.height);
-
 				BasicElement el = node.getLookup().lookup(BasicElement.class);  //Get BasicElement instance
-				ElementNode elNode;
 				try
 				{
-					elNode = new ElementNode(el.getClass().newInstance());  //create new element node with default constructor
-					CircuitGraphPinScene.this.addNode(elNode)               
-						.setPreferredLocation(widget.convertLocalToScene(point)); //add to scene new ElementNode
+					el = el.getClass().newInstance();	//create new instance of it to avoid equality
+					circuit.addElement(el);//add element to the model
+					
+					ElementNode elNode = new ElementNode(el.getClass().newInstance());  //create new element node with default constructor
+					Widget nodeWidget = addNode(elNode);//add new ElementNode to the scene
+					nodeWidget.setPreferredLocation(widget.convertLocalToScene(point));
 					for (String port : el.getPorts())
-					{
-						addPin(elNode, new ElementPortNode(port));      //add pins to ElementNode instance
+					{//add pins to the scene
+						addPin(elNode, new ElementPortNode(port));
 					}
 					
-					//add element to the model
-					circuit.addElement(elNode.getLookup().lookup(BasicElement.class));
-					
+					validate();
+					nodeWidget.repaint();
 				} catch (InstantiationException | IllegalAccessException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}
-				validate();
 			}
 		}));
 	}
