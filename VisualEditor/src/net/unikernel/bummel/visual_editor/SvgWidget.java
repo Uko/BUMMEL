@@ -34,6 +34,19 @@ public class SvgWidget extends Widget
 	{
 		this.diagram = diagram;
 	}
+	
+	/**
+	 * Loads the SVGDiagram from the specified URL.
+	 * @param svgImageURL 
+	 */
+	public void setDiagram(URL svgImageURL)
+	{
+		SVGUniverse svgUniverse = new SVGUniverse();
+		if (svgImageURL != null)
+		{
+			diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(svgImageURL));
+		}
+	}
 
 	public SvgWidget(Scene scene, SVGDiagram diagram)
 	{
