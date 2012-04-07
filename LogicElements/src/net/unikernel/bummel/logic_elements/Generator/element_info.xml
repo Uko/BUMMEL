@@ -6,6 +6,6 @@
 		<graphics state="1" filename="graphic1.svg" />
 	</images>
 	<ports>
-		<port name="output" direction="right" offset="0" indent="0" />
+		<port name="output" direction="right" offset="0" indent="0.25" />
 	</ports>
 </element_info>
