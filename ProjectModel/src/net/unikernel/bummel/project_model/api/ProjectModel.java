@@ -1,8 +1,7 @@
 package net.unikernel.bummel.project_model.api;
 
-import net.unikernel.bummel.project_model.api.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import net.unikernel.bummel.project_model.BasicCircuit;
 
 /**
  * Class that represents project. 
@@ -13,12 +12,13 @@ public class ProjectModel implements Serializable
 {
 	private String name;
 	private String filePath;
-	transient private ArrayList<BasicElement> elements;
+	private Circuit circuit;
 
 	public ProjectModel(String name)
 	{
 		this.name = name;
 		filePath="";
+		circuit = new BasicCircuit();
 	}
 	
 	public ProjectModel()
@@ -48,16 +48,16 @@ public class ProjectModel implements Serializable
 	/**
 	 * @return the model
 	 */
-	public ArrayList<BasicElement> getModel()
+	public Circuit getModel()
 	{
-		return elements;
+		return circuit;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(ArrayList<BasicElement> model)
+	public void setModel(Circuit model)
 	{
-		this.elements = model;
+		this.circuit = model;
 	}
 	
 }

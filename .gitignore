@@ -9,6 +9,7 @@ build/
 /ProjectModel/nbproject/private/
 /BrandingModule/nbproject/private/
 /VLEditor/nbproject/private/
+/VisualEditor/nbproject/private/
 
 # Compiled source #
 ###################
@@ -44,3 +45,4 @@ build/
 ehthumbs.db
 Icon?
 Thumbs.db
+/SvgWrapper/nbproject/private/

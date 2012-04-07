@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.netbeans.api.visual.widget.Scene;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.ActionID;
@@ -49,7 +50,7 @@ public final class EditorTopComponent extends TopComponent
 	 */
 	private static int counter = 0;
 	private static Map<File, EditorTopComponent> tcByFile =
-			new HashMap<File, EditorTopComponent>();
+			new HashMap<>();
 
 	public static EditorTopComponent findInstance(File f)
 	{
@@ -74,6 +75,7 @@ public final class EditorTopComponent extends TopComponent
 	private Saver saver = new Saver();
 //	private static Opener opener = new Opener();
 	private ProjectModel project;
+	private CircuitGraphPinScene scene;
 
 	public EditorTopComponent()
 	{
@@ -97,7 +99,8 @@ public final class EditorTopComponent extends TopComponent
 				new AbstractLookup(content)));
 		//associateLookup(new AbstractLookup(content));
 		
-		vlEditorView = new CircuitGraphPinScene().createView();
+		scene = new CircuitGraphPinScene(project.getModel());
+		vlEditorView = scene.createView();
 		jScrollPane1.setViewportView(vlEditorView);
 
 		enableSaveAction(true);
@@ -155,6 +158,11 @@ public final class EditorTopComponent extends TopComponent
 	{
 		String version = p.getProperty("version");
 		// TODO read your settings according to their version
+	}
+	
+	ProjectModel getProject()
+	{
+		return project;
 	}
 
 	private void enableSaveAction(boolean canSave)
@@ -258,11 +266,12 @@ public final class EditorTopComponent extends TopComponent
 
 		private void save(File f) throws IOException
 		{
-			FileOutputStream fos = new FileOutputStream(f);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(project);
-			out.close();
-			fos.close();
+			try (FileOutputStream fos = new FileOutputStream(f))
+			{
+				ObjectOutputStream out = new ObjectOutputStream(fos);
+				out.writeObject(project);
+				out.close();
+			}
 			String savedMessage = NbBundle.getMessage(Saver.class, "MSG_Saved", f.getName());
 			StatusDisplayer.getDefault().setStatusText(savedMessage);
 			FileObject fob = FileUtil.toFileObject(FileUtil.normalizeFile(f));
@@ -308,10 +317,7 @@ public final class EditorTopComponent extends TopComponent
 //					{
 //						System.out.println("Serialization succeded.");
 //					}
-				} catch (IOException ex)
-				{
-					Exceptions.printStackTrace(ex);
-				} catch (ClassNotFoundException ex)
+				} catch (		IOException | ClassNotFoundException ex)
 				{
 					Exceptions.printStackTrace(ex);
 				}

@@ -1,14 +1,8 @@
 package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.beans.PropertyChangeListener;
+import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
 import org.openide.util.lookup.ServiceProvider;
@@ -29,9 +23,9 @@ public class BasicCircuit implements Circuit, Element
 	{
 		label = "";
 		coords = new Point(0, 0);
-		elements = new HashSet<Element>();
-		connections = new HashMap<Connection, Double>();
-		ElementPortConnection = new HashMap<Element, Map<String, Connection>>();
+		elements = new HashSet<>();
+		connections = new HashMap<>();
+		ElementPortConnection = new HashMap<>();
 	}
 	
 	@Override
@@ -42,16 +36,32 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public boolean removeElement(Element element)
 	{
+		if(ElementPortConnection.containsKey(element))
+		{
+			for(Object con : ElementPortConnection.get(element).values().toArray())
+			{
+				Connection i = (Connection)con;
+				this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),
+						i.getSecondElement(), i.getSecondElementPort());
+			}
+		}
 		return this.elements.remove(element);
 	}
 	@Override
-	public void connectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+	public boolean connectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
 		//if the specified elements are in the circuit
 		if(elements.contains(firstElement) && elements.contains(secondElement))
 		{
 			//make a connection
 			Connection conn = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
+			
+			//check if none of elements ports are already used
+			if(ElementPortConnection.containsKey(firstElement) && ElementPortConnection.get(firstElement).containsKey(firstElementPort)
+					|| ElementPortConnection.containsKey(secondElement) && ElementPortConnection.get(secondElement).containsKey(secondElementPort))
+			{//if some of them is - cancel current connection
+				return false;
+			}
 
 			//put it in the connections
 			connections.put(conn, 0.);
@@ -67,21 +77,24 @@ public class BasicCircuit implements Circuit, Element
 			}
 			ElementPortConnection.get(firstElement).put(firstElementPort, conn);
 			ElementPortConnection.get(secondElement).put(secondElementPort, conn);
+			return true;
 		}
+		return false;
 	}
 	
 	@Override
-	public void disconectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+	public void disconnectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
-		if (connections.remove(new Connection(firstElement, firstElementPort, secondElement, secondElementPort))==null)
+		if (connections.remove(new Connection(firstElement, firstElementPort, 
+				secondElement, secondElementPort))!=null)
 		{
 			ElementPortConnection.get(firstElement).remove(firstElementPort);
 			ElementPortConnection.get(secondElement).remove(secondElementPort);
-			if(ElementPortConnection.get(secondElement).isEmpty())
+			if(ElementPortConnection.get(firstElement).isEmpty())
 			{
 				ElementPortConnection.remove(firstElement);
 			}
-			if(ElementPortConnection.get(firstElement).isEmpty())
+			if(ElementPortConnection.get(secondElement).isEmpty())
 			{
 				ElementPortConnection.remove(secondElement);
 			}
@@ -90,7 +103,7 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public void step()
 	{
-		Map<Connection,ArrayList<Double>> tempoMap = new HashMap<Connection,ArrayList<Double>>();
+		Map<Connection,ArrayList<Double>> tempoMap = new HashMap<>();
 		for (Connection i : connections.keySet())
 		{
 			tempoMap.put(i, new ArrayList<Double>());
@@ -100,7 +113,7 @@ public class BasicCircuit implements Circuit, Element
 			//check whether element is at least connected to something
 			if(ElementPortConnection.containsKey(i))
 			{
-				Map<String, Double> portsMap = new TreeMap<String, Double>();
+				Map<String, Double> portsMap = new TreeMap<>();
 				//copy values from connections to the current element ports
 				for (Map.Entry<String, Connection> j : ElementPortConnection.get(i).entrySet())
 				{
@@ -132,6 +145,7 @@ public class BasicCircuit implements Circuit, Element
 				}
 			}
 		}
+		//sets values on the connections as a middle of the edges values
 		for (Map.Entry<Connection,ArrayList<Double>> i : tempoMap.entrySet())
 		{
 			connections.put(i.getKey(), (i.getValue().get(0) +i.getValue().get(1))/2);
@@ -183,7 +197,19 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public List<String> getPorts()
 	{
-		return new ArrayList<String>();	//Merry Christmas
+		return new ArrayList<>();	//Merry Christmas
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 	private class Connection
@@ -214,7 +240,7 @@ public class BasicCircuit implements Circuit, Element
 			}
 			return false;
 		}
-		
+
 		@Override
 		public int hashCode()
 		{

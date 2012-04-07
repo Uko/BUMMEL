@@ -2,6 +2,7 @@ package net.unikernel.bummel.logic_elements.Generator;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Element.ElementData;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -12,6 +13,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author mcangel
  */
 @ServiceProvider(service=BasicElement.class)
+@ElementData(dataFile="element_info.xml")
 public class Generator extends BasicElement
 {
 

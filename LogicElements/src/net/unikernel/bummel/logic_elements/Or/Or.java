@@ -2,6 +2,8 @@ package net.unikernel.bummel.logic_elements.Or;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Element.ElementData;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * <b>Pinout:</b>
@@ -12,6 +14,8 @@ import net.unikernel.bummel.project_model.api.BasicElement;
  * </ol>
  * @author mcangel
  */
+@ServiceProvider(service=BasicElement.class)
+@ElementData(dataFile="element_info.xml")
 public class Or extends BasicElement
 {
 
