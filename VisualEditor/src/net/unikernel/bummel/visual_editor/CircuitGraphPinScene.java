@@ -11,7 +11,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Circuit;
+import net.unikernel.bummel.project_model.api.Toggle;
 import org.netbeans.api.visual.action.*;
+import org.netbeans.api.visual.action.WidgetAction.State;
+import org.netbeans.api.visual.action.WidgetAction.WidgetDropTargetDragEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetDropTargetDropEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetDropTargetEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetFocusEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetKeyEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetMouseEvent;
+import org.netbeans.api.visual.action.WidgetAction.WidgetMouseWheelEvent;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
@@ -38,6 +47,17 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	private long edgeCounter = 0;
 	private WidgetAction connectAction = ActionFactory.createConnectAction(interractionLayer, new SceneConnectProvider());
 	private WidgetAction reconnetAction = ActionFactory.createReconnectAction(new SceneReconnectProvider());
+	private WidgetAction toggleGeneratorAction = new WidgetAction.Adapter(){
+
+		@Override
+		public State mouseClicked(Widget widget, WidgetMouseEvent event)
+		{
+			((ElementNode)findObject(widget)).getLookup().lookup(BasicElement.class).setState(
+					(((ElementNode)findObject(widget)).getLookup().lookup(BasicElement.class).getState()+1)%2);
+			hardcodedCircuitRun();
+			return State.CONSUMED;
+		}
+	};
 	private Circuit circuit;
 
 	public CircuitGraphPinScene(final Circuit circuit)
@@ -90,17 +110,21 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	@Override
 	protected Widget attachNodeWidget(ElementNode node)
 	{
-            ElementWidget widget = null;
-            try 
-            {
-                widget = new ElementWidget(this, node);
-            } 
-            catch (MalformedURLException | SVGException ex) 
-            {
-                Exceptions.printStackTrace(ex);
-            }
+		ElementWidget widget = null;
+		try
+		{
+			widget = new ElementWidget(this, node);
+		}
+		catch (MalformedURLException | SVGException ex)
+		{
+			Exceptions.printStackTrace(ex);
+		}
 		mainLayer.addChild(widget);
 
+		if(node.getLookup().lookup(BasicElement.class) instanceof Toggle)
+		{
+			widget.getActions().addAction(toggleGeneratorAction);
+		}
 		widget.getActions().addAction(createSelectAction());
 		widget.getActions().addAction(ActionFactory.createMoveAction());
 		widget.getActions().addAction(ActionFactory.createPopupMenuAction(new PopupMenuProvider()
