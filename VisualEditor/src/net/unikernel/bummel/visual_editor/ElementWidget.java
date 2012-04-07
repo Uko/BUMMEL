@@ -37,10 +37,11 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		body.setCheckClipping(true);	//to prevent element "pointing" on dragging
 		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
                 addChild(body);
-				imageWidget = new SvgWidget(scene, this.elNode.getGraphicsURL(0));
+				imageWidget = new SvgWidget(scene, this.elNode.getGraphicsURL(this.elNode.getLookup().lookup(BasicElement.class).getState()));
 				if(((SvgWidget)imageWidget).getDiagram() != null)
 				{
-					stateImages.put(0, (SvgWidget)imageWidget);
+					stateImages.put(this.elNode.getLookup().lookup(BasicElement.class).getState(),
+							(SvgWidget)imageWidget);
 					width = imageWidget.getPreferredBounds().width;
 					height = imageWidget.getPreferredBounds().height;
 				}
