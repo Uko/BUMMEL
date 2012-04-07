@@ -58,7 +58,7 @@ public class BasicCircuit implements Circuit, Element
 			
 			//check if none of elements ports are already used
 			if(ElementPortConnection.containsKey(firstElement) && ElementPortConnection.get(firstElement).containsKey(firstElementPort)
-					|| ElementPortConnection.containsKey(secondElement) && ElementPortConnection.get(firstElement).containsKey(secondElementPort))
+					|| ElementPortConnection.containsKey(secondElement) && ElementPortConnection.get(secondElement).containsKey(secondElementPort))
 			{//if some of them is - cancel current connection
 				return false;
 			}
