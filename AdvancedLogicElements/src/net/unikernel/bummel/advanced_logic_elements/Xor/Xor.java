@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.unikernel.bummel.logic_elements.Xor;
+package net.unikernel.bummel.advanced_logic_elements.Xor;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
