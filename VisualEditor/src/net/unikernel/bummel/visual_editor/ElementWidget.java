@@ -89,16 +89,18 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 			case "right":
 				widget.setPreferredLocation(new Point(width, 
 							//offset from the middle, offset in "percents" of the height half
-							(int) (height*0.5*(1+0.5*elNode.getPortOffset(widget.getPort()).doubleValue()))));
+							(int) (height*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2)));
 				break;
 			case "left":
 				widget.setPreferredLocation(new Point(0, 
 							//offset from the middle, offset in "percents" of the height half
-							(int) (height*0.5*(1+0.5*elNode.getPortOffset(widget.getPort()).doubleValue()))));
+							(int) (height*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2)));
 				break;
 			case "up":
+				widget.setPreferredLocation(new Point((int) (width*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2),height));
 				break;
 			case "down":
+				widget.setPreferredLocation(new Point((int) (width*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2),0));
 				break;
 		}
 	}
