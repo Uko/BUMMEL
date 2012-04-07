@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import org.netbeans.api.visual.layout.LayoutFactory;
 import org.netbeans.api.visual.widget.Scene;
@@ -20,6 +22,7 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	private Widget body;
 	private Widget imageWidget;
 	private ElementNode elNode;
+	private Map<Integer, SvgWidget> stateImages;
 	int width = 20;
 	int height = 20;
 
@@ -29,15 +32,15 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 		this.elNode = element;
 		this.elNode.getLookup().lookup(BasicElement.class)
 				.addPropertyChangeListener(this);
-		
+		stateImages = new HashMap<>();
 		body = new Widget(scene);
 		body.setCheckClipping(true);	//to prevent element "pointing" on dragging
 		body.setLayout(LayoutFactory.createVerticalFlowLayout()); //all child widgets will be located at their preffered location
-//                body.setBorder(BorderFactory.createLineBorder(Color.red));//TODO:remove this for the release
                 addChild(body);
 				imageWidget = new SvgWidget(scene, this.elNode.getGraphicsURL(0));
 				if(((SvgWidget)imageWidget).getDiagram() != null)
 				{
+					stateImages.put(0, (SvgWidget)imageWidget);
 					width = imageWidget.getPreferredBounds().width;
 					height = imageWidget.getPreferredBounds().height;
 				}
@@ -95,6 +98,24 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 	{
 		if(BasicElement.PROP_STATE.equals(evt.getPropertyName()))
 		{
+			if(!stateImages.containsKey((Integer)evt.getNewValue()))
+			{
+				SvgWidget newImage = new SvgWidget(this.getScene(), this.elNode.getGraphicsURL((Integer)evt.getNewValue()));
+				if(((SvgWidget)imageWidget).getDiagram() != null)
+				{
+					stateImages.put((Integer)evt.getNewValue(), newImage);
+					width = imageWidget.getPreferredBounds().width;
+					height = imageWidget.getPreferredBounds().height;
+				}
+			}
+			if(stateImages.containsKey((Integer)evt.getNewValue()))
+			{
+				imageWidget.removeFromParent();
+				imageWidget = stateImages.get((Integer)evt.getNewValue());
+				body.addChild(imageWidget);
+				this.revalidate();
+				this.repaint();
+			}
 		}
 	}
 }

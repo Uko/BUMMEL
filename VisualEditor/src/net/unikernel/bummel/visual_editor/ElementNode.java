@@ -2,6 +2,7 @@ package net.unikernel.bummel.visual_editor;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.BasicElementInfo;
 import net.unikernel.bummel.project_model.api.Element;
@@ -63,5 +64,14 @@ public class ElementNode extends AbstractNode
 			constructPortsScanner();
 		}
 		return ps.getGraphicsURL(state);
+	}
+
+	public Map<Integer, URL> getStatesGraphicsURLS()
+	{
+		if(ps == null)
+		{
+			constructPortsScanner();
+		}
+		return ps.getStatesGraphicsURLS();
 	}
 }

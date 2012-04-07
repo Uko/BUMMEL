@@ -69,7 +69,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 					el = el.getClass().newInstance();	//create new instance of it to avoid equality
 					circuit.addElement(el);//add element to the model
 					
-					ElementNode elNode = new ElementNode(el.getClass().newInstance());  //create new element node with default constructor
+					ElementNode elNode = new ElementNode(el);  //create new element node with default constructor
 					Widget nodeWidget = addNode(elNode);//add new ElementNode to the scene
 					nodeWidget.setPreferredLocation(widget.convertLocalToScene(point));
 					for (String port : el.getPorts())
