@@ -20,6 +20,7 @@ import org.netbeans.api.visual.widget.Widget;
 public class ElementPortWidget extends Widget
 {
 	String port;
+	ElementNode node;
 	ImageWidget line;
 	ImageWidget anchorWidget;
 	List<Image> anchorGlyphs;
@@ -29,6 +30,7 @@ public class ElementPortWidget extends Widget
 	public ElementPortWidget(Scene scene, ElementNode node, String port)
 	{
 		super(scene);
+		this.node = node;
 		this.port = port;
 		setLayout(LayoutFactory.createAbsoluteLayout());
 		Graphics2D g2d;
@@ -118,5 +120,49 @@ public class ElementPortWidget extends Widget
 		{
 			anchorWidget.setImage(anchorGlyphs.get(0));
 		}
+	}
+	
+	public void indentPort(int size)
+	{
+		Double indent = node.getPortIndent(port);
+		int newLength = (int) (length + size*indent);
+		BufferedImage lineImage;
+		Graphics2D g2d;
+		switch (node.getPortDirection(port))
+		{
+			default:
+			case "right":
+				lineImage = new BufferedImage(newLength, 1, BufferedImage.TYPE_INT_ARGB);
+				//draw line
+				g2d = ((Graphics2D) lineImage.getGraphics());
+				g2d.setPaint(Color.BLACK);
+				g2d.drawLine(0, 0, newLength - 1, 0);
+				line.setPreferredLocation(new Point((int)(-size*indent), 0));
+				break;
+			case "left":
+				lineImage = new BufferedImage(newLength, 1, BufferedImage.TYPE_INT_ARGB);
+				//draw line
+				g2d = ((Graphics2D) lineImage.getGraphics());
+				g2d.setPaint(Color.BLACK);
+				g2d.drawLine(0, 0, newLength - 1, 0);
+				break;
+
+			//next cases are default - there is need to implement them and check the result
+			case "up":
+				lineImage = new BufferedImage(1, newLength, BufferedImage.TYPE_INT_ARGB);
+				//draw line
+				g2d = ((Graphics2D) lineImage.getGraphics());
+				g2d.setPaint(Color.BLACK);
+				g2d.drawLine(0, 0, 0, length - 1);
+				break;
+			case "down":
+				lineImage = new BufferedImage(1, newLength, BufferedImage.TYPE_INT_ARGB);
+				//draw line
+				g2d = ((Graphics2D) lineImage.getGraphics());
+				g2d.setPaint(Color.BLACK);
+				g2d.drawLine(0, 0, 0, length - 1);
+				break;
+		}
+		line.setImage(lineImage);
 	}
 }
