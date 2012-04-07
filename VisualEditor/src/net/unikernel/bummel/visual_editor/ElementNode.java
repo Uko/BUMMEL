@@ -48,6 +48,15 @@ public class ElementNode extends AbstractNode
 		return ps.getPortDirection(port);
 	}
 	
+	public Double getPortIndent(String port)
+	{
+		if(ps == null)
+		{
+			constructPortsScanner();
+		}
+		return ps.getPortsIndent(port);
+	}
+	
 	public Double getPortOffset(String port)
 	{
 		if(ps == null)
