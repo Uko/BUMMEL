@@ -5,7 +5,9 @@ import java.net.URL;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import org.openide.util.Exceptions;
 import org.openide.xml.EntityCatalog;
 import org.openide.xml.XMLUtil;
@@ -19,7 +21,7 @@ import org.xml.sax.SAXException;
  */
 public class BasicElementInfo
 {
-	HashMap<Integer, URL> statesGraphicsURLS = new HashMap<>();
+	Map<Integer, URL> statesGraphicsURLS = new HashMap<>();
 	
 	HashMap<String, String> portsDirections = new HashMap<>();
 	HashMap<String, Double> portsOffsets = new HashMap<>();
@@ -101,5 +103,10 @@ public class BasicElementInfo
 	public URL getGraphicsURL(Integer state)
 	{
 		return statesGraphicsURLS.get(state);
+	}
+
+	public Map<Integer, URL> getStatesGraphicsURLS()
+	{
+		return Collections.unmodifiableMap(statesGraphicsURLS);
 	}
 }
