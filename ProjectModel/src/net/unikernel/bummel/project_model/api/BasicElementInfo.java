@@ -94,6 +94,11 @@ public class BasicElementInfo
 	{
 		return portsDirections.get(port);
 	}
+
+	public Double getPortsIndent(String port)
+	{
+		return portsIndents.get(port);
+	}
 	
 	public Double getPortOffset(String port)
 	{
