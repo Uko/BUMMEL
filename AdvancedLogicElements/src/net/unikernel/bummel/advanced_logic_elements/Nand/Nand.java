@@ -21,7 +21,7 @@ public class Nand extends BasicElement
     @Override
     public Map<String, Double> process(Map<String, Double> valuesOnPorts) 
     {
-        if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(1)) == 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(1)) == 0)
+        if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
         {
             valuesOnPorts.put(getPorts().get(2), new Double(0));
         }
@@ -29,8 +29,8 @@ public class Nand extends BasicElement
         {
             valuesOnPorts.put(getPorts().get(2), new Double(1));
         }
-        valuesOnPorts.put(getPorts().get(0), new Double(0));
-        valuesOnPorts.put(getPorts().get(1), new Double(0));
+        valuesOnPorts.put(getPorts().get(0), 0.);
+        valuesOnPorts.put(getPorts().get(1), 0.);
         return valuesOnPorts;
     }
 }

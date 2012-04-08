@@ -20,12 +20,12 @@ public class Xor extends BasicElement
     @Override
     public Map<String, Double> process(Map<String, Double> valuesOnPorts) 
     {
-        if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(1)) == 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) == 0)
+        if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) == 0)
         {
             valuesOnPorts.put(getPorts().get(2), new Double(1));
         }
         else
-            if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(1)) == 0)
+            if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
             {
                 valuesOnPorts.put(getPorts().get(2), new Double(1));
             }   
