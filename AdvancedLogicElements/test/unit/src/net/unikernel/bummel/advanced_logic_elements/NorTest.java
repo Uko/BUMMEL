@@ -1,18 +1,24 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package net.unikernel.bummel.advanced_logic_elements;
 
 import java.util.Map;
 import java.util.TreeMap;
-import net.unikernel.bummel.advanced_logic_elements.Xor.Xor;
 import org.junit.*;
+import net.unikernel.bummel.advanced_logic_elements.Nor.Nor;
 import static org.junit.Assert.*;
+
 
 /**
  *
  * @author Roma
  */
-public class XorTest {
+public class NorTest 
+{
     
-    public XorTest() 
+    public NorTest() 
     {
     }
 
@@ -26,11 +32,11 @@ public class XorTest {
     {
     }
     
-    Xor instance;
+    Nor instance;
     @Before
     public void setUp() 
     {
-        instance = new Xor();
+        instance = new Nor();
     }
     
     @After
@@ -41,7 +47,7 @@ public class XorTest {
     @Test
     public void testProcess000()
     {
-        System.out.println("xor_process 000");
+        System.out.println("nor_process 000");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",0.);
         valuesOnPorts.put("input2",0.);
@@ -49,7 +55,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 0.);
+	expResult.put("output", 1.);
         Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Result output values: " + result.get("output"));
@@ -58,7 +64,7 @@ public class XorTest {
     @Test
     public void testProcess001()
     {
-        System.out.println("xor_process 001");
+        System.out.println("nor_process 001");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",0.);
         valuesOnPorts.put("input2",0.);
@@ -66,7 +72,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 0.);
+	expResult.put("output", 1.);
         Map result = instance.process(valuesOnPorts);
         System.out.println("Result output values: " + result.get("output"));
         System.out.println("-------------------------");
@@ -75,7 +81,7 @@ public class XorTest {
     @Test
     public void testProcess010()
     {
-        System.out.println("xor_process 010");
+        System.out.println("nor_process 010");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",0.);
         valuesOnPorts.put("input2",1.);
@@ -83,7 +89,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 1.);
+	expResult.put("output", 0.);
         Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Result output values: " + result.get("output"));
@@ -92,7 +98,7 @@ public class XorTest {
     @Test
     public void testProcess011()
     {
-        System.out.println("xor_process 011");
+        System.out.println("nor_process 011");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",0.);
         valuesOnPorts.put("input2",1.);
@@ -100,7 +106,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 1.);
+	expResult.put("output", 0.);
         Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Result output values: " + result.get("output"));
@@ -109,7 +115,7 @@ public class XorTest {
     @Test
     public void testProcess100()
     {
-        System.out.println("xor_process 100");
+        System.out.println("nor_process 100");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",1.);
         valuesOnPorts.put("input2",0.);
@@ -117,7 +123,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 1.);
+	expResult.put("output", 0.);
         Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Result output values: " + result.get("output"));
@@ -126,7 +132,7 @@ public class XorTest {
     @Test
     public void testProcess101()
     {
-        System.out.println("xor_process 101");
+        System.out.println("nor_process 101");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",1.);
         valuesOnPorts.put("input2",0.);
@@ -134,7 +140,7 @@ public class XorTest {
         Map<String, Double> expResult= new TreeMap<>();
 	expResult.put("input1", 0.);
 	expResult.put("input2", 0.);
-	expResult.put("output", 1.);
+	expResult.put("output", 0.);
         Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Result output values: " + result.get("output"));
@@ -143,7 +149,7 @@ public class XorTest {
     @Test
     public void testProcess110()
     {
-        System.out.println("xor_process 110");
+        System.out.println("nor_process 110");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",1.);
         valuesOnPorts.put("input2",1.);
@@ -160,7 +166,7 @@ public class XorTest {
     @Test
     public void testProcess111()
     {
-        System.out.println("xor_process 111");
+        System.out.println("nor_process 111");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("input1",1.);
         valuesOnPorts.put("input2",1.);
