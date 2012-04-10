@@ -7,7 +7,6 @@ import javax.swing.JComponent;
 import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.netbeans.api.visual.widget.Scene;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.ActionID;
@@ -266,11 +265,9 @@ public final class EditorTopComponent extends TopComponent
 
 		private void save(File f) throws IOException
 		{
-			try (FileOutputStream fos = new FileOutputStream(f))
+			try (FileOutputStream fos = new FileOutputStream(f); ObjectOutputStream out = new ObjectOutputStream(fos))
 			{
-				ObjectOutputStream out = new ObjectOutputStream(fos);
 				out.writeObject(project);
-				out.close();
 			}
 			String savedMessage = NbBundle.getMessage(Saver.class, "MSG_Saved", f.getName());
 			StatusDisplayer.getDefault().setStatusText(savedMessage);
@@ -305,8 +302,8 @@ public final class EditorTopComponent extends TopComponent
 			ProjectModel projectModel = null;
 			if (f != null)
 			{
-				FileInputStream fis = null;
-				ObjectInputStream oin = null;
+				FileInputStream fis;
+				ObjectInputStream oin;
 				try
 				{
 					fis = new FileInputStream(f);
