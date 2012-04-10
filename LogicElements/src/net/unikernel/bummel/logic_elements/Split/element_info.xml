@@ -6,7 +6,7 @@
 	</images>
 	<ports>
 		<port name="input" direction="left" offset="0" indent="0" />
-		<port name="output1" direction="right" offset="0.5" indent="0" />
-		<port name="output2" direction="right" offset="-0.5" indent="0" />
+		<port name="output1" direction="right" offset="1" indent="0" />
+		<port name="output2" direction="right" offset="-1" indent="0" />
 	</ports>
 </element_info>
