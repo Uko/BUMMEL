@@ -152,7 +152,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	//TODO - remake this through another thread!!!
 	private void hardcodedCircuitRun()
 	{
-		for(int i = 0; i < 5; i++, circuit.step()){}
+		for(int i = 0, n = circuit.getElements().size(); i < n; i++, circuit.step()){}
 	}
 	
 	/**
