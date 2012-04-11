@@ -86,6 +86,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 					//"add" element to the view and position it
 					Widget nodeWidget = internalElementAdd(el);
 					nodeWidget.setPreferredLocation(widget.convertLocalToScene(point));
+					el.setCoords(nodeWidget.getPreferredLocation());
 					
 					validate();
 					nodeWidget.repaint();
@@ -457,8 +458,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		@Override
 		public void revalidateDependency()
 		{
-			((ElementNode)findObject(widget)).getLookup().lookup(Element.class)
-					.setCoords(widget.getLocation());
+			if(widget.isValidated())
+				((ElementNode)findObject(widget)).getLookup().lookup(Element.class)
+						.setCoords(widget.getLocation());
 		}
 	}
 }
