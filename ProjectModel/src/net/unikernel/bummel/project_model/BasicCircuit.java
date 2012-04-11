@@ -2,6 +2,7 @@ package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
 import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
@@ -212,7 +213,7 @@ public class BasicCircuit implements Circuit, Element
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
-	private class Connection
+	private class Connection implements Serializable
 	{
 		private Element firstElement;
 		private String firstElementPort;

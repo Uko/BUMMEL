@@ -72,7 +72,7 @@ public final class EditorTopComponent extends TopComponent
 	}
 	private InstanceContent content = new InstanceContent();
 	private Saver saver = new Saver();
-//	private static Opener opener = new Opener();
+	private static Opener opener = new Opener();
 	private ProjectModel project;
 	private CircuitGraphPinScene scene;
 
@@ -96,14 +96,13 @@ public final class EditorTopComponent extends TopComponent
 		associateLookup(new ProxyLookup(
 				Lookups.fixed(new Object[] {PaletteSupport.createPalette()}),
 				new AbstractLookup(content)));
-		//associateLookup(new AbstractLookup(content));
 		
 		scene = new CircuitGraphPinScene(project.getModel());
 		vlEditorView = scene.createView();
 		jScrollPane1.setViewportView(vlEditorView);
 
 		enableSaveAction(true);
-//		content.add(opener);
+		content.add(opener);
 	}
 
 	/** This method is called from within the constructor to
@@ -196,7 +195,7 @@ public final class EditorTopComponent extends TopComponent
 		{
 			DataObject theFile = getLookup().lookup(DataObject.class);
 			if (theFile != null)
-			{
+			{//save the already opened file
 				File saveTo = FileUtil.toFile(theFile.getPrimaryFile());
 				save(saveTo);
 			} else
@@ -210,7 +209,7 @@ public final class EditorTopComponent extends TopComponent
 			String title = NbBundle.getMessage(Saver.class, "TTL_SAVE_DIALOG");
 			Object userChoice = NotifyDescriptor.NO_OPTION;
 			File f;
-			while (NotifyDescriptor.NO_OPTION.equals(userChoice))
+			while (userChoice.equals(NotifyDescriptor.NO_OPTION))
 			{
 				f = new FileChooserBuilder(Saver.class).setTitle(title).showSaveDialog();
 				if (f != null)

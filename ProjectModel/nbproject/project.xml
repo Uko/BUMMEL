@@ -38,6 +38,7 @@
                 </test-type>
             </test-dependencies>
             <public-packages>
+                <package>net.unikernel.bummel.project_model</package>
                 <package>net.unikernel.bummel.project_model.api</package>
             </public-packages>
         </data>
