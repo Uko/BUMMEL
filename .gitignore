@@ -32,6 +32,7 @@ build/
 *.rar
 *.tar
 *.zip
+*.lnk
 
 # Logs and databases #
 ######################
