@@ -32,7 +32,12 @@
                     </run-dependency>
                 </dependency>
             </module-dependencies>
-            <public-packages/>
+            <public-packages>
+                <package>net.unikernel.bummel.advanced_logic_elements.Nand</package>
+                <package>net.unikernel.bummel.advanced_logic_elements.Nor</package>
+                <package>net.unikernel.bummel.advanced_logic_elements.Xnor</package>
+                <package>net.unikernel.bummel.advanced_logic_elements.Xor</package>
+            </public-packages>
         </data>
     </configuration>
 </project>
