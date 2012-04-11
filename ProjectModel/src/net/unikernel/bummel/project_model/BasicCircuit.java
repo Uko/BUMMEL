@@ -18,7 +18,7 @@ public class BasicCircuit implements Circuit, Element
 	private Point coords;
 	private Set<Element> elements;
 	private Map<Connection, Double> connections;
-	private Map<Element, Map<String, Connection>> ElementPortConnection;
+	private Map<Element, Map<String, Connection>> elementPortConnection;
 	
 	public BasicCircuit()
 	{
@@ -26,7 +26,7 @@ public class BasicCircuit implements Circuit, Element
 		coords = new Point(0, 0);
 		elements = new HashSet<>();
 		connections = new HashMap<>();
-		ElementPortConnection = new HashMap<>();
+		elementPortConnection = new HashMap<>();
 	}
 	
 	@Override
@@ -37,9 +37,9 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public boolean removeElement(Element element)
 	{
-		if(ElementPortConnection.containsKey(element))
+		if(elementPortConnection.containsKey(element))
 		{
-			for(Object con : ElementPortConnection.get(element).values().toArray())
+			for(Object con : elementPortConnection.get(element).values().toArray())
 			{
 				BasicConnection i = (BasicConnection)con;
 				this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),
@@ -58,8 +58,8 @@ public class BasicCircuit implements Circuit, Element
 			BasicConnection conn = new BasicConnection(firstElement, firstElementPort, secondElement, secondElementPort);
 			
 			//check if none of elements ports are already used
-			if(ElementPortConnection.containsKey(firstElement) && ElementPortConnection.get(firstElement).containsKey(firstElementPort)
-					|| ElementPortConnection.containsKey(secondElement) && ElementPortConnection.get(secondElement).containsKey(secondElementPort))
+			if(elementPortConnection.containsKey(firstElement) && elementPortConnection.get(firstElement).containsKey(firstElementPort)
+					|| elementPortConnection.containsKey(secondElement) && elementPortConnection.get(secondElement).containsKey(secondElementPort))
 			{//if some of them is - cancel current connection
 				return false;
 			}
@@ -68,16 +68,16 @@ public class BasicCircuit implements Circuit, Element
 			connections.put(conn, 0.);
 
 			//put it in the map of element->port->connection for each element+port pair
-			if(!ElementPortConnection.containsKey(firstElement))
+			if(!elementPortConnection.containsKey(firstElement))
 			{
-				ElementPortConnection.put(firstElement, new HashMap<String, Connection>());
+				elementPortConnection.put(firstElement, new HashMap<String, Connection>());
 			}
-			if(!ElementPortConnection.containsKey(secondElement))
+			if(!elementPortConnection.containsKey(secondElement))
 			{
-				ElementPortConnection.put(secondElement, new HashMap<String, Connection>());
+				elementPortConnection.put(secondElement, new HashMap<String, Connection>());
 			}
-			ElementPortConnection.get(firstElement).put(firstElementPort, conn);
-			ElementPortConnection.get(secondElement).put(secondElementPort, conn);
+			elementPortConnection.get(firstElement).put(firstElementPort, conn);
+			elementPortConnection.get(secondElement).put(secondElementPort, conn);
 			return true;
 		}
 		return false;
@@ -89,15 +89,15 @@ public class BasicCircuit implements Circuit, Element
 		if (connections.remove(new BasicConnection(firstElement, firstElementPort, 
 				secondElement, secondElementPort))!=null)
 		{
-			ElementPortConnection.get(firstElement).remove(firstElementPort);
-			ElementPortConnection.get(secondElement).remove(secondElementPort);
-			if(ElementPortConnection.get(firstElement).isEmpty())
+			elementPortConnection.get(firstElement).remove(firstElementPort);
+			elementPortConnection.get(secondElement).remove(secondElementPort);
+			if(elementPortConnection.get(firstElement).isEmpty())
 			{
-				ElementPortConnection.remove(firstElement);
+				elementPortConnection.remove(firstElement);
 			}
-			if(ElementPortConnection.get(secondElement).isEmpty())
+			if(elementPortConnection.get(secondElement).isEmpty())
 			{
-				ElementPortConnection.remove(secondElement);
+				elementPortConnection.remove(secondElement);
 			}
 		}
 	}
@@ -112,11 +112,11 @@ public class BasicCircuit implements Circuit, Element
 		for (Element i: elements)
 		{
 			//check whether element is at least connected to something
-			if(ElementPortConnection.containsKey(i))
+			if(elementPortConnection.containsKey(i))
 			{
 				Map<String, Double> portsMap = new TreeMap<>();
 				//copy values from connections to the current element ports
-				for (Map.Entry<String, Connection> j : ElementPortConnection.get(i).entrySet())
+				for (Map.Entry<String, Connection> j : elementPortConnection.get(i).entrySet())
 				{
 					portsMap.put(j.getKey(), connections.get(j.getValue()));
 				}
@@ -130,7 +130,7 @@ public class BasicCircuit implements Circuit, Element
 					for (String j : i.getPorts())
 					{
 						//"used" means connected to something
-						if (ElementPortConnection.get(i).containsKey(j))
+						if (elementPortConnection.get(i).containsKey(j))
 						{
 							portsMap.put(j, 0.);
 						}
@@ -139,9 +139,9 @@ public class BasicCircuit implements Circuit, Element
 				for (Map.Entry<String, Double> j : portsMap.entrySet())
 				{
 					//take output values only from present and used ports
-					if (ElementPortConnection.get(i).containsKey(j.getKey()))
+					if (elementPortConnection.get(i).containsKey(j.getKey()))
 					{
-						tempoMap.get(ElementPortConnection.get(i).get(j.getKey())).add(j.getValue());
+						tempoMap.get(elementPortConnection.get(i).get(j.getKey())).add(j.getValue());
 					}
 				}
 			}
