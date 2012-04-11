@@ -1,7 +1,15 @@
 # NetBeans related data #
 #########################
-nbproject/private
+nbproject/private/
 build/
+/dist/
+/Jgraph/nbproject/private/
+/BasicElements/nbproject/private/
+/LogicElements/nbproject/private/
+/ProjectModel/nbproject/private/
+/BrandingModule/nbproject/private/
+/VLEditor/nbproject/private/
+/VisualEditor/nbproject/private/
 
 # Compiled source #
 ###################
@@ -37,4 +45,5 @@ build/
 ehthumbs.db
 Icon?
 Thumbs.db
-/dist/
+/SvgWrapper/nbproject/private/
+/AdvancedLogicElements/nbproject/private/

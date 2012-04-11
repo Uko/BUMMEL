@@ -27,7 +27,11 @@ Deployment
 Language/Platform
 -----------------
 
-This project is written in Java 1.6, using NetBeans Platform 7.0.1. So for development, we recommend to download latest stable NetBeans IDE form it's [download page](http://netbeans.org/downloads/index.html). Please note, NetBeans Platform SDK (that you need to compile the project) is included only in **Java SE** **Java EE** and "**all**" bundles, thou you should be comfortable using **Java SE** bundle.
+This project is written in Java 1.7, using NetBeans Platform 7.1. So for development, we recommend to download latest stable NetBeans IDE form it's [download page](http://netbeans.org/downloads/index.html). Please note, NetBeans Platform SDK (that you need to compile the project) is included only in **Java SE** **Java EE** and "**all**" bundles, thou you should be comfortable using **Java SE** bundle.
+
+OSX Tips
+--------
+Sometimes Java7 will not compile on Mac OS X. For a solution check [Stack Overflow Question](http://stackoverflow.com/questions/9290848/how-to-set-a-java-compiler-in-netbeans)
 
 Branches
 --------
@@ -37,10 +41,9 @@ We are using **feature-driven** branches which means that **master** branch shou
 Modules
 =======
 
-  * **BasicElements** - an interface & abstract class for an circuit's element.
-  * **BrandingModule** - module used for some branding stuff and menu setup (*some crap, should be revised*).
-  * **Engine** - code that contains whole circuit logic.
-  * **Jgraph** - contains Jgraph sourcecode. The purpose of using source code and not the `.jar` is because we've edited it a bit.
-  * **LogicElements** - an implementation of circuit elements as a logic ones.
-  * **ProjectModel** - some model of an app project (*circuit data etc…*).
+  * **AdvancedLogicElements** - an implementation of circuit elements as an extended logic ones (XOR, NOR, XNOR, NAND).
+  * **LogicElements** - an implementation of circuit elements as a logic ones (AND, NOT, OR, and supply ones).
+  * **ProjectModel** - some model of an application project (*circuit data etc…*):
+    * interfaces & abstract classes for the circuit, an circuit's element and the element's connection
+    * circuit work algorithm
   * **VisualEditor** - the editor window itself + elements palette.
