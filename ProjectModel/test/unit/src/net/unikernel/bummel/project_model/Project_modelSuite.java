@@ -14,7 +14,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-	net.unikernel.bummel.project_model.BasicConnectionTest.class, 
 	net.unikernel.bummel.project_model.BasicCircuitTest.class, 
 	net.unikernel.bummel.project_model.api.ApiSuite.class, 
 	net.unikernel.bummel.project_model.ProjectModelTest.class

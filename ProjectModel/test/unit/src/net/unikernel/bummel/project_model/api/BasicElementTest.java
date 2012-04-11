@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.unikernel.bummel.project_model.BasicConnection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,17 +1,15 @@
 package net.unikernel.bummel.project_model.api;
 
+import java.io.Serializable;
+
 /**
  *
- * @author uko
+ * @author uko, mcangel
  */
-public interface Connection
+public interface Connection extends Serializable
 {
-	public BasicElement getOtherElement(BasicElement thisElement);
-	public BasicElement getFirstElement();
-	public BasicElement getSecondElement();
-	public void connectFirstElement(BasicElement firstElement, String port) throws Exception;
-	public void connectSecondElement(BasicElement secondElement, String port) throws Exception;
-	public String getLabel();
-	public void setLabel(String label);
-	public double getValue ();
+	public Element getFirstElement();
+	public String getFirstElementPort();
+	public Element getSecondElement();
+	public String getSecondElementPort();
 }

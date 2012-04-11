@@ -2,9 +2,9 @@ package net.unikernel.bummel.project_model;
 
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
-import java.io.Serializable;
 import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
+import net.unikernel.bummel.project_model.api.Connection;
 import net.unikernel.bummel.project_model.api.Element;
 import org.openide.util.lookup.ServiceProvider;
 /**
@@ -41,7 +41,7 @@ public class BasicCircuit implements Circuit, Element
 		{
 			for(Object con : ElementPortConnection.get(element).values().toArray())
 			{
-				Connection i = (Connection)con;
+				BasicConnection i = (BasicConnection)con;
 				this.disconnectElements(i.getFirstElement(), i.getFirstElementPort(),
 						i.getSecondElement(), i.getSecondElementPort());
 			}
@@ -55,7 +55,7 @@ public class BasicCircuit implements Circuit, Element
 		if(elements.contains(firstElement) && elements.contains(secondElement))
 		{
 			//make a connection
-			Connection conn = new Connection(firstElement, firstElementPort, secondElement, secondElementPort);
+			BasicConnection conn = new BasicConnection(firstElement, firstElementPort, secondElement, secondElementPort);
 			
 			//check if none of elements ports are already used
 			if(ElementPortConnection.containsKey(firstElement) && ElementPortConnection.get(firstElement).containsKey(firstElementPort)
@@ -86,7 +86,7 @@ public class BasicCircuit implements Circuit, Element
 	@Override
 	public void disconnectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 	{
-		if (connections.remove(new Connection(firstElement, firstElementPort, 
+		if (connections.remove(new BasicConnection(firstElement, firstElementPort, 
 				secondElement, secondElementPort))!=null)
 		{
 			ElementPortConnection.get(firstElement).remove(firstElementPort);
@@ -212,15 +212,21 @@ public class BasicCircuit implements Circuit, Element
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+
+	@Override
+	public Set<Connection> getConnections()
+	{
+		return Collections.unmodifiableSet(connections.keySet());
+	}
 	
-	private class Connection implements Serializable
+	private class BasicConnection implements Connection
 	{
 		private Element firstElement;
 		private String firstElementPort;
 		private Element secondElement;
 		private String secondElementPort;
 		
-		public Connection(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+		public BasicConnection(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 		{
 			this.firstElement = firstElement;
 			this.firstElementPort = firstElementPort;
@@ -231,9 +237,9 @@ public class BasicCircuit implements Circuit, Element
 		@Override
 		public boolean equals(Object o)
 		{
-			if(o.getClass().equals(Connection.class))
+			if(o.getClass().equals(BasicConnection.class))
 			{
-				Connection temp = (Connection)o;
+				BasicConnection temp = (BasicConnection)o;
 				if(this.firstElement.equals(temp.firstElement) && this.firstElementPort.equals(temp.firstElementPort) && this.secondElement.equals(temp.secondElement) && this.secondElementPort.equals(temp.secondElementPort))
 				{
 					return true;
@@ -256,6 +262,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the firstElement
 		 */
+		@Override
 		public Element getFirstElement()
 		{
 			return firstElement;
@@ -263,6 +270,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the firstElementPort
 		 */
+		@Override
 		public String getFirstElementPort()
 		{
 			return firstElementPort;
@@ -270,6 +278,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the secondElement
 		 */
+		@Override
 		public Element getSecondElement()
 		{
 			return secondElement;
@@ -277,6 +286,7 @@ public class BasicCircuit implements Circuit, Element
 		/**
 		 * @return the secondElementPort
 		 */
+		@Override
 		public String getSecondElementPort()
 		{
 			return secondElementPort;
