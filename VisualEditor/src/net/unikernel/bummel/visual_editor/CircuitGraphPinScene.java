@@ -196,6 +196,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		{//add pins to the scene
 			addPin(elNode, new ElementPortNode(port));
 		}
+		nodeWidget.addDependency(new MoveDependency((ElementWidget)nodeWidget));
 		return nodeWidget;
 	}
 	
@@ -441,6 +442,23 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 			}
 			
 			hardcodedCircuitRun();
+		}
+	}
+
+	private class MoveDependency implements Dependency
+	{
+		ElementWidget widget;
+
+		public MoveDependency(ElementWidget widget)
+		{
+			this.widget = widget;
+		}
+
+		@Override
+		public void revalidateDependency()
+		{
+			((ElementNode)findObject(widget)).getLookup().lookup(Element.class)
+					.setCoords(widget.getLocation());
 		}
 	}
 }
