@@ -5,13 +5,13 @@ import java.awt.Point;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import net.unikernel.bummel.project_model.api.BasicElement;
-import net.unikernel.bummel.project_model.api.Circuit;
-import net.unikernel.bummel.project_model.api.Toggle;
+import net.unikernel.bummel.project_model.api.*;
 import org.netbeans.api.visual.action.*;
 import org.netbeans.api.visual.action.WidgetAction.State;
 import org.netbeans.api.visual.action.WidgetAction.WidgetMouseEvent;
@@ -83,13 +83,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 					el = el.getClass().newInstance();	//create new instance of it to avoid equality
 					circuit.addElement(el);//add element to the model
 					
-					ElementNode elNode = new ElementNode(el);  //create new element node with default constructor
-					Widget nodeWidget = addNode(elNode);//add new ElementNode to the scene
+					//"add" element to the view and position it
+					Widget nodeWidget = internalElementAdd(el);
 					nodeWidget.setPreferredLocation(widget.convertLocalToScene(point));
-					for (String port : el.getPorts())
-					{//add pins to the scene
-						addPin(elNode, new ElementPortNode(port));
-					}
 					
 					validate();
 					nodeWidget.repaint();
@@ -99,6 +95,41 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 				}
 			}
 		}));
+		
+		//Model visualization
+		//-------------------
+		//TODO - incorrect because of incorrect double MVC realization
+		Map<Element, Widget> elWs = new HashMap<>();
+		//adding elements from the model
+		for(Element el : circuit.getElements())
+			elWs.put(el, internalElementAdd((BasicElement)el));
+		//adding element connections
+		for(Connection con : circuit.getConnections())
+		{
+			//find source nodes
+			ElementNode src = (ElementNode)findObject(elWs.get(con.getFirstElement()));
+			ElementPortNode srcP = null;
+			for(ElementPortNode elPNode : getNodePins(src))
+			{
+				if(elPNode.getLookup().lookup(String.class).equals(con.getFirstElementPort()))
+				{
+					srcP = elPNode;
+					break;
+				}
+			}
+			//find target nodes
+			ElementNode tgt = (ElementNode)findObject(elWs.get(con.getSecondElement()));
+			ElementPortNode tgtP = null;
+			for(ElementPortNode elPNode : getNodePins(tgt))
+			{
+				if(elPNode.getLookup().lookup(String.class).equals(con.getSecondElementPort()))
+				{
+					tgtP = elPNode;
+					break;
+				}
+			}
+			internalElementsConnect(srcP, tgtP);
+		}
 	}
 	
 	@Override
@@ -153,6 +184,30 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	private void hardcodedCircuitRun()
 	{
 		for(int i = 0, n = circuit.getElements().size(); i < n; i++, circuit.step()){}
+	}
+	
+	//TODO - incorrect method from the MVC view (double MVC)
+	public Widget internalElementAdd(BasicElement el)
+	{
+		ElementNode elNode = new ElementNode(el);  //create new element node with default constructor
+		Widget nodeWidget = addNode(elNode);//add new ElementNode to the scene
+		nodeWidget.setPreferredLocation(el.getCoords());
+		for (String port : el.getPorts())
+		{//add pins to the scene
+			addPin(elNode, new ElementPortNode(port));
+		}
+		return nodeWidget;
+	}
+	
+	public void internalElementsConnect(ElementPortNode source, ElementPortNode target)
+	{
+		if(source == null || target == null)
+			return;
+		//add connection ("edge") to the view
+		String edge = "edge" + edgeCounter++;
+		addEdge(edge);
+		setEdgeSource(edge, source);
+		setEdgeTarget(edge, target);
 	}
 	
 	/**
@@ -285,6 +340,7 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 					tgtElem, target.getPort());
 			hardcodedCircuitRun();
 			
+			//add connection ("edge") to the view
 			String edge = "edge" + edgeCounter++;
 			addEdge(edge);
 			setEdgeSource(edge, source);
