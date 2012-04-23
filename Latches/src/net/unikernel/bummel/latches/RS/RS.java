@@ -23,20 +23,12 @@ public class RS extends BasicElement
         Q    = getPorts().get(2);
         notQ = getPorts().get(3);
     }
-    //S |  R | Qnext |  Action       | Q | Qnext | S | R
-    
-    //0 |  0 |   Q   | hold state    | 0 |   0   | 0 | X
-    //0 |  1 |   0   |  reset        | 0 |   1   | 1 | 0
-    //1 |  0 |   1   |   set         | 1 |   0   | 0 | 1
-    //1 |  1 |   X   |not allowed    | 1 |   1   | X | 0
     @Override
     public Map<String, Double> process(Map<String, Double> valuesOnPorts) 
     {
         if(valuesOnPorts.get(R).compareTo(new Double(0)) == 0 && 
            valuesOnPorts.get(S).compareTo(new Double(0)) != 0)
         {
-            valuesOnPorts.put(R, 0.);
-            valuesOnPorts.put(S, 0.);
             valuesOnPorts.put(Q, 1.);
             valuesOnPorts.put(notQ, 0.);
             SChecked = true;
@@ -46,8 +38,6 @@ public class RS extends BasicElement
             if(valuesOnPorts.get(R).compareTo(new Double(0)) != 0 &&
                valuesOnPorts.get(S).compareTo(new Double(0)) == 0)
             {
-                valuesOnPorts.put(R, 0.);
-                valuesOnPorts.put(S, 0.);
                 valuesOnPorts.put(Q, 0.);
                 valuesOnPorts.put(notQ, 1.);
                 SChecked = false;
@@ -59,21 +49,15 @@ public class RS extends BasicElement
                 {
                     if(SChecked)
                     {
-                        valuesOnPorts.put(R, 0.);
-                        valuesOnPorts.put(S, 0.);
                         valuesOnPorts.put(Q, 1.);
                     }
                     else
                         if(RChecked)
                         {
-                            valuesOnPorts.put(R, 0.);
-                            valuesOnPorts.put(S, 0.);
                             valuesOnPorts.put(notQ, 1.);
                         }
                     else
                         {
-                            valuesOnPorts.put(R, 0.);
-                            valuesOnPorts.put(S, 0.);
                             valuesOnPorts.put(Q, 0.);
                             valuesOnPorts.put(notQ, 0.);
                         }
@@ -82,11 +66,11 @@ public class RS extends BasicElement
                     if(valuesOnPorts.get(R).compareTo(new Double(0)) != 0 &&
                        valuesOnPorts.get(S).compareTo(new Double(0)) != 0)
                     {
-                        valuesOnPorts.put(R, 0.);
-                        valuesOnPorts.put(S, 0.);
                         valuesOnPorts.put(Q, 0.);
                         valuesOnPorts.put(notQ, 0.);
                     }
+        valuesOnPorts.put(R, 0.);
+        valuesOnPorts.put(S, 0.);
         return valuesOnPorts;
     }
 }
