@@ -13,7 +13,7 @@ import org.openide.util.lookup.ServiceProvider;
 @Element.ElementData(dataFile="element_info.xml")
 public class RS extends BasicElement
 {
-    private int state;
+    public int state;
     private String R, S, Q, notQ;
     public RS()
     {
