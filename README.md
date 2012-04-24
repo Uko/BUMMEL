@@ -42,8 +42,25 @@ Modules
 =======
 
   * **AdvancedLogicElements** - an implementation of circuit elements as an extended logic ones (XOR, NOR, XNOR, NAND).
+  * **Latches** - an implementation of flip-flop elements (RS).
   * **LogicElements** - an implementation of circuit elements as a logic ones (AND, NOT, OR, and supply ones).
   * **ProjectModel** - some model of an application project (*circuit data etc…*):
     * interfaces & abstract classes for the circuit, an circuit's element and the element's connection
     * circuit work algorithm
   * **VisualEditor** - the editor window itself + elements palette.
+
+
+Changelog
+=========
+
+v0.2
+----
+Dedicated to architecture improvements, and major bug fixes.
+Major change in UI graph library _(JGraph -> NetBeans Visual Library)_, elements graphics in svg, ext…
+Separation of **model** from ViewController
+
+  * **v0.2.0-ff1** - Flip-flop update introducing **RS** flip-flop element
+
+v0.1
+----
+Start-up version. Introduced basic GUI based on JGraph. Crappy.
