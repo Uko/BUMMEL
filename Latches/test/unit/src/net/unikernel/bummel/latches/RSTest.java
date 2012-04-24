@@ -30,35 +30,158 @@ public class RSTest
     @Before
     public void setUp()
     {
-         instance = new RS();
+        instance = new RS();
     }
     
     @After
     public void tearDown()
     {
-         instance = null;
+        instance = null;
     }
+    //RSProcess(R port value)(S port value) (State value)
     @Test
-    public void RSTest()
+    public void RSProcess001()
     {
-        System.out.println("Set and Reset ports are both 0:");
         Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 1;
+        System.out.println("Set and Reset ports are Both 0:");
+        System.out.println("Previous state: " + instance.state);
         valuesOnPorts.put("reset",0.);
         valuesOnPorts.put("set",0.);
         valuesOnPorts.put("q",0.);
         valuesOnPorts.put("notq",0.);
-        Map<String, Double> expResult= new TreeMap<>();
-	expResult.put("reset", 0.);
+        expResult.put("reset", 0.);
 	expResult.put("set", 0.);
 	expResult.put("q", 0.);
         expResult.put("notq", 0.);
         Map result = instance.process(valuesOnPorts);
-	assertEquals(expResult, result);
+        assertEquals(expResult, result);
         System.out.println("Q: " + result.get("q"));
         System.out.println("NotQ: " + result.get("notq"));
         System.out.println("-----");
+    }
+    @Test
+    public void RSProcess002()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 2;
+        System.out.println("Set and Reset ports are Both 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts.put("reset",0.);
+        valuesOnPorts.put("set",0.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 1.);
+        expResult.put("notq", 0.);
+        Map result = instance.process(valuesOnPorts);
+        assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
         
-        System.out.println("Set port is 1:");
+    }
+    @Test
+    public void RSProcess003()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 3;
+        System.out.println("Set and Reset ports are both 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts = new TreeMap<>();
+        valuesOnPorts.put("reset",0.);
+        valuesOnPorts.put("set",0.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult= new TreeMap<>();
+	expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 0.);
+        expResult.put("notq", 1.);
+        Map result = instance.process(valuesOnPorts);
+	assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+    }
+    @Test
+    public void RSProcess011()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 1;
+        System.out.println("Reset port is 1 Set port is 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts.put("reset",1.);
+        valuesOnPorts.put("set",0.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 0.);
+        expResult.put("notq", 1.);
+        Map result = instance.process(valuesOnPorts);
+        assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+    }
+    @Test
+    public void RSProcess012()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 2;
+        System.out.println("Reset port is 1 Set port is 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts.put("reset",1.);
+        valuesOnPorts.put("set",0.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 0.);
+        expResult.put("notq", 1.);
+        Map result = instance.process(valuesOnPorts);
+        assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+    }
+    @Test
+    public void RSProcess013()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 3;
+        System.out.println("Reset port is 1 Set port is 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts.put("reset",1.);
+        valuesOnPorts.put("set",0.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 0.);
+        expResult.put("notq", 1.);
+        Map result = instance.process(valuesOnPorts);
+        assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+    }
+    @Test
+    public void RSProcess101()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 1;
+        System.out.println("Set port is 1 Reset port is 0:");
+        System.out.println("Previous state: " + instance.state);
         valuesOnPorts = new TreeMap<>();
         valuesOnPorts.put("reset",0.);
         valuesOnPorts.put("set",1.);
@@ -69,83 +192,71 @@ public class RSTest
 	expResult.put("set", 0.);
 	expResult.put("q", 1.);
         expResult.put("notq", 0.);
-        result = instance.process(valuesOnPorts);
+        Map result = instance.process(valuesOnPorts);
+	assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+       
+    }
+    @Test
+    public void RSProcess102()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 2;
+        System.out.println("Set port is 1 Reset port is 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts = new TreeMap<>();
+        valuesOnPorts.put("reset",0.);
+        valuesOnPorts.put("set",1.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult= new TreeMap<>();
+	expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 1.);
+        expResult.put("notq", 0.);
+        Map result = instance.process(valuesOnPorts);
+	assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+       
+    }
+    @Test
+    public void RSProcess103()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 3;
+        System.out.println("Set port is 1 Reset port is 0:");
+        System.out.println("Previous state: " + instance.state);
+        valuesOnPorts = new TreeMap<>();
+        valuesOnPorts.put("reset",0.);
+        valuesOnPorts.put("set",1.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult= new TreeMap<>();
+	expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 1.);
+        expResult.put("notq", 0.);
+        Map result = instance.process(valuesOnPorts);
 	assertEquals(expResult, result);
         System.out.println("Q: " + result.get("q"));
         System.out.println("NotQ: " + result.get("notq"));
         System.out.println("-----");
        
-        expResult.clear();
-        valuesOnPorts.clear();
-        System.out.println("Set port is 0:");
-        valuesOnPorts.put("reset",0.);
-        valuesOnPorts.put("set",0.);
-        valuesOnPorts.put("q",0.);
-        valuesOnPorts.put("notq",0.);
-        expResult.put("reset", 0.);
-	expResult.put("set", 0.);
-	expResult.put("q", 1.);
-        expResult.put("notq", 0.);
-        result = instance.process(valuesOnPorts);
-        assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
-        System.out.println("NotQ: " + result.get("notq"));
-        System.out.println("-----");
-        
-        expResult.clear();
-        valuesOnPorts.clear();
-        System.out.println("Reset port is 1:");
-        valuesOnPorts.put("reset",1.);
-        valuesOnPorts.put("set",0.);
-        valuesOnPorts.put("q",0.);
-        valuesOnPorts.put("notq",0.);
-        expResult.put("reset", 0.);
-	expResult.put("set", 0.);
-	expResult.put("q", 0.);
-        expResult.put("notq", 1.);
-        result = instance.process(valuesOnPorts);
-        assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
-        System.out.println("NotQ: " + result.get("notq"));
-        System.out.println("-----");
-        
-        expResult.clear();
-        valuesOnPorts.clear();
-        System.out.println("Reset port is 0:");
-        valuesOnPorts.put("reset",0.);
-        valuesOnPorts.put("set",0.);
-        valuesOnPorts.put("q",0.);
-        valuesOnPorts.put("notq",0.);
-        expResult.put("reset", 0.);
-	expResult.put("set", 0.);
-	expResult.put("q", 0.);
-        expResult.put("notq", 1.);
-        result = instance.process(valuesOnPorts);
-        assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
-        System.out.println("NotQ: " + result.get("notq"));
-        System.out.println("-----");
-        
-        expResult.clear();
-        valuesOnPorts.clear();
-        System.out.println("Set port is again 1:");
-        valuesOnPorts.put("reset",0.);
-        valuesOnPorts.put("set",1.);
-        valuesOnPorts.put("q",0.);
-        valuesOnPorts.put("notq",0.);
-        expResult.put("reset", 0.);
-	expResult.put("set", 0.);
-	expResult.put("q", 1.);
-        expResult.put("notq", 0.);
-        result = instance.process(valuesOnPorts);
-        assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
-        System.out.println("NotQ: " + result.get("notq"));
-        System.out.println("-----");
-        
-        expResult.clear();
-        valuesOnPorts.clear();
+    }
+    @Test
+    public void RSProcess111()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 1;
         System.out.println("Set and Reset are both 1:");
+        System.out.println("Previos state: " + instance.state);
         valuesOnPorts.put("reset",1.);
         valuesOnPorts.put("set",1.);
         valuesOnPorts.put("q",0.);
@@ -154,26 +265,53 @@ public class RSTest
 	expResult.put("set", 0.);
 	expResult.put("q", 0.);
         expResult.put("notq", 0.);
-        result = instance.process(valuesOnPorts);
+        Map result = instance.process(valuesOnPorts);
         assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
+        System.out.println("Q: " + result.get("q")); 
         System.out.println("NotQ: " + result.get("notq"));
         System.out.println("-----");
-        
-                expResult.clear();
-        valuesOnPorts.clear();
-        System.out.println("Set and Reset are both 0 again:");
-        valuesOnPorts.put("reset",0.);
-        valuesOnPorts.put("set",0.);
+    }
+    @Test
+    public void RSProcess112()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 2;
+        System.out.println("Set and Reset are both 1:");
+        System.out.println("Previos state: " + instance.state);
+        valuesOnPorts.put("reset",1.);
+        valuesOnPorts.put("set",1.);
         valuesOnPorts.put("q",0.);
         valuesOnPorts.put("notq",0.);
         expResult.put("reset", 0.);
 	expResult.put("set", 0.);
-	expResult.put("q", 1.);
+	expResult.put("q", 0.);
         expResult.put("notq", 0.);
-        result = instance.process(valuesOnPorts);
+        Map result = instance.process(valuesOnPorts);
         assertEquals(expResult, result);
-        System.out.println("Q: " + result.get("q"));
+        System.out.println("Q: " + result.get("q")); 
+        System.out.println("NotQ: " + result.get("notq"));
+        System.out.println("-----");
+    }
+    @Test
+    public void RSProcess113()
+    {
+        Map<String, Double> valuesOnPorts = new TreeMap<>();
+        Map<String, Double> expResult = new TreeMap<>();
+        instance.state = 3;
+        System.out.println("Set and Reset are both 1:");
+        System.out.println("Previos state: " + instance.state);
+        valuesOnPorts.put("reset",1.);
+        valuesOnPorts.put("set",1.);
+        valuesOnPorts.put("q",0.);
+        valuesOnPorts.put("notq",0.);
+        expResult.put("reset", 0.);
+	expResult.put("set", 0.);
+	expResult.put("q", 0.);
+        expResult.put("notq", 0.);
+        Map result = instance.process(valuesOnPorts);
+        assertEquals(expResult, result);
+        System.out.println("Q: " + result.get("q")); 
         System.out.println("NotQ: " + result.get("notq"));
         System.out.println("-----");
     }
