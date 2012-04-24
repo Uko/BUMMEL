@@ -13,8 +13,8 @@ import org.openide.util.lookup.ServiceProvider;
 @Element.ElementData(dataFile="element_info.xml")
 public class RS extends BasicElement
 {
+    private int state;
     private String R, S, Q, notQ;
-    private boolean SChecked = false, RChecked = false;
     public RS()
     {
         super(new String[]{"reset", "set", "q", "notq"});
@@ -22,6 +22,7 @@ public class RS extends BasicElement
         S    = getPorts().get(1);
         Q    = getPorts().get(2);
         notQ = getPorts().get(3);
+        state = 1;
     }
     @Override
     public Map<String, Double> process(Map<String, Double> valuesOnPorts) 
@@ -31,8 +32,7 @@ public class RS extends BasicElement
         {
             valuesOnPorts.put(Q, 1.);
             valuesOnPorts.put(notQ, 0.);
-            SChecked = true;
-            RChecked = false;
+            state = 2;
         }
         else
             if(valuesOnPorts.get(R).compareTo(new Double(0)) != 0 &&
@@ -40,27 +40,25 @@ public class RS extends BasicElement
             {
                 valuesOnPorts.put(Q, 0.);
                 valuesOnPorts.put(notQ, 1.);
-                SChecked = false;
-                RChecked = true;
+                state = 3;
             }
             else
                 if(valuesOnPorts.get(R).compareTo(new Double(0)) == 0 &&
                    valuesOnPorts.get(S).compareTo(new Double(0)) == 0)
                 {
-                    if(SChecked)
+                    switch(state)
                     {
-                        valuesOnPorts.put(Q, 1.);
-                    }
-                    else
-                        if(RChecked)
-                        {
-                            valuesOnPorts.put(notQ, 1.);
-                        }
-                    else
-                        {
+                        case 1:
                             valuesOnPorts.put(Q, 0.);
                             valuesOnPorts.put(notQ, 0.);
-                        }
+                            break;
+                        case 2:
+                            valuesOnPorts.put(Q, 1.);
+                            break;
+                        case 3:
+                            valuesOnPorts.put(notQ, 1.);
+                            break;    
+                    }
                 }  
                 else
                     if(valuesOnPorts.get(R).compareTo(new Double(0)) != 0 &&
