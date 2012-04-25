@@ -218,6 +218,11 @@ public class BasicCircuit implements Circuit, Element
 	{
 		return Collections.unmodifiableSet(connections.keySet());
 	}
+	@Override
+	public String getPort(int port)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 	
 	private class BasicConnection implements Connection
 	{

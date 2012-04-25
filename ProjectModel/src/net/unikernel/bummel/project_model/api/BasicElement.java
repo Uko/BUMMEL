@@ -71,6 +71,16 @@ public abstract class BasicElement implements Element
 	{
 		return Collections.unmodifiableList(availablePorts);
 	}
+	/**
+	 * Return the port's name by port position   
+	 * @param port port's position in the list
+	 * @return port's name
+	 */
+	@Override
+	public String getPort(int port)
+	{
+		return getPorts().get(port);
+	}
 	@Override
 	public synchronized void addPropertyChangeListener(PropertyChangeListener listener)
 	{

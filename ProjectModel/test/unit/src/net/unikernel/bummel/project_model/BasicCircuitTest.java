@@ -338,5 +338,10 @@ public class BasicCircuitTest
 			map.put("up", 0.);
 			return map;
 		}
+		@Override
+		public String getPort(int port)
+		{
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
 	}
 }
