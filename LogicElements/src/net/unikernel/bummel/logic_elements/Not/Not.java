@@ -34,6 +34,7 @@ public class Not extends BasicElement
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
+		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
 		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0)
 		{
 			valuesOnPorts.put(getPorts().get(1), new Double(1));
