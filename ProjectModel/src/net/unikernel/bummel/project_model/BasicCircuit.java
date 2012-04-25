@@ -223,6 +223,11 @@ public class BasicCircuit implements Circuit, Element
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+	@Override
+	public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 	
 	private class BasicConnection implements Connection
 	{

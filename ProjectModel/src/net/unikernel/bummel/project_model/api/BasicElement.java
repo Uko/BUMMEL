@@ -3,10 +3,7 @@ package net.unikernel.bummel.project_model.api;
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -81,7 +78,21 @@ public abstract class BasicElement implements Element
 	{
 		return getPorts().get(port);
 	}
+	
+	/**
+	 * Changes all null values on the port to 0s
+	 * @param valuesOnPorts map of port -> value
+	 * @return map of port -> value free of null values e.i. will all available ports.
+	 */
 	@Override
+	public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
+	{
+		for(String port : getPorts())
+			if(valuesOnPorts.get(port) == null) valuesOnPorts.put(port, new Double(0));
+		return valuesOnPorts;
+	}
+	
+	@Override		
 	public synchronized void addPropertyChangeListener(PropertyChangeListener listener)
 	{
 		this.pcs.addPropertyChangeListener(listener);

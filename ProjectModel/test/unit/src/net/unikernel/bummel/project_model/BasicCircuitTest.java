@@ -343,5 +343,10 @@ public class BasicCircuitTest
 		{
 			throw new UnsupportedOperationException("Not supported yet.");
 		}
+		@Override
+		public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
+		{
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
 	}
 }
