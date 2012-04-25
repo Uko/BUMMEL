@@ -181,6 +181,19 @@ public class BasicCircuitTest
 		instance.disconnectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 	}
 	
+	@Test
+	public void testDisconectElementFromSelf()
+	{
+		System.out.println("connectElements");
+		Element firstElement = new BasicElementImpl();
+		String firstElementPort = "in";
+		String secondElementPort = "out";
+		instance.addElement(firstElement);
+		instance.addElement(firstElement);
+		assertTrue(instance.connectElements(firstElement, firstElementPort, firstElement, secondElementPort));
+		instance.disconnectElements(firstElement, firstElementPort, firstElement, secondElementPort);
+	}
+	
 	/**
 	 * Test of step method, of class BasicCircuit.
 	 */

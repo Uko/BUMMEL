@@ -95,7 +95,7 @@ public class BasicCircuit implements Circuit, Element
 			{
 				elementPortConnection.remove(firstElement);
 			}
-			if(elementPortConnection.get(secondElement).isEmpty())
+			if(elementPortConnection.containsKey(secondElement) && elementPortConnection.get(secondElement).isEmpty())
 			{
 				elementPortConnection.remove(secondElement);
 			}
