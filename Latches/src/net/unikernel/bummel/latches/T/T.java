@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.unikernel.bummel.T;
+package net.unikernel.bummel.latches.T;
 
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
