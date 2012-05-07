@@ -15,8 +15,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 {
 	net.unikernel.bummel.project_model.BasicCircuitTest.class, 
-	net.unikernel.bummel.project_model.api.ApiSuite.class, 
-	net.unikernel.bummel.project_model.ProjectModelTest.class
+	net.unikernel.bummel.project_model.api.ApiSuite.class
 })
 public class Project_modelSuite
 {
