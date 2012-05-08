@@ -145,6 +145,15 @@ public class BasicCircuit implements Circuit, Element
 					}
 				}
 			}
+			else
+			{//if not - touch it with zeros
+				Map<String, Double> portsMap = new TreeMap<>();
+				for (String str : i.getPorts())
+				{
+					portsMap.put(str, .0);
+				}
+				i.process(portsMap);
+			}
 		}
 		//sets values on the connections as a middle of the edges values
 		for (Map.Entry<Connection,ArrayList<Double>> i : tempoMap.entrySet())
