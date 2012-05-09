@@ -53,6 +53,11 @@ Modules
 Changelog
 =========
 
+v0.2.1
+------
+Bug-fixes of the v0.2.
+Little bit improved schema processing and added handling of the element state without graphics.
+
 v0.2
 ----
 Dedicated to architecture improvements, and major bug fixes.
