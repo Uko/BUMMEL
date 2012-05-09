@@ -36,6 +36,7 @@ public class Split extends BasicElement
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
+		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
 		valuesOnPorts.put(getPorts().get(1), valuesOnPorts.get(getPorts().get(0)).doubleValue());
 		valuesOnPorts.put(getPorts().get(2), valuesOnPorts.get(getPorts().get(0)).doubleValue());
 		valuesOnPorts.put(getPorts().get(0), 0.);

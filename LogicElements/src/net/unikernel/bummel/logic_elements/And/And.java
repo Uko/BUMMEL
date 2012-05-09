@@ -36,6 +36,7 @@ public class And extends BasicElement
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
+		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
 		valuesOnPorts.put(getPorts().get(2), 
 				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
 				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));

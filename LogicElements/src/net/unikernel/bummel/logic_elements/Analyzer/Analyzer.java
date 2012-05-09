@@ -34,6 +34,7 @@ public class Analyzer extends BasicElement
 	@Override
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
+		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
 		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0)
 			setState(1);	//light it
 		else

@@ -19,6 +19,18 @@ public interface Element extends Serializable
 	public Point getCoords();
 	public void setCoords(Point point);
 	public List<String> getPorts();
+	/**
+	 * Return the port's name by port position   
+	 * @param port port's position in the list
+	 * @return port's name
+	 */
+	public String getPort(int port);
+	/**
+	 * Should change all null values on the port to some defaults
+	 * @param valuesOnPorts map of port -> value
+	 * @return map of port -> value free of null values e.i. will all available ports.
+	 */
+	public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts);
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts);
 	public void addPropertyChangeListener(PropertyChangeListener listener);
 	public void removePropertyChangeListener(PropertyChangeListener listener);

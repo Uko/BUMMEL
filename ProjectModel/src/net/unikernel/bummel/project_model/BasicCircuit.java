@@ -95,7 +95,7 @@ public class BasicCircuit implements Circuit, Element
 			{
 				elementPortConnection.remove(firstElement);
 			}
-			if(elementPortConnection.get(secondElement).isEmpty())
+			if(elementPortConnection.containsKey(secondElement) && elementPortConnection.get(secondElement).isEmpty())
 			{
 				elementPortConnection.remove(secondElement);
 			}
@@ -144,6 +144,15 @@ public class BasicCircuit implements Circuit, Element
 						tempoMap.get(elementPortConnection.get(i).get(j.getKey())).add(j.getValue());
 					}
 				}
+			}
+			else
+			{//if not - touch it with zeros
+				Map<String, Double> portsMap = new TreeMap<>();
+				for (String str : i.getPorts())
+				{
+					portsMap.put(str, .0);
+				}
+				i.process(portsMap);
 			}
 		}
 		//sets values on the connections as a middle of the edges values
@@ -217,6 +226,16 @@ public class BasicCircuit implements Circuit, Element
 	public Set<Connection> getConnections()
 	{
 		return Collections.unmodifiableSet(connections.keySet());
+	}
+	@Override
+	public String getPort(int port)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+	@Override
+	public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 	private class BasicConnection implements Connection

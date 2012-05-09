@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://www.netbeans.org/ns/project/1">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.apisupport.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
@@ -42,5 +41,8 @@
                 <package>net.unikernel.bummel.project_model.api</package>
             </public-packages>
         </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>port's</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

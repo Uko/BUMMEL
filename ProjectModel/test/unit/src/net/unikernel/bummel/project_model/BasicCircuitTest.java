@@ -181,6 +181,19 @@ public class BasicCircuitTest
 		instance.disconnectElements(firstElement, firstElementPort, secondElement, secondElementPort);
 	}
 	
+	@Test
+	public void testDisconectElementFromSelf()
+	{
+		System.out.println("connectElements");
+		Element firstElement = new BasicElementImpl();
+		String firstElementPort = "in";
+		String secondElementPort = "out";
+		instance.addElement(firstElement);
+		instance.addElement(firstElement);
+		assertTrue(instance.connectElements(firstElement, firstElementPort, firstElement, secondElementPort));
+		instance.disconnectElements(firstElement, firstElementPort, firstElement, secondElementPort);
+	}
+	
 	/**
 	 * Test of step method, of class BasicCircuit.
 	 */
@@ -337,6 +350,16 @@ public class BasicCircuitTest
 			map.put("that way", 1.);
 			map.put("up", 0.);
 			return map;
+		}
+		@Override
+		public String getPort(int port)
+		{
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
+		@Override
+		public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
+		{
+			throw new UnsupportedOperationException("Not supported yet.");
 		}
 	}
 }

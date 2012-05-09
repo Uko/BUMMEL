@@ -18,7 +18,8 @@ import org.junit.runners.Suite;
 	net.unikernel.bummel.logic_elements.OrTest.class,
 	net.unikernel.bummel.logic_elements.NotTest.class,
 	net.unikernel.bummel.logic_elements.SplitTest.class,
-	net.unikernel.bummel.logic_elements.SchemeTest.class
+	net.unikernel.bummel.logic_elements.SchemeTest.class,
+	net.unikernel.bummel.logic_elements.UserInteractionTest.class
 })
 public class Logic_elementsSuite
 {

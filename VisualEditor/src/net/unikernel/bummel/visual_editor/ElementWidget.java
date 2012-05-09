@@ -90,19 +90,22 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 			if(!stateImages.containsKey((Integer)evt.getNewValue()))
 			{
 				SvgWidget newImage = new SvgWidget(this.getScene(), this.elNode.getGraphicsURL((Integer)evt.getNewValue()));
-				if(((SvgWidget)imageWidget).getDiagram() != null)
-				{
-					stateImages.put((Integer)evt.getNewValue(), newImage);
+				if(newImage.getDiagram() == null)
+				{//if element does not have graphics representation of current state
+					//load default graphics
+					newImage.setDiagram(getClass().getResource("default_element_graphics.svg"));
+					//attach it to the static variable in case of future need
+					defaultDiagram = newImage.getDiagram();
 				}
+
+				stateImages.put((Integer)evt.getNewValue(), newImage);
 			}
-			if(stateImages.containsKey((Integer)evt.getNewValue()))
-			{
-				imageWidget.removeFromParent();
-				imageWidget = stateImages.get((Integer)evt.getNewValue());
-				body.addChild(imageWidget);
-				this.revalidate();
-				this.repaint();
-			}
+
+			imageWidget.removeFromParent();
+			imageWidget = stateImages.get((Integer) evt.getNewValue());
+			body.addChild(imageWidget);
+			this.revalidate();
+			this.repaint();
 		}
 	}
 }
