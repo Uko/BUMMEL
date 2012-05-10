@@ -53,18 +53,22 @@ Modules
 Changelog
 =========
 
-v0.2.1
-------
-Bug-fixes of the v0.2.
-Little bit improved schema processing and added handling of the element state without graphics.
-
 v0.2
 ----
 Dedicated to architecture improvements, and major bug fixes.
 Major change in UI graph library _(JGraph -> NetBeans Visual Library)_, elements graphics in svg, ext…
 Separation of **model** from ViewController
 
-  * **v0.2.0-ff1** - Flip-flop update introducing **RS** flip-flop element
+###v0.2.1
+General bug-fixes
+
+  * Elements with unconnected ports not working as intended: #9
+  * Disconnecting a connection between ports of the one element: #19
+  * Elements not refreshing state on disconnect: #20
+  * Default graphics for non-defined states: #22
+
+###v0.2.0-ff
+Flip-flop update introducing **RS** flip-flop element
 
 v0.1
 ----
