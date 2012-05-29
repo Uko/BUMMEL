@@ -306,7 +306,7 @@ public final class EditorTopComponent extends TopComponent
 				try
 				{
 					fis = new FileInputStream(f);
-					oin = new ObjectInputStream(fis);
+					oin = new NBSystemClassLoaderObjectInputStream(fis);
 					projectModel = (ProjectModel) oin.readObject();
 					oin.close();
 //					if (project.getName().equals(projectModel.getName()))
