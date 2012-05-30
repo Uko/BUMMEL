@@ -1,9 +1,12 @@
 package net.unikernel.bummel.visual_editor;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.XStreamException;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -59,10 +62,14 @@ public final class EditorTopComponent extends TopComponent
 			//TODO - add a constructor from the File object ??
 			try
 			{
-				tc = new EditorTopComponent(Opener.open(f));
-				tcByFile.put(f, tc);
-				FileObject fob = FileUtil.toFileObject(FileUtil.normalizeFile(f));
-				tc.content.add(DataObject.find(fob));
+				ProjectModel project = Opener.open(f);
+				if(project != null)
+				{
+					tc = new EditorTopComponent(Opener.open(f));
+					tcByFile.put(f, tc);
+					FileObject fob = FileUtil.toFileObject(FileUtil.normalizeFile(f));
+					tc.content.add(DataObject.find(fob));
+				}
 			} catch (DataObjectNotFoundException ex)
 			{
 				Exceptions.printStackTrace(ex);
@@ -264,9 +271,10 @@ public final class EditorTopComponent extends TopComponent
 
 		private void save(File f) throws IOException
 		{
-			try (FileOutputStream fos = new FileOutputStream(f); ObjectOutputStream out = new ObjectOutputStream(fos))
+			XStream xstream = new XStream();
+			try (FileOutputStream fos = new FileOutputStream(f))
 			{
-				out.writeObject(project);
+				xstream.toXML(project, fos);
 			}
 			String savedMessage = NbBundle.getMessage(Saver.class, "MSG_Saved", f.getName());
 			StatusDisplayer.getDefault().setStatusText(savedMessage);
@@ -296,27 +304,22 @@ public final class EditorTopComponent extends TopComponent
 			throw new UnsupportedOperationException("Not supported yet.");
 		}
 
-		public static ProjectModel open(File f)
+		public static ProjectModel open(File f) throws XStreamException
 		{
 			ProjectModel projectModel = null;
+			
 			if (f != null)
 			{
-				FileInputStream fis;
-				ObjectInputStream oin;
-				try
-				{
-					fis = new FileInputStream(f);
-					oin = new ObjectInputStream(fis);
-					projectModel = (ProjectModel) oin.readObject();
-					oin.close();
-//					if (project.getName().equals(projectModel.getName()))
-//					{
-//						System.out.println("Serialization succeded.");
-//					}
-				} catch (		IOException | ClassNotFoundException ex)
-				{
-					Exceptions.printStackTrace(ex);
-				}
+					XStream xstream = new XStream();
+					xstream.setClassLoader(Thread.currentThread().getContextClassLoader());
+					try
+					{
+						projectModel = (ProjectModel)xstream.fromXML(f);
+					}
+					catch(Throwable t)
+					{
+						DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Failed to open "+f.getAbsolutePath(), NotifyDescriptor.ERROR_MESSAGE));
+					}
 			}
 			return projectModel;
 		}

@@ -59,6 +59,12 @@ Dedicated to architecture improvements, and major bug fixes.
 Major change in UI graph library _(JGraph -> NetBeans Visual Library)_, elements graphics in svg, ext…
 Separation of **model** from ViewController
 
+###v0.2.2
+Fix of Class loading during the project deserialization.
+Now all module dependencies are back to normal.
+
+Projects are saved to XML
+
 ###v0.2.1-ff
 Additional flip-flops: **D**, **T** and **JK**
 
