@@ -34,8 +34,11 @@ public final class OpenProjectAction implements ActionListener
 		if (f != null)
 		{
 			EditorTopComponent tc = EditorTopComponent.findInstance(f);
-			tc.open();
-			tc.requestActive();
+			if(tc != null)
+			{
+				tc.open();
+				tc.requestActive();
+			}
 		}
 	}
 }

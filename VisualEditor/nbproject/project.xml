@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://www.netbeans.org/ns/project/1">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.apisupport.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
@@ -114,8 +113,16 @@
             </module-dependencies>
             <public-packages/>
             <class-path-extension>
+                <runtime-relative-path>ext/kxml2-min-2.3.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/kxml2-min-2.3.0.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
                 <runtime-relative-path>ext/svgSalamander.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/svgSalamander.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/xstream-1.4.2.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/xstream-1.4.2.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>
