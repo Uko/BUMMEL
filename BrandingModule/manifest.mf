@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: net.unikernel.bummel.brandingmodule
-OpenIDE-Module-Layer: net/unikernel/bummel/brandingmodule/layer.xml
-OpenIDE-Module-Localizing-Bundle: net/unikernel/bummel/brandingmodule/Bundle.properties
-OpenIDE-Module-Specification-Version: 1.0
-

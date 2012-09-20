@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: net.unikernel.bummel.jgraph
-OpenIDE-Module-Localizing-Bundle: net/unikernel/bummel/jgraph/Bundle.properties
-OpenIDE-Module-Specification-Version: 1.0
-

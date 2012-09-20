@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unikernel.bummel.visual_editor;
 
 import java.awt.event.ActionEvent;
@@ -38,8 +34,11 @@ public final class OpenProjectAction implements ActionListener
 		if (f != null)
 		{
 			EditorTopComponent tc = EditorTopComponent.findInstance(f);
-			tc.open();
-			tc.requestActive();
+			if(tc != null)
+			{
+				tc.open();
+				tc.requestActive();
+			}
 		}
 	}
 }
