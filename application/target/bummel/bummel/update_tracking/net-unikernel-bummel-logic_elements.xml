@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="net.unikernel.bummel.logic_elements">
+    <module_version install_time="1349662477724" last="true" origin="installer" specification_version="0.2.2">
+        <file crc="629878484" name="config/Modules/net-unikernel-bummel-logic_elements.xml"/>
+        <file crc="4183527686" name="modules/net-unikernel-bummel-logic_elements.jar"/>
+    </module_version>
+</module>

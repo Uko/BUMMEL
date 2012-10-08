@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="net.unikernel.bummel.project_model">
+    <module_version install_time="1349662477247" last="true" origin="installer" specification_version="0.2.2">
+        <file crc="2819707104" name="config/Modules/net-unikernel-bummel-project_model.xml"/>
+        <file crc="1866600749" name="modules/net-unikernel-bummel-project_model.jar"/>
+        <file crc="1139115731" name="update_tracking/net-unikernel-bummel-project_model.xml"/>
+    </module_version>
+</module>

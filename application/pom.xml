@@ -27,11 +27,11 @@
             <version>${netbeans.version}</version>
             <type>pom</type>
         </dependency>
-      <!--  <dependency>
-            <groupId>${project.groupId}</groupId>
+        <dependency>
+            <groupId>net.unikernel.bummel</groupId>
             <artifactId>BUMMEL-branding</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
+            <version>0.2.2</version>
+        </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-nbjunit</artifactId>

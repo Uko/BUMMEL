@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="net.unikernel.bummel.BUMMEL.branding">
+    <module_version install_time="1349663270135" last="true" origin="installer" specification_version="0.2.2">
+        <file crc="248128988" name="config/Modules/net-unikernel-bummel-BUMMEL-branding.xml"/>
+        <file crc="1445963791" name="core/locale/core_bummel.jar"/>
+        <file crc="1313803260" name="modules/locale/org-netbeans-core-windows_bummel.jar"/>
+        <file crc="600422274" name="modules/locale/org-netbeans-modules-favorites_bummel.jar"/>
+        <file crc="1785889814" name="modules/net-unikernel-bummel-BUMMEL-branding.jar"/>
+        <file crc="682765335" name="update_tracking/net-unikernel-bummel-BUMMEL-branding.xml"/>
+    </module_version>
+</module>
