@@ -52,6 +52,7 @@
         <module>LogicElements</module>
         <module>ProjectModel</module>
         <module>AdvancedLogicElements</module>
+        <module>Latches</module>
     </modules>
 
     <properties>
