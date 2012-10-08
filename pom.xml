@@ -53,6 +53,7 @@
         <module>ProjectModel</module>
         <module>AdvancedLogicElements</module>
         <module>Latches</module>
+        <module>VisualEditor</module>
     </modules>
 
     <properties>
