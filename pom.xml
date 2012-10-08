@@ -7,7 +7,7 @@
     <version>0.2.2</version>
     <packaging>pom</packaging>
     
-    <name>BUMMEL</name>
+    <name>BUMMEL-parent</name>
     
     <repositories>
         <repository>
@@ -53,12 +53,14 @@
         <module>ProjectModel</module>
         <module>AdvancedLogicElements</module>
         <module>Latches</module>
+        <module>application</module>
         <module>VisualEditor</module>
+        <module>branding</module>
     </modules>
 
     <properties>
         <netbeans.version>RELEASE711</netbeans.version>
-        <brandingToken>BUMMEL</brandingToken>
+        <brandingToken>bummel</brandingToken>
     </properties>
     
 </project>
