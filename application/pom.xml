@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.netbeans.cluster</groupId>
             <artifactId>platform</artifactId>
-            <version>${netbeans.version}</version>
+            <version>RELEASE72</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-nbjunit</artifactId>
-            <version>${netbeans.version}</version>
+            <version>RELEASE72</version>
             <scope>test</scope>
         </dependency>
         <dependency>
