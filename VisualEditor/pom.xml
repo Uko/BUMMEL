@@ -113,25 +113,14 @@
             <version>RELEASE72</version>
         </dependency>
         <dependency>
-            <groupId>org.xstream</groupId>
+            <groupId>com.kitfox.svg</groupId>
+            <artifactId>svg-salamander</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/net/unikernel/bummel/visual_editor/xstream-1.4.2.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>kxml</groupId>
-            <artifactId>kxml2-min</artifactId>
-            <version>2.3.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/net/unikernel/bummel/visual_editor/kxml2-min-2.3.0.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.salamander</groupId>
-            <artifactId>svgSalamander</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/net/unikernel/bummel/visual_editor/svgSalamander-1.jar</systemPath>
+            <version>1.4.3</version>
         </dependency>
     </dependencies>
     <build>
