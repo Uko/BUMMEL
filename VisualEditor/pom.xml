@@ -21,17 +21,17 @@
     <repositories>
         <repository>
             <url>http://repo1.maven.org/maven2/</url>
-            <id>maven</id>
+            <id>Maven</id>
             <name>Central Maven Repository</name>
         </repository>
         <repository>
             <url>http://bits.netbeans.org/maven2/</url>
-            <id>netbeans</id>
-            <name>NetBeans Repository</name>
+            <id>NetBeans</id>
+            <name>Repository for Netbeans</name>
         </repository>
         <repository>
             <url>https://bitbucket.org/W1M0/maven/raw/tip/2/</url>
-            <id>salamander</id>
+            <id>Salamander</id>
             <name>Salamander Repository</name>
         </repository>
     </repositories>
