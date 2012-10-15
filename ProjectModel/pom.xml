@@ -21,26 +21,24 @@
     <repositories>
         <repository>
             <url>http://repo1.maven.org/maven2/</url>
-            <id>junit_4</id>
-            <layout>test</layout>
-            <name>Repository for library Library[junit_4]</name>
+            <id>Maven</id>
+            <name>Central Maven Repository</name>
         </repository>
         <repository>
             <url>http://bits.netbeans.org/maven2/</url>
-            <id>netbeans</id>
-            <layout>default</layout>
-            <name>Repository for Netbeans</name>
+            <id>NetBeans</id>
+            <name>NetBeans Repository</name>
         </repository>
     </repositories>
+    
     <pluginRepositories>
         <pluginRepository>
-            <id>maven.java.net</id>
-            <name>Maven2 Plugins Repository</name>
             <url>http://repo1.maven.org/maven2</url>
+            <id>Maven Plugins</id>
+            <name>Maven Plugins Repository</name>
         </pluginRepository>
     </pluginRepositories>
-
-   
+    
     <dependencies>
         <dependency>
           <groupId>org.netbeans.api</groupId>
