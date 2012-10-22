@@ -29,11 +29,6 @@
             <id>NetBeans</id>
             <name>Repository for Netbeans</name>
         </repository>
-        <repository>
-            <url>https://bitbucket.org/W1M0/maven/raw/tip/2/</url>
-            <id>Salamander</id>
-            <name>Salamander Repository</name>
-        </repository>
     </repositories>
     
     <pluginRepositories>
