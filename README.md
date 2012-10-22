@@ -1,5 +1,5 @@
-BUMMEL
-======
+BUMMEL [![Build Status](https://secure.travis-ci.org/Uko/BUMMEL.png)](http://travis-ci.org/Uko/BUMMEL)
+======================================================================================================
 
 The final product should be and application that will provide a logical and electrical circuit boards editor, firstly for educational use, maybe in future will contain commercial features.
 
