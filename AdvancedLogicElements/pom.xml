@@ -5,12 +5,12 @@
     <parent>
         <groupId>net.unikernel.bummel</groupId>
         <artifactId>BUMMEL-parent</artifactId>
-        <version>0.2.2</version>
+        <version>0.3</version>
     </parent>
     
     <groupId>net.unikernel.bummel</groupId>
     <artifactId>advanced_logic_elements</artifactId>
-    <version>0.2.2</version>
+    <version>0.3</version>
         
     <name>AdvancedLogicElements</name>
     <packaging>nbm</packaging>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>net.unikernel.bummel</groupId>
             <artifactId>project_model</artifactId>
-            <version>0.2.2</version>
+            <version>0.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
