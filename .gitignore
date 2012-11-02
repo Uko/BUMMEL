@@ -1,10 +1,10 @@
-# NetBeans related data #
+﻿# NetBeans related data #
 #########################
-nbproject/private/
-build/
-/dist/
+nbproject/private/build//dist/
 /Jgraph/nbproject/private/
+/AdvancedLogicElements/nbproject/private/
 /BasicElements/nbproject/private/
+/Latches/nbproject/private/
 /LogicElements/nbproject/private/
 /ProjectModel/nbproject/private/
 /BrandingModule/nbproject/private/
@@ -47,22 +47,11 @@ ehthumbs.db
 Icon?
 Thumbs.db
 /SvgWrapper/nbproject/private/
-/AdvancedLogicElements/nbproject/private/
 /xstream/nbproject/private/
-/BackUp/target/
-/project_model/nbproject/private/
-/ProjectModelMaven/target/
-/LogicElementsMaven/nbproject/private/
-/ProjectModel/target/
-/LogicElementsMaven/target/
-/LogicElements/target/
-/Latches - копия/nbproject/private/
-/LatchesMaven/nbproject/private/
-/AdvancedLogicElements - копия/nbproject/private/
-/AdvancedLogicElementsMaven/nbproject/private/
 /AdvancedLogicElements/target/
-/Latches/target/
-/VisualEditorMaven/nbproject/private/
-/VisualEditor/target/
 /application/target/
 /branding/target/
+/ProjectModel/target/
+/LogicElements/target/
+/Latches/target/
+/VisualEditor/target/
