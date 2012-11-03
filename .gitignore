@@ -1,14 +1,27 @@
 ﻿# NetBeans related data #
 #########################
-nbproject/private/build/dist/
 /AdvancedLogicElements/nbproject/private/
-/BasicElements/nbproject/private/
+/AdvancedLogicElements/target/
+/AdvancedLogicElements/build/
+/application/target/
+/branding/target/
+/branding/nbproject/private
+/branding/build/
+/build/
 /Latches/nbproject/private/
+/Latches/target/
+/Latches/build/
 /LogicElements/nbproject/private/
+/LogicElements/target/
+/LogicElements/build/
+/nbproject/private/
 /ProjectModel/nbproject/private/
-/BrandingModule/nbproject/private/
-/VLEditor/nbproject/private/
+/ProjectModel/target/
+/ProjectModel/build/
 /VisualEditor/nbproject/private/
+/VisualEditor/target/
+/VisualEditor/build/
+
 # Compiled source #
 ###################
 *.com
@@ -44,10 +57,3 @@ nbproject/private/build/dist/
 ehthumbs.db
 Icon?
 Thumbs.db
-/AdvancedLogicElements/target/
-/application/target/
-/branding/target/
-/ProjectModel/target/
-/LogicElements/target/
-/Latches/target/
-/VisualEditor/target/
