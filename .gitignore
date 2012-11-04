@@ -1,26 +1,10 @@
 ﻿# NetBeans related data #
 #########################
-/application/target/
-/AdvancedLogicElements/target/
-/branding/target/
-/Latches/target/
-/LogicElements/target/
-/ProjectModel/target/
-/VisualEditor/target/
-/AdvancedLogicElements/nbproject/private/
-/branding/nbproject/private/
-/Latches/nbproject/private/
-/LogicElements/nbproject/private/
+/*/target/
+/*/nbproject/private/
 /nbproject/private/
-/ProjectModel/nbproject/private/
-/VisualEditor/nbproject/private/
-/AdvancedLogicElements/build/
-/branding/build/
+/*/build/
 /build/
-/Latches/build/
-/LogicElements/build/
-/ProjectModel/build/
-/VisualEditor/build/
 
 # Compiled source #
 ###################
