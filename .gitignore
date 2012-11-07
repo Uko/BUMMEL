@@ -1,18 +1,10 @@
-# NetBeans related data #
+﻿# NetBeans related data #
 #########################
-nbproject/private/
-build/
-/dist/
-/Jgraph/nbproject/private/
-/BasicElements/nbproject/private/
-/LogicElements/nbproject/private/
-/ProjectModel/nbproject/private/
-/BrandingModule/nbproject/private/
-/VLEditor/nbproject/private/
-/VisualEditor/nbproject/private/
-/branding/target/
-/branding/nbproject/private/
-/branding/build/
+/*/target/
+/*/nbproject/private/
+/nbproject/private/
+/*/build/
+/build/
 
 # Compiled source #
 ###################
@@ -51,22 +43,3 @@ build/
 ehthumbs.db
 Icon?
 Thumbs.db
-/SvgWrapper/nbproject/private/
-/AdvancedLogicElements/nbproject/private/
-/xstream/nbproject/private/
-/BackUp/target/
-/project_model/nbproject/private/
-/ProjectModelMaven/target/
-/LogicElementsMaven/nbproject/private/
-/ProjectModel/target/
-/LogicElementsMaven/target/
-/LogicElements/target/
-/Latches - копия/nbproject/private/
-/LatchesMaven/nbproject/private/
-/AdvancedLogicElements - копия/nbproject/private/
-/AdvancedLogicElementsMaven/nbproject/private/
-/AdvancedLogicElements/target/
-/Latches/target/
-/VisualEditorMaven/nbproject/private/
-/VisualEditor/target/
-/application/target/
