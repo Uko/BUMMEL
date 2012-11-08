@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>net.unikernel.bummel</groupId>
+    <artifactId>BUMMEL-parent</artifactId>
+    <version>0.2.2</version>
+    <packaging>pom</packaging>
+    
+    <name>BUMMEL-parent</name>
+    
+    <repositories>
+        <repository>
+            <url>http://bits.netbeans.org/maven2/</url>
+            <id>NetBeans</id>
+            <name>NetBeans Repository</name>
+        </repository>
+    </repositories>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>nbm-maven-plugin</artifactId>
+                    <version>3.7</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <brandingToken>${brandingToken}</brandingToken>
+                        <cluster>${brandingToken}</cluster>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+            </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+    <modules>
+        <module>LogicElements</module>
+        <module>ProjectModel</module>
+        <module>AdvancedLogicElements</module>
+        <module>Latches</module>
+        <module>application</module>
+        <module>VisualEditor</module>
+        <module>branding</module>
+    </modules>
+
+    <properties>
+        <netbeans.version>RELEASE72</netbeans.version>
+        <brandingToken>bummel</brandingToken>
+    </properties>
+    
+</project>

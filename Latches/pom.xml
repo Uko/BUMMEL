@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>net.unikernel.bummel</groupId>
+        <artifactId>BUMMEL-parent</artifactId>
+        <version>0.2.2</version>
+    </parent>
+    
+    <groupId>net.unikernel.bummel</groupId>
+    <artifactId>latches</artifactId>
+    <version>0.2.2</version>
+    
+    <name>Latches</name>
+    <packaging>nbm</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <repositories>
+        <repository>
+            <url>http://repo1.maven.org/maven2/</url>
+            <id>Maven</id>
+            <name>Central Maven Repository</name>
+        </repository>
+        <repository>
+            <url>http://bits.netbeans.org/maven2/</url>
+            <id>NetBeans</id>
+            <name>NetBeans Repository</name>
+        </repository>
+    </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <url>http://repo1.maven.org/maven2</url>
+            <id>Maven Plugins</id>
+            <name>Maven Plugins Repository</name>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <dependencies>
+        <dependency>
+          <groupId>org.netbeans.api</groupId>
+          <artifactId>org-netbeans-api-annotations-common</artifactId>
+          <version>RELEASE72</version>
+        </dependency>
+        <dependency>
+            <groupId>net.unikernel.bummel</groupId>
+            <artifactId>project_model</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+         <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util-lookup</artifactId>
+            <version>RELEASE72</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
