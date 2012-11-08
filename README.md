@@ -24,10 +24,14 @@ First of all we should achieve something that can be used in our University inst
 Deployment
 ==========
 
-Language/Platform/BuildTool
+Language/Platform
 -----------------
 
-This project is written in **Java 1.7** with **NetBeans RCP 7.2** using **Maven 3**.
+This project is written in Java 1.7, using NetBeans Platform 7.1. So for development, we recommend to download latest stable NetBeans IDE form it's [download page](http://netbeans.org/downloads/index.html). Please note, NetBeans Platform SDK (that you need to compile the project) is included only in **Java SE** **Java EE** and "**all**" bundles, thou you should be comfortable using **Java SE** bundle.
+
+OSX Tips
+--------
+Sometimes Java7 will not compile on Mac OS X. For a solution check [Stack Overflow Question](http://stackoverflow.com/questions/9290848/how-to-set-a-java-compiler-in-netbeans)
 
 Branches
 --------
@@ -48,11 +52,6 @@ Modules
 
 Changelog
 =========
-
-v0.3
-----
-Migrated build tool from **Ant** to **Maven**. Upgraded Netbeans RCP version to **7.2**.
-
 
 v0.2
 ----
