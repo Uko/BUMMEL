@@ -5,12 +5,12 @@
     <parent>
         <groupId>net.unikernel.bummel</groupId>
         <artifactId>BUMMEL-parent</artifactId>
-        <version>0.2.2</version>
+        <version>0.3.1</version>
     </parent>
     
     <groupId>net.unikernel.bummel</groupId>
     <artifactId>project_model</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.1</version>
     <packaging>nbm</packaging>
     <name>ProjectModel</name>
 
