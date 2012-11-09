@@ -53,6 +53,8 @@ v0.3
 ----
 Migrated build tool from **Ant** to **Maven**. Upgraded Netbeans RCP version to **7.2**.
 
+###v0.3.1
+Updated module versions to match version of the project.
 
 v0.2
 ----
