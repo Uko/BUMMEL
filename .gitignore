@@ -6,6 +6,13 @@
 /*/build/
 /build/
 
+# IntelliJ-IDEA related data #
+##############################
+*.iml
+*.ipr
+*.iws
+.idea/
+
 # Eclipse related data #
 ########################
 .project
