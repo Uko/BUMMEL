@@ -6,9 +6,9 @@ package net.unikernel.bummel.advanced_logic_elements;
 
 import java.util.Map;
 import java.util.TreeMap;
+import net.unikernel.bummel.advanced_logic_elements.Nand.Nand;
 import org.junit.*;
 import static org.junit.Assert.*;
-import net.unikernel.bummel.advanced_logic_elements.Nand.Nand;
 
 /**
  *
