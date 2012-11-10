@@ -1,17 +1,17 @@
 package net.unikernel.bummel.logic_elements;
 
-import net.unikernel.bummel.logic_elements.Split.Split;
-import net.unikernel.bummel.logic_elements.Generator.Generator;
-import net.unikernel.bummel.logic_elements.Or.Or;
-import net.unikernel.bummel.logic_elements.And.And;
 import net.unikernel.bummel.logic_elements.Analyzer.Analyzer;
+import net.unikernel.bummel.logic_elements.And.And;
+import net.unikernel.bummel.logic_elements.Generator.Generator;
 import net.unikernel.bummel.logic_elements.Not.Not;
+import net.unikernel.bummel.logic_elements.Or.Or;
+import net.unikernel.bummel.logic_elements.Split.Split;
 import net.unikernel.bummel.project_model.api.Circuit;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.openide.util.Lookup;
-import static org.junit.Assert.*;
 
 public class SchemeTest
 {

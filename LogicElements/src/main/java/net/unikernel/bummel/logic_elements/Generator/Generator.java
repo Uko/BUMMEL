@@ -17,6 +17,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ElementData(dataFile="element_info.xml")
 public class Generator extends BasicElement implements Toggle
 {
+	private static final long serialVersionUID = 1L;
 
 	public Generator()
 	{
@@ -35,11 +36,11 @@ public class Generator extends BasicElement implements Toggle
 	{
 		if(getState() == 0)
 		{
-			valuesOnPorts.put(getPorts().get(0), new Double(0));
+			valuesOnPorts.put(getPorts().get(0), Double.valueOf(0));
 		}
 		else
 		{
-			valuesOnPorts.put(getPorts().get(0), new Double(1));
+			valuesOnPorts.put(getPorts().get(0), Double.valueOf(1));
 		}
 		return valuesOnPorts;
 	}
