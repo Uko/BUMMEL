@@ -68,7 +68,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 			{
 				Node node = NodeTransfer.node(transferable,	NodeTransfer.DND_COPY);
 				if (node != null && (node.getLookup().lookup(BasicElement.class)) != null)
-					return ConnectorState.ACCEPT;
+        {
+          return ConnectorState.ACCEPT;
+        }
 				return ConnectorState.REJECT_AND_STOP;
 			}
 
@@ -103,7 +105,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		Map<Element, Widget> elWs = new HashMap<>();
 		//adding elements from the model
 		for(Element el : circuit.getElements())
-			elWs.put(el, internalElementAdd((BasicElement)el));
+    {
+      elWs.put(el, internalElementAdd((BasicElement)el));
+    }
 		//adding element connections
 		for(Connection con : circuit.getConnections())
 		{
@@ -204,7 +208,9 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	public void internalElementsConnect(ElementPortNode source, ElementPortNode target)
 	{
 		if(source == null || target == null)
-			return;
+    {
+      return;
+    }
 		//add connection ("edge") to the view
 		String edge = "edge" + edgeCounter++;
 		addEdge(edge);
@@ -459,8 +465,11 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		public void revalidateDependency()
 		{
 			if(widget.isValidated())
-				((ElementNode)findObject(widget)).getLookup().lookup(Element.class)
-						.setCoords(widget.getLocation());
+      {
+				((ElementNode)findObject(widget))
+                .getLookup().lookup(Element.class)
+                .setCoords(widget.getLocation());
+      }
 		}
 	}
 }

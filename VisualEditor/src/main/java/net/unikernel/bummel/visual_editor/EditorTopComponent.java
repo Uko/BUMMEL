@@ -6,7 +6,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import net.unikernel.bummel.palette.PaletteSupport;
 import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
