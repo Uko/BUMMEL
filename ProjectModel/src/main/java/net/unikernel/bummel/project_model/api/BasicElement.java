@@ -87,8 +87,11 @@ public abstract class BasicElement implements Element
 	@Override
 	public Map<String, Double> nullFreePortsOf(Map<String, Double> valuesOnPorts)
 	{
-		for(String port : getPorts())
-			if(valuesOnPorts.get(port) == null) valuesOnPorts.put(port, new Double(0));
+		for(String port : getPorts()) {
+			if(valuesOnPorts.get(port) == null) {
+        valuesOnPorts.put(port, Double.valueOf(0));
+      }
+    }
 		return valuesOnPorts;
 	}
 	

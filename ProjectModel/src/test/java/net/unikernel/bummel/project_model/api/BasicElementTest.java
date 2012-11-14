@@ -1,17 +1,13 @@
 package net.unikernel.bummel.project_model.api;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -20,7 +16,7 @@ import static org.junit.Assert.*;
 public class BasicElementTest
 {
 	BasicElement instance;
-	String globalPort = "-100500";
+	static String globalPort = "-100500";
 			
 	public BasicElementTest()
 	{
@@ -117,11 +113,13 @@ public class BasicElementTest
 	/**
 	 * Some element for testing purposes
 	 */
-	public class BasicElementImpl extends BasicElement
+	public static class BasicElementImpl extends BasicElement
 	{
+    static final long serialVersionUID = 1L;
+    
 		public BasicElementImpl()
 		{
-			super(new String[]{globalPort});
+			super(new String[]{BasicElementTest.globalPort});
 			setLabel("BasicElementImpl");
 			setState(1);
 			setCoords(new Point(1, 1));

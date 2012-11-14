@@ -14,6 +14,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service=Circuit.class)
 public class BasicCircuit implements Circuit, Element
 {
+  static final long serialVersionUID = 1L;
+  
 	private String label;
 	private Point coords;
 	private Set<Element> elements;
@@ -238,8 +240,10 @@ public class BasicCircuit implements Circuit, Element
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
-	private class BasicConnection implements Connection
+	private static class BasicConnection implements Connection
 	{
+    static final long serialVersionUID = 1L;
+    
 		private Element firstElement;
 		private String firstElementPort;
 		private Element secondElement;
@@ -256,7 +260,11 @@ public class BasicCircuit implements Circuit, Element
 		@Override
 		public boolean equals(Object o)
 		{
-			if(o.getClass().equals(BasicConnection.class))
+			if(o == null)
+      {
+        return false;
+      }
+      if(this.getClass() == o.getClass())
 			{
 				BasicConnection temp = (BasicConnection)o;
 				if(this.firstElement.equals(temp.firstElement) && this.firstElementPort.equals(temp.firstElementPort) && this.secondElement.equals(temp.secondElement) && this.secondElementPort.equals(temp.secondElementPort))
