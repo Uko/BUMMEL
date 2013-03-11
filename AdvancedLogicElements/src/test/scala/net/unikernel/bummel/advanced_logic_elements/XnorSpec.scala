@@ -16,7 +16,7 @@ class XnorSpec extends FlatSpec with ShouldMatchers with BeforeAndAfter {
     xnor = new Xnor()
   }
 
-  "A NOR element" should "return 001 for 000 input" in {
+  "A XNOR element" should "return 001 for 000 input" in {
     val valuesOnPorts = new Signals {
       put("input1", 0)
       put("input2", 0)
