@@ -13,6 +13,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ElementData(dataFile="element_info.xml")
 public class Xor extends BasicElement
 {
+	private static final long serialVersionUID = 1L;
+	
     public Xor()
     {
         super(new String[]{"input1", "input2", "output"});
@@ -20,21 +22,23 @@ public class Xor extends BasicElement
     @Override
     public Map<String, Double> process(Map<String, Double> valuesOnPorts) 
     {
-        if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) == 0)
+        if(valuesOnPorts.get(getPorts().get(0)).compareTo(Double.valueOf(0.d)) != 0 &&
+		   valuesOnPorts.get(getPorts().get(1)).compareTo(Double.valueOf(0.d)) == 0)
         {
-            valuesOnPorts.put(getPorts().get(2), new Double(1));
+            valuesOnPorts.put(getPorts().get(2), Double.valueOf(1.d));
         }
         else
-            if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0 && valuesOnPorts.get(getPorts().get(1)).compareTo(new Double(0)) != 0)
+            if(valuesOnPorts.get(getPorts().get(0)).compareTo(Double.valueOf(0.d)) == 0 &&
+			   valuesOnPorts.get(getPorts().get(1)).compareTo(Double.valueOf(0.d)) != 0)
             {
-                valuesOnPorts.put(getPorts().get(2), new Double(1));
+                valuesOnPorts.put(getPorts().get(2), Double.valueOf(1.d));
             }   
             else
             {
-                valuesOnPorts.put(getPorts().get(2), new Double(0));
+                valuesOnPorts.put(getPorts().get(2), Double.valueOf(0.d));
             }
         valuesOnPorts.put(getPorts().get(0), 0.);
-	valuesOnPorts.put(getPorts().get(1), 0.);
+		valuesOnPorts.put(getPorts().get(1), 0.);
         return valuesOnPorts;
     }
     

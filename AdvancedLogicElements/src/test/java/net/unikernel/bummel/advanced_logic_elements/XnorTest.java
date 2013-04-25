@@ -2,9 +2,9 @@ package net.unikernel.bummel.advanced_logic_elements;
 
 import java.util.Map;
 import java.util.TreeMap;
+import net.unikernel.bummel.advanced_logic_elements.Xnor.Xnor;
 import org.junit.*;
 import static org.junit.Assert.*;
-import net.unikernel.bummel.advanced_logic_elements.Xnor.Xnor;
 /**
  *
  * @author Roma

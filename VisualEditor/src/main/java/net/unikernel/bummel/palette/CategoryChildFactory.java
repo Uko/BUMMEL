@@ -25,17 +25,15 @@ public class CategoryChildFactory extends ChildFactory<String>
 	@Override
 	protected Node createNodeForKey(String category)
 	{
-		Node node = new AbstractNode(Children.create(new ElementChildFactory(category), true));
+		Node node = new AbstractNode(Children.create(new ElementChildFactory(), true));
 		node.setDisplayName(category);
 		return node;
 	}
 
-	private class ElementChildFactory extends ChildFactory<Element>
+	private static class ElementChildFactory extends ChildFactory<Element>
 	{
-		private String category;
-		private ElementChildFactory(String category)
+		private ElementChildFactory()
 		{
-			this.category = category;
 		}
 		@Override
 		protected boolean createKeys(List<Element> list)

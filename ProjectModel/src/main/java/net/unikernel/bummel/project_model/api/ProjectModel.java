@@ -10,6 +10,8 @@ import net.unikernel.bummel.project_model.BasicCircuit;
  */
 public class ProjectModel implements Serializable
 {
+  static final long serialVersionUID = 1L;
+  
 	private String name;
 	private String filePath;
 	private Circuit circuit;

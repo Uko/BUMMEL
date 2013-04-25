@@ -18,6 +18,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ElementData(dataFile="element_info.xml")
 public class And extends BasicElement
 {
+	private static final long serialVersionUID = 1L;
 
 	public And()
 	{
@@ -38,10 +39,10 @@ public class And extends BasicElement
 	{
 		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
 		valuesOnPorts.put(getPorts().get(2), 
-				new Double(valuesOnPorts.get(getPorts().get(0)).doubleValue()
+				Double.valueOf(valuesOnPorts.get(getPorts().get(0)).doubleValue()
 				* valuesOnPorts.get(getPorts().get(1)).doubleValue()));
-		valuesOnPorts.put(getPorts().get(0), 0.);
-		valuesOnPorts.put(getPorts().get(1), 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.d);
+		valuesOnPorts.put(getPorts().get(1), 0.d);
 		return valuesOnPorts;
 	}
 }

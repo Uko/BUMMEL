@@ -6,8 +6,8 @@ package net.unikernel.bummel.advanced_logic_elements;
 
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.*;
 import net.unikernel.bummel.advanced_logic_elements.Nor.Nor;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 

@@ -22,7 +22,9 @@ public class SvgWidget extends Widget
 		super(scene);
 		SVGUniverse svgUniverse = new SVGUniverse();
 		if (svgImageURL != null)
-			diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(svgImageURL));
+    {
+      diagram = svgUniverse.getDiagram(svgUniverse.loadSVG(svgImageURL));
+    }
 	}
 
 	public SVGDiagram getDiagram()
@@ -58,7 +60,9 @@ public class SvgWidget extends Widget
 	protected Rectangle calculateClientArea()
 	{
 		if(diagram == null)
-			return null;
+    {
+      return null;
+    }
 		return diagram.getViewRect().getBounds();
 	}
 

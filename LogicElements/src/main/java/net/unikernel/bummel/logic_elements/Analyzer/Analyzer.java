@@ -16,6 +16,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ElementData(dataFile="element_info.xml")
 public class Analyzer extends BasicElement
 {
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Creates analyzer with one port
 	 */
@@ -35,11 +37,15 @@ public class Analyzer extends BasicElement
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
-		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) != 0)
-			setState(1);	//light it
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(Double.valueOf(0.d)) != 0)
+		{
+			setState(1); //light it
+		}	
 		else
-			setState(0);	//douse it
-		valuesOnPorts.put("input", 0.);
+		{
+			setState(0); //douse it
+		}	
+		valuesOnPorts.put("input", 0.d);
 		return valuesOnPorts;
 	}
 }

@@ -73,6 +73,7 @@ public class ElementWidget extends Widget implements PropertyChangeListener
 							(int) (imageWidget.getPreferredBounds().height*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2)));
 				widget.indentPort(imageWidget.getPreferredBounds().width);
 				break;
+      default:
 			case "up":
 				widget.setPreferredLocation(new Point((int) (imageWidget.getPreferredBounds().width*(1+elNode.getPortOffset(widget.getPort()).doubleValue())/2),imageWidget.getPreferredBounds().height));
 				break;

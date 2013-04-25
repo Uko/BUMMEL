@@ -1,14 +1,14 @@
 package net.unikernel.bummel.logic_elements;
 
+import java.util.Map;
+import java.util.TreeMap;
 import net.unikernel.bummel.logic_elements.Or.Or;
 import org.junit.After;
-import org.junit.Before;
-import java.util.TreeMap;
-import java.util.Map;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -1,8 +1,5 @@
 package net.unikernel.bummel;
 
-import java.util.logging.Level;
-import junit.framework.Test;
-import org.netbeans.junit.NbModuleSuite;
 import org.netbeans.junit.NbTestCase;
 
 public class ApplicationTest extends NbTestCase {

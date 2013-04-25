@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Element;
-import static org.junit.Assert.*;
 import org.junit.*;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -329,8 +329,10 @@ public class BasicCircuitTest
 	/**
 	 * Some element for testing purposes
 	 */
-	public class BasicElementImpl extends BasicElement
+	public static class BasicElementImpl extends BasicElement
 	{
+    static final long serialVersionUID = 1L;
+    
 		public BasicElementImpl()
 		{
 			super(new String[]{"in","out"});

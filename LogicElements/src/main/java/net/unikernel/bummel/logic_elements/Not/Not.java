@@ -17,6 +17,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ElementData(dataFile="element_info.xml")
 public class Not extends BasicElement
 {
+	private static final long serialVersionUID = 1L;
 
 	public Not()
 	{
@@ -35,15 +36,15 @@ public class Not extends BasicElement
 	public Map<String, Double> process(Map<String, Double> valuesOnPorts)
 	{
 		valuesOnPorts = nullFreePortsOf(valuesOnPorts);
-		if(valuesOnPorts.get(getPorts().get(0)).compareTo(new Double(0)) == 0)
+		if(valuesOnPorts.get(getPorts().get(0)).compareTo(Double.valueOf(0.d)) == 0)
 		{
-			valuesOnPorts.put(getPorts().get(1), new Double(1));
+			valuesOnPorts.put(getPorts().get(1), Double.valueOf(1.d));
 		}
 		else
 		{
-			valuesOnPorts.put(getPorts().get(1), new Double(0));
+			valuesOnPorts.put(getPorts().get(1), Double.valueOf(0.d));
 		}
-		valuesOnPorts.put(getPorts().get(0), 0.);
+		valuesOnPorts.put(getPorts().get(0), 0.d);
 		return valuesOnPorts;
 	}
 }

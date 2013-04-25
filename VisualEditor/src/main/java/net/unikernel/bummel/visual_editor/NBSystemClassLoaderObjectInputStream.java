@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
+import org.openide.util.Exceptions;
 
 /**
  * ObjectInputStream that uses classes loaded by NB System ClassLoader.
@@ -25,8 +26,9 @@ public class NBSystemClassLoaderObjectInputStream extends ObjectInputStream
 		{
 			ClassLoader currentTccl = Thread.currentThread().getContextClassLoader();
 			return currentTccl.loadClass(desc.getName());
-		} catch (Exception e)
+		} catch (SecurityException e)
 		{
+      Exceptions.printStackTrace(e);
 		}
 		return super.resolveClass(desc);
 	}
