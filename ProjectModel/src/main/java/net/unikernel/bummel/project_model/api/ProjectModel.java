@@ -6,23 +6,28 @@ import net.unikernel.bummel.project_model.BasicCircuit;
 /**
  * Class that represents project. 
  * It contains different data (name, path where to save the file, graphics components, etc).
- * @author mcangel
+ * @author imy
  */
 public class ProjectModel implements Serializable
 {
   static final long serialVersionUID = 1L;
-  
-	private String name;
-	private String filePath;
-	private Circuit circuit;
 
-	public ProjectModel(String name)
-	{
-		this.name = name;
-		filePath="";
-		circuit = new BasicCircuit();
-	}
-	
+  private String name;
+  private String filePath;
+  private Circuit circuit;
+
+  public ProjectModel(Circuit circuit, String name)
+  {
+    this.circuit = circuit;
+    this.name = name;
+    filePath = "";
+  }
+
+  public ProjectModel(String name)
+  {
+    this(new BasicCircuit(), name);
+  }
+
 	public ProjectModel()
 	{
 		this("");

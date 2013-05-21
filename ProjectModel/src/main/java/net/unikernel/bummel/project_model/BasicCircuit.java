@@ -6,12 +6,15 @@ import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Connection;
 import net.unikernel.bummel.project_model.api.Element;
+import org.openide.util.NbBundle;
+import org.openide.util.NbBundle.Messages;
 import org.openide.util.lookup.ServiceProvider;
 /**
  *
  * @author uko
  */
 @ServiceProvider(service=Circuit.class)
+@Messages("BC_DisplayName=Basic Circuit")
 public class BasicCircuit implements Circuit, Element
 {
   static final long serialVersionUID = 1L;
@@ -239,6 +242,12 @@ public class BasicCircuit implements Circuit, Element
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+
+  @Override
+  public String displayName()
+  {
+    return NbBundle.getMessage(BasicCircuit.class, "BC_DisplayName");
+  }
 	
 	private static class BasicConnection implements Connection
 	{

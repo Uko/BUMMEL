@@ -7,16 +7,18 @@ import java.util.*;
 
 /**
  *
- * @author uko, mcangel
+ * @author uko, imy
  */
 public abstract class BasicElement implements Element
 {
 	public static final String PROP_STATE = "state";
 	public static final String PROP_LBL = "label";
 	public static final String PROP_COORDS = "coordinates";
+  public static final String PROP_DELAY = "delay";
 	
 	private String label;
 	private int state;
+  private int delay;
 	private Point coords;
 	private ArrayList<String> availablePorts;
 	private PropertyChangeSupport pcs;
@@ -51,6 +53,16 @@ public abstract class BasicElement implements Element
 		this.state = state;
 		this.pcs.firePropertyChange(PROP_STATE, old, this.state);
 	}
+  public int getDelay()
+  {
+    return delay;
+  }
+  public void setDelay(int delay)
+  {
+    int old = this.delay;
+		this.delay = delay;
+		this.pcs.firePropertyChange(PROP_DELAY, old, this.delay);
+  }
 	@Override
 	public Point getCoords()
 	{
