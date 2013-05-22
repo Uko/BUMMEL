@@ -18,12 +18,12 @@ import org.openide.util.lookup.ServiceProvider;
 public class BasicCircuit implements Circuit, Element
 {
   static final long serialVersionUID = 1L;
-  
+
 	private String label;
 	private Point coords;
 	private Set<Element> elements;
 	private Map<Connection, Double> connections;
-	private Map<Element, Map<String, Connection>> elementPortConnection;
+  protected Map<Element, Map<String, Connection>> elementPortConnection;
 	
 	public BasicCircuit()
 	{

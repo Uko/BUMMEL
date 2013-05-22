@@ -11,6 +11,7 @@ import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
+import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
@@ -45,16 +46,22 @@ public final class CircuitEditorsAction extends AbstractAction implements Action
     menu = new JMenu(NbBundle.getMessage(CircuitEditorsAction.class, "CTL_CircuitEditorsAction"));
     for(final Circuit circuit : Lookup.getDefault().lookupAll(Circuit.class))
     {
-      JMenuItem item;
-      item = new JMenuItem(new AbstractAction(circuit.getClass().getSimpleName())
+      JMenuItem item = new JMenuItem(new AbstractAction(circuit.getClass().getSimpleName())
       {
         @Override
         public void actionPerformed(ActionEvent e)
         {
           EditorTopComponent tc;
-          tc = new EditorTopComponent(new ProjectModel(circuit, (String)this.getValue(Action.NAME)));
-          tc.open();
-          tc.requestActive();
+          try
+          {
+            tc = new EditorTopComponent(new ProjectModel(circuit.getClass().newInstance(),
+                    (String)this.getValue(Action.NAME)));
+            tc.open();
+            tc.requestActive();
+          } catch (  InstantiationException | IllegalAccessException ex)
+          {
+            Exceptions.printStackTrace(ex);
+          }
         }
       });
       menu.add(item);

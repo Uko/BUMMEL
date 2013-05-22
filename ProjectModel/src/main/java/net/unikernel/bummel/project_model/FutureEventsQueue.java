@@ -1,41 +1,68 @@
 package net.unikernel.bummel.project_model;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import net.unikernel.bummel.project_model.api.BasicElement;
 
-/**
- *
- * @author imy
- */
-public class FutureEventsQueue extends PriorityQueue<Integer>
+public class FutureEventsQueue
 {
+  private PriorityQueue<Integer> delays = new PriorityQueue<>();
   private HashMap<Integer, HashMap<BasicElement, HashMap<String, Double>>> delayElementPortValue = new HashMap<>();
 
   public void addEvent(Integer delay, BasicElement element, String port, double value)
   {
+    //@TODO: ?how Integer and Double values are copied
+    //@TODO: ?when delay is 0
+
     if(!delayElementPortValue.containsKey(delay))
     {
-      HashMap<BasicElement, HashMap<String, Double>> elEvent = new HashMap<>();
-      HashMap<String, Double> portEvent = new HashMap<>();
-      elEvent.put(element, portEvent);
-      delayElementPortValue.put(delay, elEvent);
+      delayElementPortValue.put(delay, new HashMap<BasicElement, HashMap<String, Double>>());
     }
-    if(!delayElementPortValue.get(delay).containsKey(element))
+    HashMap<BasicElement, HashMap<String, Double>> delayEvents = delayElementPortValue.get(delay);
+    if(!delayEvents.containsKey(element))
     {
-      HashMap<String, Double> portEvent = new HashMap<>();
-      delayElementPortValue.get(delay).put(element, portEvent);
+      delayEvents.put(element, new HashMap<String, Double>());
     }
     // overwrites previous value if there was one
     //@TODO:
     //  Is this correct?
     //  When such situation can appear? - Element has multiple inputs? - Check for existance and handle as IncorrectCircuitException?
-    delayElementPortValue.get(delay).get(element).put(port, value);
-    add(delay);
+    delayEvents.get(element).put(port, value);
+    if(!delays.contains(delay))
+    {
+      delays.add(delay);
+    }
   }
-  
+
+  public void removeEvent(Integer delay, BasicElement bEl)
+  {
+    Set<Map.Entry<Integer, HashMap<BasicElement, HashMap<String, Double>>>> entrySet = delayElementPortValue.entrySet();
+    delayElementPortValue.get(delay).remove(bEl);
+    if(delayElementPortValue.get(delay).isEmpty())
+    {
+      delayElementPortValue.remove(delay);
+      delays.remove(delay);
+    }
+  }
+
+  public Map.Entry<Integer, HashMap<BasicElement, HashMap<String, Double>>> remove()
+  {
+    Map.Entry<Integer, HashMap<BasicElement, HashMap<String, Double>>> head
+            = new AbstractMap.SimpleEntry<>(delays.remove(), null);
+    head.setValue(delayElementPortValue.remove(head.getKey()));
+    return head;
+  }
+
   public HashMap<BasicElement, HashMap<String, Double>> getEvents(Integer delay)
   {
     return delayElementPortValue.get(delay);
+  }
+
+  public boolean isEmpty()
+  {
+    return delays.isEmpty();
   }
 }
