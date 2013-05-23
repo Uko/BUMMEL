@@ -26,17 +26,83 @@ public class LogicCircuitTest
   }
 
   LogicCircuit instance;
+  BasicElement generator;
+  BasicElement analyzer;
+  BasicElement not;
 
   @Before
   public void setUp()
   {
     instance = new LogicCircuit();
+    generator = new BasicElement(new String[]{"output"})
+    {
+      @Override
+      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
+      {
+        valuesOnPorts.put(getPort(0), Double.valueOf(1));
+        return valuesOnPorts;
+      }
+
+      @Override
+      public String toString()
+      {
+        return "\"Generator("+getState()+")\"";
+      }
+    };
+    analyzer = new BasicElement(new String[]{"input"})
+    {
+      @Override
+      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
+      {
+        valuesOnPorts = nullFreePortsOf(valuesOnPorts);
+        if (valuesOnPorts.get(getPort(0)).compareTo(Double.valueOf(0.d)) != 0)
+        {
+          setState(1); //light it
+        } else
+        {
+          setState(0); //douse it
+        }
+        valuesOnPorts.put("input", 0.d);
+        return valuesOnPorts;
+      }
+
+      @Override
+      public String toString()
+      {
+        return "\"Analyzer("+getState()+")\"";
+      }
+    };
+    not = new BasicElement(new String[]{"input", "output"})
+    {
+      @Override
+      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
+      {
+        valuesOnPorts = nullFreePortsOf(valuesOnPorts);
+        if (valuesOnPorts.get(getPort(0)).compareTo(Double.valueOf(0.d)) == 0)
+        {
+          valuesOnPorts.put(getPort(1), Double.valueOf(1.d));
+        } else
+        {
+          valuesOnPorts.put(getPort(1), Double.valueOf(0.d));
+        }
+        valuesOnPorts.put(getPort(0), 0.d);
+        return valuesOnPorts;
+      }
+      @Override
+      public String toString()
+      {
+        return "\"Not("+getState()+")\"";
+      }
+    };
   }
 
   @After
   public void tearDown()
   {
     instance = null;
+    generator = null;
+    analyzer = null;
+    not = null;
   }
 
   /**
@@ -68,57 +134,10 @@ public class LogicCircuitTest
   public void testConnectElements2()
   {
     System.out.println("connectElements2");
-    // generator
-    Element firstElement = new BasicElement(new String[]{"output"})
-    {
-      @Override
-      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
-      {
-        valuesOnPorts.put(getPort(0), Double.valueOf(1));
-        return valuesOnPorts;
-      }
-    };
-    // analyzer
-    Element secondElement = new BasicElement(new String[]{"input"})
-    {
-      @Override
-      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
-      {
-        valuesOnPorts = nullFreePortsOf(valuesOnPorts);
-        if (valuesOnPorts.get(getPort(0)).compareTo(Double.valueOf(0.d)) != 0)
-        {
-          setState(1); //light it
-        } else
-        {
-          setState(0); //douse it
-        }
-        valuesOnPorts.put("input", 0.d);
-        return valuesOnPorts;
-      }
-    };
-    // not
-    Element thirdElement = new BasicElement(new String[]{"input", "output"})
-    {
-      @Override
-      public Map<String, Double> process(Map<String, Double> valuesOnPorts)
-      {
-        valuesOnPorts = nullFreePortsOf(valuesOnPorts);
-        if (valuesOnPorts.get(getPort(0)).compareTo(Double.valueOf(0.d)) == 0)
-        {
-          valuesOnPorts.put(getPort(1), Double.valueOf(1.d));
-        } else
-        {
-          valuesOnPorts.put(getPort(1), Double.valueOf(0.d));
-        }
-        valuesOnPorts.put(getPort(0), 0.d);
-        return valuesOnPorts;
-      }
-    };
-    instance.addElement(firstElement);
-    instance.addElement(secondElement);
-    instance.addElement(thirdElement);
-    assertTrue(instance.connectElements(firstElement, firstElement.getPort(0),
-            thirdElement, thirdElement.getPort(0)));
+    instance.addElement(generator);
+    instance.addElement(analyzer);
+    instance.addElement(not);
+    assertTrue(instance.connectElements(generator, generator.getPort(0), not, not.getPort(0)));
   }
 
   /**
@@ -129,13 +148,37 @@ public class LogicCircuitTest
   {
     System.out.println("connectElementsAndStep1");
     testConnectElements1();
-    for(int i = 0; i< 5; i++) instance.step();
+    instance.step();
   }
   @Test
   public void testConnectElementsAndStep2()
   {
     System.out.println("connectElementsAndStep2");
     testConnectElements2();
-    for(int i = 0; i< 5; i++) instance.step();
+    instance.step();
+    assertTrue(instance.getElementSignals(not).get("output") == .0);
+    assertTrue(analyzer.getState() == 0);
+    assertTrue(instance.connectElements(not, not.getPort(1), analyzer, analyzer.getPort(0)));
+    instance.step();
+    assertTrue(analyzer.getState() == 0);
+  }
+  /**
+   * Test of LogicCircuit connectElements, step and disconnectElements methods.
+   */
+  @Test
+  public void testElementsInteraction3()
+  {
+    System.out.println("testElementsInteraction3");
+    testConnectElementsAndStep2();
+    instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
+    instance.step();
+    assertTrue(analyzer.getState() == 1);
+    assertTrue(instance.connectElements(generator, generator.getPort(0), not, not.getPort(0)));
+    assertTrue(analyzer.getState() == 0);
+    instance.disconnectElements(analyzer, analyzer.getPort(0), not, not.getPort(1));
+    assertTrue(analyzer.getState() == 0);
+    instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
+    assertTrue(instance.connectElements(generator, generator.getPort(0), analyzer, analyzer.getPort(0)));
+    assertTrue(analyzer.getState() == 1);
   }
 }

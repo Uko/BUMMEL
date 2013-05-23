@@ -65,4 +65,17 @@ public class FutureEventsQueue
   {
     return delays.isEmpty();
   }
+
+  /**
+   * Returns a string representation of this FEQ.
+   * Simply reproduces string representation of the internal
+   * delay -> element -> port -> value map.
+   *
+   * @return a string representation of this FEQ
+   */
+  @Override
+  public String toString()
+  {
+    return delayElementPortValue.toString();
+  }
 }

@@ -252,12 +252,12 @@ public class BasicCircuit implements Circuit, Element
 	private static class BasicConnection implements Connection
 	{
     static final long serialVersionUID = 1L;
-    
+
 		private Element firstElement;
 		private String firstElementPort;
 		private Element secondElement;
 		private String secondElementPort;
-		
+
 		public BasicConnection(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 		{
 			this.firstElement = firstElement;
@@ -265,7 +265,7 @@ public class BasicCircuit implements Circuit, Element
 			this.secondElement = secondElement;
 			this.secondElementPort = secondElementPort;
 		}
-		
+
 		@Override
 		public boolean equals(Object o)
 		{
@@ -294,7 +294,7 @@ public class BasicCircuit implements Circuit, Element
 			hash = 67 * hash + (this.secondElementPort != null ? this.secondElementPort.hashCode() : 0);
 			return hash;
 		}
-		
+
 		/**
 		 * @return the firstElement
 		 */
@@ -326,6 +326,34 @@ public class BasicCircuit implements Circuit, Element
 		public String getSecondElementPort()
 		{
 			return secondElementPort;
-		}	
-	}
+		}
+
+    @Override
+    public Element getOther(Element element)
+    {
+      if(element == firstElement)
+      {
+        return secondElement;
+      }
+      if(element == secondElement)
+      {
+        return firstElement;
+      }
+      return null;
+    }
+
+    @Override
+    public String getElementPort(Element element)
+    {
+      if(element == firstElement)
+      {
+        return firstElementPort;
+      }
+      if(element == secondElement)
+      {
+        return secondElementPort;
+      }
+      return null;
+    }
+  }
 }

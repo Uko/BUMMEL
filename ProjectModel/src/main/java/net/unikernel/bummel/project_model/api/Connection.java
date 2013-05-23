@@ -12,4 +12,7 @@ public interface Connection extends Serializable
 	public String getFirstElementPort();
 	public Element getSecondElement();
 	public String getSecondElementPort();
+
+  public Element getOther(Element element);
+  public String getElementPort(Element element);
 }

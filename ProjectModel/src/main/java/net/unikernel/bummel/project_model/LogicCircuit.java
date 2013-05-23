@@ -34,6 +34,11 @@ public class LogicCircuit extends BasicCircuit
       for (Map.Entry<BasicElement, HashMap<String, Double>> entry : head.getValue().entrySet())
       {
         BasicElement bEl = entry.getKey();
+        // skip "free" elements
+        if(!elementPortConnection.containsKey(bEl))
+        {
+          continue;
+        }
         HashMap<String, Double> elSignals = entry.getValue();
 
         // [First walkthrough]
@@ -41,6 +46,11 @@ public class LogicCircuit extends BasicCircuit
         for (Map.Entry<String, Double> portValue : elSignals.entrySet())
         {
           String port = portValue.getKey();
+          // skip "free" ports
+          if(!elementPortConnection.get(bEl).containsKey(port))
+          {
+            continue;
+          }
           Double registeredValue = portValue.getValue();
 
           //@TODO: optimize to check all connections or all registrations for the current element at once
@@ -48,11 +58,11 @@ public class LogicCircuit extends BasicCircuit
           //       not needed? hard to implement? - connected elements are recalculated
 
           // if it's event indeed - feq value and current value differs
-          if(registeredValue != elementPortValue.get(bEl).get(port))
+          if(registeredValue.compareTo(elementPortValue.get(bEl).get(port)) != 0)
           {
             // get connected element
             Connection conn = elementPortConnection.get(bEl).get(port);
-            BasicElement connBEl = (BasicElement)conn.getSecondElement();
+            BasicElement connBEl = (BasicElement)conn.getOther(bEl);
             // register it and it's new signal values for the processing in the second walkthrough
             if(!activeElementsRegisteredSignals.containsKey(connBEl))
             {
@@ -65,27 +75,7 @@ public class LogicCircuit extends BasicCircuit
           // active elements modelling
           for(Map.Entry<BasicElement, Map<String, Double>> aEl : activeElementsRegisteredSignals.entrySet())
           {
-            // outgoing port check - store current element signals for the further comparison
-            Map<String, Double> elLastSignals = new HashMap<>();
-            Map<String, Double> aElSignals = elementPortValue.get(aEl.getKey());
-            for(Map.Entry<String, Double> signal : aElSignals.entrySet())
-            {
-              elLastSignals.put(signal.getKey(), signal.getValue().doubleValue());
-            }
-            // change element signals with registered in the first walkthrough ones
-            aElSignals.putAll(aEl.getValue());
-            // process active element
-            Map<String, Double> result = aEl.getKey().process(aElSignals);
-            // outgoing port check - compare previous signals and process result ones
-            // and register this element in the queue if they differ
-            for(Map.Entry<String, Double> signal : result.entrySet())
-            {
-              if(Math.abs(signal.getValue() - elLastSignals.get(signal.getKey())) > 0.0001)
-              {
-                aElSignals.put(signal.getKey(), signal.getValue());
-                feq.addEvent(aEl.getKey().getDelay(), aEl.getKey(), signal.getKey(), signal.getValue());
-              }
-            }
+            processElement(aEl.getKey(), aEl.getValue());
           }
         }
         activeElements.clear();
@@ -94,6 +84,36 @@ public class LogicCircuit extends BasicCircuit
     }
 
     System.out.println("step() -- end");
+  }
+
+  /**
+   * Processes element with provided data and checks if the resulting values
+   * differ from the initial ones if they do - then registers this element
+   * in the FEQ.
+   */
+  private void processElement(BasicElement element, Map<String, Double> signals)
+  {
+    // outgoing port check - store current element signals for the further comparison
+    Map<String, Double> elLastSignals = new HashMap<>();
+    Map<String, Double> aElSignals = elementPortValue.get(element);
+    for (Map.Entry<String, Double> signal : aElSignals.entrySet())
+    {
+      elLastSignals.put(signal.getKey(), signal.getValue().doubleValue());
+    }
+    // change element signals with registered in the first walkthrough ones
+    aElSignals.putAll(signals);
+    // process active element
+    Map<String, Double> result = element.process(aElSignals);
+    // outgoing port check - compare previous signals and process result ones
+    // and register this element in the queue if they differ
+    for (Map.Entry<String, Double> signal : result.entrySet())
+    {
+      if (Math.abs(signal.getValue() - elLastSignals.get(signal.getKey())) > 0.0001)
+      {
+        aElSignals.put(signal.getKey(), signal.getValue());
+        feq.addEvent(element.getDelay(), element, signal.getKey(), signal.getValue());
+      }
+    }
   }
 
   @Override
@@ -109,11 +129,54 @@ public class LogicCircuit extends BasicCircuit
     {
       BasicElement fbe = (BasicElement)firstElement;
       BasicElement sbe = (BasicElement)secondElement;
-      feq.addEvent(fbe.getDelay(), sbe, secondElementPort, elementPortValue.get(firstElement).get(firstElementPort));
-      feq.addEvent(sbe.getDelay(), fbe, firstElementPort, elementPortValue.get(secondElement).get(secondElementPort));
+//      feq.addEvent(fbe.getDelay(), sbe, secondElementPort, elementPortValue.get(firstElement).get(firstElementPort));
+//      feq.addEvent(sbe.getDelay(), fbe, firstElementPort, elementPortValue.get(secondElement).get(secondElementPort));
+
+//      feq.addEvent(fbe.getDelay(), fbe, firstElementPort, elementPortValue.get(firstElement).get(firstElementPort));
+//      feq.addEvent(sbe.getDelay(), sbe, secondElementPort, elementPortValue.get(secondElement).get(secondElementPort));
+
+      for(Map.Entry<String, Connection> portConn : elementPortConnection.get(firstElement).entrySet())
+      {
+        Connection conn = portConn.getValue();
+        Element other = conn.getOther(firstElement);
+        String otherElementPort = conn.getElementPort(other);
+
+        elementPortValue.get(firstElement).put(portConn.getKey(), elementPortValue.get(other).get(otherElementPort));
+      }
+//      elementPortValue.get(fbe).put(firstElementPort, elementPortValue.get(sbe).get(secondElementPort));
+      processElement(fbe, elementPortValue.get(fbe));
+      for(Map.Entry<String, Connection> portConn : elementPortConnection.get(secondElement).entrySet())
+      {
+        Connection conn = portConn.getValue();
+        Element other = conn.getOther(secondElement);
+        String otherElementPort = conn.getElementPort(other);
+
+        elementPortValue.get(secondElement).put(portConn.getKey(), elementPortValue.get(other).get(otherElementPort));
+      }
+//      elementPortValue.get(sbe).put(secondElementPort, elementPortValue.get(fbe).get(firstElementPort));
+      processElement(sbe, elementPortValue.get(sbe));
       return true;
     }
     return false;
+  }
+
+  @Override
+  public void disconnectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
+  {
+    double firstElementValue = elementPortValue.get(firstElement).get(firstElementPort);
+    elementPortValue.get(firstElement).put(firstElementPort, elementPortValue.get(secondElement).get(secondElementPort));
+//    Map<String, Double> fForPr = new HashMap<>();
+//    fForPr.putAll(elementPortValue.get(firstElement));
+//    fForPr.put(firstElementPort, defaultValue());
+//    processElement((BasicElement)firstElement, fForPr);
+
+    elementPortValue.get(secondElement).put(secondElementPort, firstElementValue);
+//    Map<String, Double> sForPr = new HashMap<>();
+//    sForPr.putAll(elementPortValue.get(firstElement));
+//    processElement((BasicElement)secondElement, sForPr);
+    feq.addEvent(0, (BasicElement)firstElement, firstElementPort, defaultValue());
+    feq.addEvent(0, (BasicElement)secondElement, secondElementPort, defaultValue());
+    super.disconnectElements(firstElement, firstElementPort, secondElement, secondElementPort);
   }
 
   @Override
@@ -141,5 +204,10 @@ public class LogicCircuit extends BasicCircuit
   private Double defaultValue()
   {
     return .0;
+  }
+
+  Map<String, Double> getElementSignals(BasicElement element)
+  {
+    return elementPortValue.get(element);
   }
 }
