@@ -160,6 +160,8 @@ public class LogicCircuitTest
     assertTrue(analyzer.getState() == 0);
     assertTrue(instance.connectElements(not, not.getPort(1), analyzer, analyzer.getPort(0)));
     instance.step();
+    assertTrue(instance.getElementSignals(generator).get("output") == 1.);
+    assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
   }
   /**
@@ -172,13 +174,18 @@ public class LogicCircuitTest
     testConnectElementsAndStep2();
     instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
     instance.step();
+    assertTrue(instance.getElementSignals(generator).get("output") == 1.);
+    assertTrue(instance.getElementSignals(not).get("output") == 1.);
     assertTrue(analyzer.getState() == 1);
     assertTrue(instance.connectElements(generator, generator.getPort(0), not, not.getPort(0)));
+    instance.step();
     assertTrue(analyzer.getState() == 0);
     instance.disconnectElements(analyzer, analyzer.getPort(0), not, not.getPort(1));
+    instance.step();
     assertTrue(analyzer.getState() == 0);
     instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
     assertTrue(instance.connectElements(generator, generator.getPort(0), analyzer, analyzer.getPort(0)));
+    instance.step();
     assertTrue(analyzer.getState() == 1);
   }
 }
