@@ -23,7 +23,6 @@ public class LogicCircuit extends BasicCircuit
   @Override public void step()
   {
     System.out.println("step() -- start");
-    Set<BasicElement> activeElements = new HashSet<>();
     Map<BasicElement, Map<String, Double>> activeElementsRegisteredSignals = new HashMap<>();
     while(!feq.isEmpty())
     {
@@ -70,15 +69,15 @@ public class LogicCircuit extends BasicCircuit
             }
             activeElementsRegisteredSignals.get(connBEl).put(conn.getSecondElementPort(), registeredValue);
           }
-
-          // [Second walkthrough]
-          // active elements modelling
-          for(Map.Entry<BasicElement, Map<String, Double>> aEl : activeElementsRegisteredSignals.entrySet())
-          {
-            processElement(aEl.getKey(), aEl.getValue());
-          }
         }
-        activeElements.clear();
+
+        // [Second walkthrough]
+        // active elements modelling
+        for (Map.Entry<BasicElement, Map<String, Double>> aEl : activeElementsRegisteredSignals.entrySet())
+        {
+          processElement(aEl.getKey(), aEl.getValue());
+        }
+
         activeElementsRegisteredSignals.clear();
       }
     }
