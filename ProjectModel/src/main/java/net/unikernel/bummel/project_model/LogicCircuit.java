@@ -2,9 +2,7 @@ package net.unikernel.bummel.project_model;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Connection;
@@ -62,13 +60,17 @@ public class LogicCircuit extends BasicCircuit
           {
             // change circuit value
             elementPortValue.get(bEl).put(port, val);
-            Connection conn = elementPortConnection.get(bEl).get(port);
-            // connection existance check
-            if(conn != null)
+            if (elementPortConnection.containsKey(bEl)
+                    && elementPortConnection.get(bEl).containsKey(port))
             {
-              BasicElement connEl = (BasicElement) conn.getOther(bEl);
-              // register connected elements in the FEQ for the further processing
-              feq.addEvent(bEl.getDelay(), connEl, conn.getElementPort(connEl), val);
+              Connection conn = elementPortConnection.get(bEl).get(port);
+              // connection existance check
+              if (conn != null)
+              {
+                BasicElement connEl = (BasicElement) conn.getOther(bEl);
+                // register connected elements in the FEQ for the further processing
+                feq.addEvent(bEl.getDelay(), connEl, conn.getElementPort(connEl), val);
+              }
             }
           }
         }

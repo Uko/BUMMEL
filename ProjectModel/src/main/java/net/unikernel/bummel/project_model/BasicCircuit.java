@@ -275,8 +275,11 @@ public class BasicCircuit implements Circuit, Element
       }
       if(this.getClass() == o.getClass())
 			{
-				BasicConnection temp = (BasicConnection)o;
-				if(this.firstElement.equals(temp.firstElement) && this.firstElementPort.equals(temp.firstElementPort) && this.secondElement.equals(temp.secondElement) && this.secondElementPort.equals(temp.secondElementPort))
+				BasicConnection bc = (BasicConnection)o;
+        if((firstElement.equals(bc.firstElement) && firstElementPort.equals(bc.firstElementPort)
+                && secondElement.equals(bc.secondElement) && secondElementPort.equals(bc.secondElementPort))
+           || (firstElement.equals(bc.secondElement) && firstElementPort.equals(bc.secondElementPort)
+                && secondElement.equals(bc.firstElement) && secondElementPort.equals(bc.firstElementPort)))
 				{
 					return true;
 				}
@@ -288,10 +291,10 @@ public class BasicCircuit implements Circuit, Element
 		public int hashCode()
 		{
 			int hash = 5;
-			hash = 67 * hash + (this.firstElement != null ? this.firstElement.hashCode() : 0);
-			hash = 67 * hash + (this.firstElementPort != null ? this.firstElementPort.hashCode() : 0);
-			hash = 67 * hash + (this.secondElement != null ? this.secondElement.hashCode() : 0);
-			hash = 67 * hash + (this.secondElementPort != null ? this.secondElementPort.hashCode() : 0);
+			hash = 67 * hash + (this.firstElement != null ? this.firstElement.hashCode() : 0)
+              + (this.secondElement != null ? this.secondElement.hashCode() : 0);
+			hash = 67 * hash + (this.firstElementPort != null ? this.firstElementPort.hashCode() : 0)
+              + (this.secondElementPort != null ? this.secondElementPort.hashCode() : 0);
 			return hash;
 		}
 
@@ -354,6 +357,12 @@ public class BasicCircuit implements Circuit, Element
         return secondElementPort;
       }
       return null;
+    }
+
+    @Override
+    public String toString()
+    {
+      return firstElement + " " + firstElementPort + " <-> " + secondElementPort + " " + secondElement;
     }
   }
 }
