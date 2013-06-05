@@ -2,6 +2,7 @@ package net.unikernel.bummel.visual_editor;
 
 import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

@@ -279,21 +279,23 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		connectionLayer.addChild(connection);
 		return connection;
 	}
-
+        
+        //Create visual representation of the Edge ending
 	@Override
 	protected void attachEdgeSourceAnchor(String edge, ElementPortNode oldSourcePin, ElementPortNode sourcePin)
 	{
 		Widget w = sourcePin != null ? findWidget(sourcePin) : null;
-		((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
+		((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createCenterAnchor(w));
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(((ElementPortWidget)w).getAnchor());
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(((ElementPortWidget)w).getAnchorWidget()));
 	}
 
+        //Create visual representation of the Edge ending
 	@Override
 	protected void attachEdgeTargetAnchor(String edge, ElementPortNode oldTargetPin, ElementPortNode targetPin)
 	{
 		Widget w = targetPin != null ? findWidget(targetPin) : null;
-		((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
+		((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createCenterAnchor(w));//createRectangularAnchor(w));
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(((ElementPortWidget)w).getAnchor());
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(((ElementPortWidget)w).getAnchorWidget()));
 	}
