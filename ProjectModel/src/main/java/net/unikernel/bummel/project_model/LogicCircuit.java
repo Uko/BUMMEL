@@ -21,7 +21,6 @@ public class LogicCircuit extends BasicCircuit
 
   @Override public void step()
   {
-    System.out.println("step() -- start");
     while(!feq.isEmpty())
     {
       Map.Entry<Integer, HashMap<BasicElement, HashMap<String, Double>>> head = feq.remove();
@@ -49,7 +48,6 @@ public class LogicCircuit extends BasicCircuit
           }
           signalsToProcess.put(port, val);
         }
-//        signalsToProcess.putAll(elementPortValue.get(bEl));
         signalsToProcess.putAll(elSignals);
         Map<String, Double> processedSignals = bEl.process(signalsToProcess);
         for(Map.Entry<String, Double> ps : processedSignals.entrySet())
@@ -76,46 +74,6 @@ public class LogicCircuit extends BasicCircuit
         }
       }
     }
-
-    System.out.println("step() -- end");
-  }
-
-  /**
-   * Processes element with provided data and checks if the resulting values
-   * differ from the initial ones if they do - then registers this element
-   * in the FEQ.
-   */
-  private void processElement(BasicElement element, Map<String, Double> signals, boolean changeCircuitValues)
-  {
-    // outgoing port check - store current element signals for the further comparison
-    Map<String, Double> signalsToProcess = new HashMap<>();
-    Map<String, Double> aElSignals = elementPortValue.get(element);
-    for (Map.Entry<String, Double> signal : aElSignals.entrySet())
-    {
-      signalsToProcess.put(signal.getKey(), signal.getValue().doubleValue());
-    }
-    // change signals with registered in the first walkthrough ones
-    signalsToProcess.putAll(signals);
-    // process active element
-    Map<String, Double> result = element.process(signalsToProcess);
-    // outgoing port check - compare previous signals and process result ones
-    // and register this element in the queue if they differ
-    for (Map.Entry<String, Double> signal : result.entrySet())
-    {
-      if (signal.getValue().compareTo(aElSignals.get(signal.getKey())) != 0)
-      {
-        if(changeCircuitValues)
-        {
-          aElSignals.put(signal.getKey(), signal.getValue());
-        }
-        feq.addEvent(element.getDelay(), element, signal.getKey(), signal.getValue());
-      }
-    }
-  }
-
-  private void processElement(BasicElement element, Map<String, Double> signals)
-  {
-    processElement(element, signals, true);
   }
 
   @Override
@@ -170,7 +128,6 @@ public class LogicCircuit extends BasicCircuit
   {
     super.removeElement(element);
     elementPortValue.remove(element);
-    //@TODO: remove element from queue?
     return true;
   }
 
