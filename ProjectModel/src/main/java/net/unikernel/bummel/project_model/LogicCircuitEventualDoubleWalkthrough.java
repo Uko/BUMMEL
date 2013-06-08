@@ -24,6 +24,7 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
       Integer currentDelay = head.getKey();
       // delay simulation
       System.out.println("Delay: " + currentDelay);
+      // [First walkthrough]
       // for each event (element) in the queue for the current delay
       for (Map.Entry<BasicElement, HashMap<String, Double>> entry : head.getValue().entrySet())
       {
@@ -31,7 +32,6 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
         
         HashMap<String, Double> elSignals = entry.getValue();
 
-        // [First walkthrough]
         // for each of the element's ports and corresponding values
         for (Map.Entry<String, Double> portValue : elSignals.entrySet())
         {

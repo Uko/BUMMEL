@@ -1,6 +1,5 @@
 package net.unikernel.bummel.project_model;
 
-import java.util.HashMap;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Element;
@@ -158,6 +157,7 @@ public class LogicCircuitTest
     instance.step();
     assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
+
     assertTrue(instance.connectElements(not, not.getPort(1), analyzer, analyzer.getPort(0)));
     instance.step();
     assertTrue(instance.getElementSignals(generator).get("output") == 1.);
@@ -187,5 +187,20 @@ public class LogicCircuitTest
     assertTrue(instance.connectElements(generator, generator.getPort(0), analyzer, analyzer.getPort(0)));
     instance.step();
     assertTrue(analyzer.getState() == 1);
+  }
+
+  @Test
+  public void testElementsInteraction4()
+  {
+    System.out.println("testElementsInteraction4");
+    testConnectElementsAndStep2();
+    instance.disconnectElements(analyzer, "input", not, "output");
+    instance.step();
+    assertTrue(instance.getElementSignals(not).get("output") == 0);
+    assertTrue(analyzer.getState() == 0);
+
+    assertTrue(instance.connectElements(not, "output", analyzer, "input"));
+    instance.step();
+    assertTrue(analyzer.getState() == 0);
   }
 }
