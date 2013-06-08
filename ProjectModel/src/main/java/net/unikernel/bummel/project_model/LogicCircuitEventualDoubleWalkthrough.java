@@ -79,7 +79,7 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
    * differ from the initial ones if they do - then registers this element
    * in the FEQ.
    */
-  private void processElement(BasicElement element, Map<String, Double> signals, boolean changeCircuitValues)
+  private Map<String, Double> processElement(BasicElement element, Map<String, Double> signals, boolean changeCircuitValues)
   {
     // outgoing port check - store current element signals for the further comparison
     Map<String, Double> signalsToProcess = new HashMap<>();
@@ -105,6 +105,7 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
         feq.addEvent(element.getDelay(), element, signal.getKey(), signal.getValue());
       }
     }
+    return result;
   }
 
   @Override
@@ -133,35 +134,10 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
 
   private void processDisconnectedElement(BasicElement element, Map<String, Double> signals, String disconnectedPort)
   {
-    // outgoing port check - store current element signals for the further comparison
-    Map<String, Double> signalsToProcess = new HashMap<>();
-    Map<String, Double> aElSignals = elementPortValue.get(element);
-    for (Map.Entry<String, Double> signal : aElSignals.entrySet())
-    {
-      signalsToProcess.put(signal.getKey(), signal.getValue().doubleValue());
-    }
-    // change signals with registered in the first walkthrough ones
-    signalsToProcess.putAll(signals);
-    // process active element
-    Map<String, Double> result = element.process(signalsToProcess);
-    // outgoing port check - compare previous signals and process result ones
-    // and register this element in the queue if they differ
-    for (Map.Entry<String, Double> signal : result.entrySet())
-    {
-      if (signal.getValue().compareTo(aElSignals.get(signal.getKey())) != 0)
-      {
-        if(signal.getKey().equals(disconnectedPort))
-        {
-          aElSignals.put(signal.getKey(), signal.getValue());
-        }
-        else
-        {
-          feq.addEvent(element.getDelay(), element, signal.getKey(), signal.getValue());
-        }
-      }
-    }
+    elementPortValue.get(element).put(disconnectedPort,
+            processElement(element, signals, false).get(disconnectedPort));
   }
-  
+
   @Override
   public void disconnectElements(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
   {
