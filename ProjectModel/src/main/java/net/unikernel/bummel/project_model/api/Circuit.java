@@ -25,4 +25,6 @@ public interface Circuit
 	public void disconnectElements (Element firstElement, String firstElementPort, Element secondElement, String secondElementPort);
 	//public void removeConnection (int connectionId);
 	public void step();
+
+  public String displayName();
 }
