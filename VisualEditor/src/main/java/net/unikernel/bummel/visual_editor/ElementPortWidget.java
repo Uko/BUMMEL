@@ -24,7 +24,7 @@ public class ElementPortWidget extends Widget
 	ImageWidget line;
 	ImageWidget anchorWidget;
 	List<Image> anchorGlyphs;
-	int pinRadius = 3;
+	int pinRadius = 4;
 	int length = 15;
 
 	public ElementPortWidget(Scene scene, ElementNode node, String port)
