@@ -1,17 +1,61 @@
 package net.unikernel.bummel.project_model;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.testng.Assert.*;
+
+
+import org.openide.util.Lookup;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class LogicCircuitTest
 {
+  @DataProvider(name = "circuits")
+  public Object[][] availableCircuits()
+  {
+    Object[] toArray = Lookup.getDefault().lookupAll(Circuit.class).toArray();
+    Object[][] cont = new Object[toArray.length][];
+    for (int i = 0; i < cont.length; i++)
+    {
+      cont[i] = new Object[]
+      {
+        toArray[i]
+      };
+    }
+    return cont;
+  }
+
+  @DataProvider(name = "logicCircuits")
+  public Object[][] availableLogicCircuits()
+  {
+    List<Circuit> circuits = new LinkedList<>();
+    for(Circuit c : Lookup.getDefault().lookupAll(Circuit.class))
+    {
+      if(c instanceof LogicCircuit || c instanceof LogicCircuitEventualDoubleWalkthrough)
+      {
+        circuits.add(c);
+      }
+    }
+    Object[][] cont = new Object[circuits.size()][];
+    for (int i = 0; i < cont.length; i++)
+    {
+      cont[i] = new Object[]
+      {
+        circuits.get(i)
+      };
+    }
+    return cont;
+  }
+
   @BeforeClass
   public static void setUpClass() throws Exception
   {
@@ -24,15 +68,13 @@ public class LogicCircuitTest
     System.out.println("LogicCircuitTest -- end");
   }
 
-  LogicCircuit instance;
   BasicElement generator;
   BasicElement analyzer;
   BasicElement not;
 
-  @Before
+  @BeforeMethod
   public void setUp()
   {
-    instance = new LogicCircuit();
     generator = new BasicElement(new String[]{"output"})
     {
       @Override
@@ -95,10 +137,9 @@ public class LogicCircuitTest
     };
   }
 
-  @After
+  @AfterMethod
   public void tearDown()
   {
-    instance = null;
     generator = null;
     analyzer = null;
     not = null;
@@ -107,8 +148,8 @@ public class LogicCircuitTest
   /**
    * Test of addElement method, of class LogicCircuit.
    */
-  @Test
-  public void testAddElement()
+  @Test(dataProvider = "circuits")
+  public void testAddElement(Circuit instance)
   {
     System.out.println("addElement");
     Element element = new BasicCircuitTest.BasicElementImpl();
@@ -119,8 +160,8 @@ public class LogicCircuitTest
   /**
    * Test of connectElements method, of class LogicCircuit.
    */
-  @Test
-  public void testConnectElements1()
+  @Test(dataProvider = "circuits")
+  public void testConnectElements1(Circuit instance)
   {
     System.out.println("connectElements1");
     Element firstElement = new BasicCircuitTest.BasicElementImpl();
@@ -129,8 +170,8 @@ public class LogicCircuitTest
     instance.addElement(secondElement);
     assertTrue(instance.connectElements(firstElement, firstElement.getPorts().get(0), secondElement, secondElement.getPorts().get(1)));
   }
-  @Test
-  public void testConnectElements2()
+  @Test(dataProvider = "circuits")
+  public void testConnectElements2(Circuit instance)
   {
     System.out.println("connectElements2");
     instance.addElement(generator);
@@ -142,39 +183,39 @@ public class LogicCircuitTest
   /**
    * Test of LogicCircuit connectElements and step methods.
    */
-  @Test
-  public void testConnectElementsAndStep1()
+  @Test(dataProvider = "circuits", dependsOnMethods={"testConnectElements1"})
+  public void testConnectElementsAndStep1(Circuit instance)
   {
     System.out.println("connectElementsAndStep1");
-    testConnectElements1();
     instance.step();
   }
-  @Test
-  public void testConnectElementsAndStep2()
+  @Test(dataProvider = "circuits")
+  public void testConnectElementsAndStep2(Circuit instance)
   {
     System.out.println("connectElementsAndStep2");
-    testConnectElements2();
+    testConnectElements2(instance);
     instance.step();
     assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
 
     assertTrue(instance.connectElements(not, not.getPort(1), analyzer, analyzer.getPort(0)));
     instance.step();
-    assertTrue(instance.getElementSignals(generator).get("output") == 1.);
+    assertTrue(instance.getElementSignals(generator).get("output") != .0);
     assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
   }
   /**
    * Test of LogicCircuit connectElements, step and disconnectElements methods.
    */
-  @Test
-  public void testElementsInteraction3()
+  @Test(dataProvider = "logicCircuits")
+  public void testElementsInteraction3(Circuit instance)
   {
     System.out.println("testElementsInteraction3");
-    testConnectElementsAndStep2();
+    testConnectElementsAndStep2(instance);
     instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
     instance.step();
     assertTrue(instance.getElementSignals(generator).get("output") == 1.);
+    assertTrue(instance.getElementSignals(not).get("input") == 0.);
     assertTrue(instance.getElementSignals(not).get("output") == 1.);
     assertTrue(analyzer.getState() == 1);
     assertTrue(instance.connectElements(generator, generator.getPort(0), not, not.getPort(0)));
@@ -192,8 +233,9 @@ public class LogicCircuitTest
   @Test
   public void testElementsInteraction4()
   {
+    LogicCircuit instance = new LogicCircuit();
     System.out.println("testElementsInteraction4");
-    testConnectElementsAndStep2();
+    testConnectElementsAndStep2(instance);
     instance.disconnectElements(analyzer, "input", not, "output");
     instance.step();
     assertTrue(instance.getElementSignals(not).get("output") == 0);

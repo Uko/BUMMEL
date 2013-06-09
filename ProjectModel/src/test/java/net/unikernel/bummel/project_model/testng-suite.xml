@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="net.unikernel.bummel_project_model_nbm_0.3.1">
+
+    <!--
+    see examples at http://testng.org/doc/documentation-main.html#testng-xml
+
+    <suite-files>
+        <suite-file path="./junit-suite.xml" />
+    </suite-files>
+
+  <test name="TimeOut">
+      <classes>
+          <class name="test.timeout.TimeOutTest" />
+          <class name="test.timeout.TimeOutFromXmlTest"/>
+          <class name="test.timeout.TimeOutThreadLocalSampleTest"/>
+      </classes>
+  </test>
+  -->
+    
+  <test name="net.unikernel.bummel.project_model suite">
+    <packages>
+      <package name="net.unikernel.bummel.project_model"/>
+    </packages>
+  </test>
+
+</suite>

@@ -248,7 +248,26 @@ public class BasicCircuit implements Circuit, Element
   {
     return NbBundle.getMessage(BasicCircuit.class, "BC_DisplayName");
   }
-	
+
+  @Override
+  public Map<String, Double> getElementSignals(Element element)
+  {
+    //TODO: correct this method - element's values have to be stored somewhere
+    //      even if it's not connected to eliminate element state change on processing it here
+    HashMap<String, Double> elementSignals = new HashMap<>();
+    Map<String, Connection> elementConnections = elementPortConnection.get(element);
+    for (String port : element.getPorts())
+    {
+      Double val = .0;
+      if (elementConnections != null && elementConnections.containsKey(port))
+      {
+        val = connections.get(elementConnections.get(port));
+      }
+      elementSignals.put(port, val);
+    }
+    return elementSignals;
+  }
+
 	private static class BasicConnection implements Connection
 	{
     static final long serialVersionUID = 1L;

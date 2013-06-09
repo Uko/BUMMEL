@@ -61,6 +61,12 @@
             <artifactId>org-openide-util-lookup</artifactId>
             <version>RELEASE72</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.5.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
@@ -83,6 +89,17 @@
                     <!-- to have the jar plugin pickup the nbm generated manifest -->
                     <useDefaultManifestFile>true</useDefaultManifestFile>
                 </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.14.1</version>
+              <configuration>
+                <skip>false</skip>
+                <suiteXmlFiles>
+                  <suiteXmlFile>src/test/java/net/unikernel/bummel/project_model/testng-suite.xml</suiteXmlFile>
+                </suiteXmlFiles>
+              </configuration>
             </plugin>
         </plugins>
     </build>

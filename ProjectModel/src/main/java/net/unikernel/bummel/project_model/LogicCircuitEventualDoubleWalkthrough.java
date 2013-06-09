@@ -1,5 +1,6 @@
 package net.unikernel.bummel.project_model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
@@ -178,8 +179,9 @@ public class LogicCircuitEventualDoubleWalkthrough extends BasicCircuit
     return .0;
   }
 
-  Map<String, Double> getElementSignals(BasicElement element)
+  @Override
+  public Map<String, Double> getElementSignals(Element element)
   {
-    return elementPortValue.get(element);
+    return Collections.unmodifiableMap(elementPortValue.get(element));
   }
 }
