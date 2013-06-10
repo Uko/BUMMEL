@@ -154,7 +154,8 @@ public class LogicCircuit extends BasicCircuit implements PropertyChangeListener
     return .0;
   }
 
-  Map<String, Double> getElementSignals(BasicElement element)
+  @Override
+  public Map<String, Double> getElementSignals(Element element)
   {
     return Collections.unmodifiableMap(elementPortValue.get(element));
   }
