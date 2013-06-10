@@ -1,39 +1,81 @@
 package net.unikernel.bummel.project_model;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
+import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Element;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.testng.Assert.*;
+import org.openide.util.Lookup;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-public class LogicCircuitEventualDoubleWalkthroughTest
+public class LogicCircuitsTests
 {
   @BeforeClass
   public static void setUpClass() throws Exception
   {
-    System.out.println("LogicCircuitTest -- start");
+    System.out.println(LogicCircuitsTests.class.getName() + " -- start");
   }
 
   @AfterClass
   public static void tearDownClass() throws Exception
   {
-    System.out.println("LogicCircuitTest -- end");
+    System.out.println(LogicCircuitsTests.class.getName() + " -- end");
   }
 
-  LogicCircuitEventualDoubleWalkthrough instance;
+  @DataProvider(name = "circuits")
+  public Object[][] availableCircuits()
+  {
+    Object[] toArray = Lookup.getDefault().lookupAll(Circuit.class).toArray();
+    Object[][] cont = new Object[toArray.length][];
+    for (int i = 0; i < cont.length; i++)
+    {
+      cont[i] = new Object[]
+      {
+        toArray[i]
+      };
+    }
+    return cont;
+  }
+
+  @DataProvider(name = "logicCircuits")
+  public Object[][] availableLogicCircuits()
+  {
+    List<Circuit> circuits = new LinkedList<>();
+    for (Circuit c : Lookup.getDefault().lookupAll(Circuit.class))
+    {
+      if (c instanceof LogicCircuit || c instanceof LogicCircuitEventualDoubleWalkthrough)
+      {
+        circuits.add(c);
+      }
+    }
+    Object[][] cont = new Object[circuits.size()][];
+    for (int i = 0; i < cont.length; i++)
+    {
+      cont[i] = new Object[]
+      {
+        circuits.get(i)
+      };
+    }
+    return cont;
+  }
   BasicElement generator;
   BasicElement analyzer;
   BasicElement not;
 
-  @Before
+  @BeforeMethod
   public void setUp()
   {
-    instance = new LogicCircuitEventualDoubleWalkthrough();
-    generator = new BasicElement(new String[]{"output"})
+    generator = new BasicElement(new String[]
+    {
+      "output"
+    })
     {
       @Override
       public Map<String, Double> process(Map<String, Double> valuesOnPorts)
@@ -45,10 +87,13 @@ public class LogicCircuitEventualDoubleWalkthroughTest
       @Override
       public String toString()
       {
-        return "\"Generator(1)\"";
+        return "\"Generator(" + getState() + ")\"";
       }
     };
-    analyzer = new BasicElement(new String[]{"input"})
+    analyzer = new BasicElement(new String[]
+    {
+      "input"
+    })
     {
       @Override
       public Map<String, Double> process(Map<String, Double> valuesOnPorts)
@@ -68,10 +113,13 @@ public class LogicCircuitEventualDoubleWalkthroughTest
       @Override
       public String toString()
       {
-        return "\"Analyzer("+getState()+")\"";
+        return "\"Analyzer(" + getState() + ")\"";
       }
     };
-    not = new BasicElement(new String[]{"input", "output"})
+    not = new BasicElement(new String[]
+    {
+      "input", "output"
+    })
     {
       @Override
       public Map<String, Double> process(Map<String, Double> valuesOnPorts)
@@ -87,18 +135,18 @@ public class LogicCircuitEventualDoubleWalkthroughTest
         valuesOnPorts.put(getPort(0), 0.d);
         return valuesOnPorts;
       }
+
       @Override
       public String toString()
       {
-        return "\"Not\"";
+        return "\"Not(" + getState() + ")\"";
       }
     };
   }
 
-  @After
+  @AfterMethod
   public void tearDown()
   {
-    instance = null;
     generator = null;
     analyzer = null;
     not = null;
@@ -107,11 +155,11 @@ public class LogicCircuitEventualDoubleWalkthroughTest
   /**
    * Test of addElement method, of class LogicCircuit.
    */
-  @Test
-  public void testAddElement()
+  @Test(dataProvider = "circuits")
+  public void testAddElement(Circuit instance)
   {
     System.out.println("addElement");
-    Element element = new BasicCircuitTest.BasicElementImpl();
+    Element element = new BasicCircuitTests.BasicElementImpl();
     instance.addElement(element);
     assertTrue(instance.getElements().contains(element));
   }
@@ -119,18 +167,19 @@ public class LogicCircuitEventualDoubleWalkthroughTest
   /**
    * Test of connectElements method, of class LogicCircuit.
    */
-  @Test
-  public void testConnectElements1()
+  @Test(dataProvider = "circuits")
+  public void testConnectElements1(Circuit instance)
   {
     System.out.println("connectElements1");
-    Element firstElement = new BasicCircuitTest.BasicElementImpl();
-    Element secondElement = new BasicCircuitTest.BasicElementImpl();
+    Element firstElement = new BasicCircuitTests.BasicElementImpl();
+    Element secondElement = new BasicCircuitTests.BasicElementImpl();
     instance.addElement(firstElement);
     instance.addElement(secondElement);
     assertTrue(instance.connectElements(firstElement, firstElement.getPorts().get(0), secondElement, secondElement.getPorts().get(1)));
   }
-  @Test
-  public void testConnectElements2()
+
+  @Test(dataProvider = "circuits")
+  public void testConnectElements2(Circuit instance)
   {
     System.out.println("connectElements2");
     instance.addElement(generator);
@@ -142,35 +191,40 @@ public class LogicCircuitEventualDoubleWalkthroughTest
   /**
    * Test of LogicCircuit connectElements and step methods.
    */
-  @Test
-  public void testConnectElementsAndStep1()
+  @Test(dataProvider = "circuits", dependsOnMethods =
+  {
+    "testConnectElements1"
+  })
+  public void testConnectElementsAndStep1(Circuit instance)
   {
     System.out.println("connectElementsAndStep1");
-    testConnectElements1();
     instance.step();
   }
-  @Test
-  public void testConnectElementsAndStep2()
+
+  @Test(dataProvider = "circuits")
+  public void testConnectElementsAndStep2(Circuit instance)
   {
     System.out.println("connectElementsAndStep2");
-    testConnectElements2();
+    testConnectElements2(instance);
     instance.step();
     assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
+
     assertTrue(instance.connectElements(not, not.getPort(1), analyzer, analyzer.getPort(0)));
     instance.step();
-    assertTrue(instance.getElementSignals(generator).get("output") == 1.);
+    assertTrue(instance.getElementSignals(generator).get("output") != .0);
     assertTrue(instance.getElementSignals(not).get("output") == .0);
     assertTrue(analyzer.getState() == 0);
   }
+
   /**
    * Test of LogicCircuit connectElements, step and disconnectElements methods.
    */
-  @Test
-  public void testElementsInteraction3()
+  @Test(dataProvider = "logicCircuits")
+  public void testElementsInteraction3(Circuit instance)
   {
     System.out.println("testElementsInteraction3");
-    testConnectElementsAndStep2();
+    testConnectElementsAndStep2(instance);
     instance.disconnectElements(generator, generator.getPort(0), not, not.getPort(0));
     instance.step();
     assertTrue(instance.getElementSignals(generator).get("output") == 1.);
@@ -187,5 +241,21 @@ public class LogicCircuitEventualDoubleWalkthroughTest
     assertTrue(instance.connectElements(generator, generator.getPort(0), analyzer, analyzer.getPort(0)));
     instance.step();
     assertTrue(analyzer.getState() == 1);
+  }
+
+  @Test
+  public void testElementsInteraction4()
+  {
+    LogicCircuit instance = new LogicCircuit();
+    System.out.println("testElementsInteraction4");
+    testConnectElementsAndStep2(instance);
+    instance.disconnectElements(analyzer, "input", not, "output");
+    instance.step();
+    assertTrue(instance.getElementSignals(not).get("output") == 0);
+    assertTrue(analyzer.getState() == 0);
+
+    assertTrue(instance.connectElements(not, "output", analyzer, "input"));
+    instance.step();
+    assertTrue(analyzer.getState() == 0);
   }
 }

@@ -2,47 +2,41 @@ package net.unikernel.bummel.project_model.api;
 
 import java.awt.Point;
 import java.util.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.testng.Assert.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
-/**
- *
- * @author mcangel
- */
 public class BasicElementTest
 {
 	BasicElement instance;
 	static String globalPort = "-100500";
-			
-	public BasicElementTest()
-	{
-	}
 
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
+  @BeforeClass
+  public static void setUpClass() throws Exception
+  {
+    System.out.println(BasicElementTest.class.getName() + " -- start");
+  }
 
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-	
-	@Before
-	public void setUp()
-	{
-		instance = new BasicElementImpl();
-	}
-	
-	@After
-	public void tearDown()
-	{
-		instance = null;
-	}
+  @AfterClass
+  public static void tearDownClass() throws Exception
+  {
+    System.out.println(BasicElementTest.class.getName() + " -- end");
+  }
+
+  @BeforeMethod
+  public void setUp()
+  {
+    instance = new BasicElementImpl();
+  }
+
+  @AfterMethod
+  public void tearDown()
+  {
+    instance = null;
+  }
 
 	/**
 	 * Test of getLabel method, of class BasicElement.

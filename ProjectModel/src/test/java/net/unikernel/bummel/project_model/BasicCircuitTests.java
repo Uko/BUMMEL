@@ -5,41 +5,45 @@ import java.util.HashMap;
 import java.util.Map;
 import net.unikernel.bummel.project_model.api.BasicElement;
 import net.unikernel.bummel.project_model.api.Element;
-import org.junit.*;
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  *
  * @author uko
  */
-public class BasicCircuitTest
+public class BasicCircuitTests
 {
-	public BasicCircuitTest()
-	{
-	}
-	
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-	
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-	
-	BasicCircuit instance;
-	@Before
-	public void setUp()
-	{
-		instance = new BasicCircuit();
-	}
-	@After
-	public void tearDown()
-	{
-		instance = null;
-	}
-	
+  @BeforeClass
+  public static void setUpClass() throws Exception
+  {
+    System.out.println(BasicCircuitTests.class.getName() + " -- start");
+  }
+
+  @AfterClass
+  public static void tearDownClass() throws Exception
+  {
+    System.out.println(BasicCircuitTests.class.getName() + " -- end");
+  }
+
+  BasicCircuit instance;
+
+  @BeforeMethod
+  public void setUp()
+  {
+    instance = new BasicCircuit();
+  }
+
+  @AfterMethod
+  public void tearDown()
+  {
+    instance = null;
+  }
+
 	/**
 	 * Test of addElement method, of class BasicCircuit.
 	 */
