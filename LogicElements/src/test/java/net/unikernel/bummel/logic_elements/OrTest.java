@@ -3,12 +3,10 @@ package net.unikernel.bummel.logic_elements;
 import java.util.Map;
 import java.util.TreeMap;
 import net.unikernel.bummel.logic_elements.Or.Or;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 /**
  *
@@ -16,25 +14,13 @@ import org.junit.Test;
  */
 public class OrTest
 {
-	public OrTest()
-	{
-	}
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-	
 	Or instance;
-	@Before
+	@BeforeMethod
 	public void setUp()
 	{
 		instance = new Or();
 	}
-	@After
+	@AfterMethod
 	public void tearDown()
 	{
 		instance = null;
