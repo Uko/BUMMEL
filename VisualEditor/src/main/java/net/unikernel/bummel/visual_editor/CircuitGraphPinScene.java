@@ -1,7 +1,11 @@
 package net.unikernel.bummel.visual_editor;
 
 import com.kitfox.svg.SVGException;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
@@ -266,11 +270,13 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 	@Override
 	protected Widget attachEdgeWidget(String edge)
 	{
-		VMDConnectionWidget connection = new VMDConnectionWidget(this,
-				RouterFactory.createOrthogonalSearchRouter(mainLayer, connectionLayer));
+		ConnectionWidget connection = new ConnectionWidget(this);
+                connection.setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer, connectionLayer));
 		connection.setTargetAnchorShape(AnchorShape.NONE);
 		connection.setEndPointShape(PointShape.SQUARE_FILLED_BIG);
-
+                connection.setControlPointCutDistance(5);
+                connection.setStroke(new BasicStroke(3));
+                
 		connection.getActions().addAction(createObjectHoverAction());
 		connection.getActions().addAction(createSelectAction());
 		connection.getActions().addAction(reconnetAction);
@@ -279,21 +285,23 @@ public class CircuitGraphPinScene extends GraphPinScene<ElementNode, String, Ele
 		connectionLayer.addChild(connection);
 		return connection;
 	}
-
+        
+        //Create visual representation of the Edge ending
 	@Override
 	protected void attachEdgeSourceAnchor(String edge, ElementPortNode oldSourcePin, ElementPortNode sourcePin)
 	{
 		Widget w = sourcePin != null ? findWidget(sourcePin) : null;
-		((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
+		((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createCenterAnchor(w));
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(((ElementPortWidget)w).getAnchor());
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(((ElementPortWidget)w).getAnchorWidget()));
 	}
 
+        //Create visual representation of the Edge ending
 	@Override
 	protected void attachEdgeTargetAnchor(String edge, ElementPortNode oldTargetPin, ElementPortNode targetPin)
 	{
 		Widget w = targetPin != null ? findWidget(targetPin) : null;
-		((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
+		((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createCenterAnchor(w));//createRectangularAnchor(w));
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(((ElementPortWidget)w).getAnchor());
 		//((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(((ElementPortWidget)w).getAnchorWidget()));
 	}

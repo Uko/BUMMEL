@@ -24,7 +24,7 @@ public class ElementPortWidget extends Widget
 	ImageWidget line;
 	ImageWidget anchorWidget;
 	List<Image> anchorGlyphs;
-	
+	int pinRadius = 4;
 	int length = 15;
 
 	public ElementPortWidget(Scene scene, ElementNode node, String port)
@@ -34,73 +34,34 @@ public class ElementPortWidget extends Widget
 		this.port = port;
 		setLayout(LayoutFactory.createAbsoluteLayout());
 		Graphics2D g2d;
-		
 		anchorGlyphs = new ArrayList<>();
-		anchorGlyphs.add(new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB));
-		g2d = ((Graphics2D)anchorGlyphs.get(0).getGraphics());
-		g2d.setPaint(Color.BLACK);
-		g2d.drawRect(0, 0, 4, 4);
-		anchorGlyphs.add(new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB));
+                
+                //Construct default graphics for anchor
+                BufferedImage defaultAnchorImage = new BufferedImage(pinRadius*2, pinRadius*2, BufferedImage.TYPE_INT_ARGB);
+                g2d = (Graphics2D)defaultAnchorImage.getGraphics();
+                //clear background
+                g2d.setBackground(Color.WHITE);
+                g2d.clearRect(0,0,pinRadius*2, pinRadius*2);
+                //paint circle
+                g2d.setPaint(Color.BLACK);
+		g2d.fillOval(0, 0, pinRadius*2, pinRadius*2);
+		anchorGlyphs.add(defaultAnchorImage);
 		
-		anchorWidget = new ImageWidget(scene, anchorGlyphs.get(0));
-		BufferedImage lineImage;
-		line = new ImageWidget(scene);
-		switch (node.getPortDirection(port))
-		{
-			default:
-			case "right":
-				lineImage = new BufferedImage(length, 1, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, length - 1, 0);
-				//draw anchor
-				g2d = ((Graphics2D) anchorGlyphs.get(1).getGraphics());
-				g2d.setPaint(Color.WHITE);
-				g2d.drawLine(1, 1, 2, 1);
-				g2d.setPaint(Color.RED);
-				g2d.drawLine(0, 0, 2, 0);
-				g2d.drawLine(0, 0, 0, 2);
-				g2d.drawLine(0, 2, 2, 2);
-				anchorWidget.setPreferredLocation(new Point(length, -1));
-				break;
-			case "left":
-				lineImage = new BufferedImage(length, 1, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, length - 1, 0);
-				line.setPreferredLocation(new Point(-length, 0));
-				//draw anchor
-				g2d = ((Graphics2D) anchorGlyphs.get(1).getGraphics());
-				g2d.setPaint(Color.WHITE);
-				g2d.drawLine(0, 1, 1, 1);
-				g2d.setPaint(Color.RED);
-				g2d.drawLine(0, 0, 2, 0);//_
-				g2d.drawLine(2, 0, 2, 2);// |
-				g2d.drawLine(0, 2, 2, 2);//_
-				anchorWidget.setPreferredLocation(new Point(-length - 3, -1));
-				break;
-				
-				//next cases are default - there is need to implement them and check the result
-			case "up":
-				lineImage = new BufferedImage(1, length, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, 0, length - 1);
-				break;
-			case "down":
-				lineImage = new BufferedImage(1, length, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, 0, length - 1);
-				break;
-		}
-		line.setImage(lineImage);
-		addChild(line);
-		addChild(anchorWidget);
+                line = new ImageWidget(scene);//line mage will be created in the indentPort method
+                
+                //Construct hover anchor image
+                BufferedImage hoverAnchorImage = new BufferedImage(pinRadius*2, pinRadius*2, BufferedImage.TYPE_INT_ARGB);
+                g2d = (Graphics2D) hoverAnchorImage.getGraphics();
+                //g2d.setBackground(Color.WHITE);
+                //g2d.clearRect(0,0,pinRadius*2, pinRadius*2);
+                g2d.setPaint(Color.RED);
+                g2d.fillOval(0, 0, pinRadius*2, pinRadius*2);
+                anchorGlyphs.add(hoverAnchorImage);
+                
+                anchorWidget = new ImageWidget(scene, anchorGlyphs.get(0));
+                
+                addChild(line);
+		addChild(anchorWidget);       
 	}
 
 	public String getPort()
@@ -127,39 +88,29 @@ public class ElementPortWidget extends Widget
 		Double indent = node.getPortIndent(port);
 		int newLength = (int) (length + size*indent);
 		BufferedImage lineImage;
-		Graphics2D g2d;
+                int imageWidth = length+newLength;//make it double wide so that center of it will be on anchor point
+                lineImage = new BufferedImage(imageWidth, 1, BufferedImage.TYPE_INT_ARGB);
+                //draw line
+		Graphics2D g2d = ((Graphics2D) lineImage.getGraphics());
+                g2d.setPaint(Color.BLACK);
 		switch (node.getPortDirection(port))
 		{
 			default:
 			case "right":
-				lineImage = new BufferedImage(newLength, 1, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, newLength - 1, 0);
+				g2d.drawLine(0, 0, newLength, 0);
 				line.setPreferredLocation(new Point((int)(-size*indent), 0));
+                                anchorWidget.setPreferredLocation(new Point(length - (int)(0.5*size*indent) - pinRadius, -pinRadius));
 				break;
 			case "left":
-				lineImage = new BufferedImage(newLength, 1, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
-				g2d.drawLine(0, 0, newLength - 1, 0);
+				g2d.drawLine(length, 0, length+newLength, 0);
+                                line.setPreferredLocation(new Point(- length * 2, 0));
+                                anchorWidget.setPreferredLocation(new Point( - length - pinRadius + (int)(0.5*size*indent), -pinRadius));
 				break;
-
 			//next cases are default - there is need to implement them and check the result
 			case "up":
-				lineImage = new BufferedImage(1, newLength, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
 				g2d.drawLine(0, 0, 0, length - 1);
 				break;
 			case "down":
-				lineImage = new BufferedImage(1, newLength, BufferedImage.TYPE_INT_ARGB);
-				//draw line
-				g2d = ((Graphics2D) lineImage.getGraphics());
-				g2d.setPaint(Color.BLACK);
 				g2d.drawLine(0, 0, 0, length - 1);
 				break;
 		}
