@@ -3,38 +3,24 @@ package net.unikernel.bummel.logic_elements;
 import java.util.Map;
 import java.util.TreeMap;
 import net.unikernel.bummel.logic_elements.Analyzer.Analyzer;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 /**
  *
  * @author uko
  */
 public class AnalyzerTest
-{	
-	public AnalyzerTest()
-	{
-	}
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-	
+{
 	Analyzer instance;
-	@Before
+	@BeforeMethod
 	public void setUp()
 	{
 		instance = new Analyzer();
 	}
-	@After
+	@AfterMethod
 	public void tearDown()
 	{
 		instance = null;

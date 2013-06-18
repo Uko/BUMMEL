@@ -6,21 +6,24 @@ import java.util.*;
 import net.unikernel.bummel.project_model.api.Circuit;
 import net.unikernel.bummel.project_model.api.Connection;
 import net.unikernel.bummel.project_model.api.Element;
+import org.openide.util.NbBundle;
+import org.openide.util.NbBundle.Messages;
 import org.openide.util.lookup.ServiceProvider;
 /**
  *
  * @author uko
  */
 @ServiceProvider(service=Circuit.class)
+@Messages("BC_DisplayName=Basic Circuit")
 public class BasicCircuit implements Circuit, Element
 {
   static final long serialVersionUID = 1L;
-  
+
 	private String label;
 	private Point coords;
 	private Set<Element> elements;
 	private Map<Connection, Double> connections;
-	private Map<Element, Map<String, Connection>> elementPortConnection;
+  protected Map<Element, Map<String, Connection>> elementPortConnection;
 	
 	public BasicCircuit()
 	{
@@ -239,16 +242,41 @@ public class BasicCircuit implements Circuit, Element
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-	
+
+  @Override
+  public String displayName()
+  {
+    return NbBundle.getMessage(BasicCircuit.class, "BC_DisplayName");
+  }
+
+  @Override
+  public Map<String, Double> getElementSignals(Element element)
+  {
+    //TODO: correct this method - element's values have to be stored somewhere
+    //      even if it's not connected to eliminate element state change on processing it here
+    HashMap<String, Double> elementSignals = new HashMap<>();
+    Map<String, Connection> elementConnections = elementPortConnection.get(element);
+    for (String port : element.getPorts())
+    {
+      Double val = .0;
+      if (elementConnections != null && elementConnections.containsKey(port))
+      {
+        val = connections.get(elementConnections.get(port));
+      }
+      elementSignals.put(port, val);
+    }
+    return elementSignals;
+  }
+
 	private static class BasicConnection implements Connection
 	{
     static final long serialVersionUID = 1L;
-    
+
 		private Element firstElement;
 		private String firstElementPort;
 		private Element secondElement;
 		private String secondElementPort;
-		
+
 		public BasicConnection(Element firstElement, String firstElementPort, Element secondElement, String secondElementPort)
 		{
 			this.firstElement = firstElement;
@@ -256,7 +284,7 @@ public class BasicCircuit implements Circuit, Element
 			this.secondElement = secondElement;
 			this.secondElementPort = secondElementPort;
 		}
-		
+
 		@Override
 		public boolean equals(Object o)
 		{
@@ -266,8 +294,11 @@ public class BasicCircuit implements Circuit, Element
       }
       if(this.getClass() == o.getClass())
 			{
-				BasicConnection temp = (BasicConnection)o;
-				if(this.firstElement.equals(temp.firstElement) && this.firstElementPort.equals(temp.firstElementPort) && this.secondElement.equals(temp.secondElement) && this.secondElementPort.equals(temp.secondElementPort))
+				BasicConnection bc = (BasicConnection)o;
+        if((firstElement.equals(bc.firstElement) && firstElementPort.equals(bc.firstElementPort)
+                && secondElement.equals(bc.secondElement) && secondElementPort.equals(bc.secondElementPort))
+           || (firstElement.equals(bc.secondElement) && firstElementPort.equals(bc.secondElementPort)
+                && secondElement.equals(bc.firstElement) && secondElementPort.equals(bc.firstElementPort)))
 				{
 					return true;
 				}
@@ -279,13 +310,13 @@ public class BasicCircuit implements Circuit, Element
 		public int hashCode()
 		{
 			int hash = 5;
-			hash = 67 * hash + (this.firstElement != null ? this.firstElement.hashCode() : 0);
-			hash = 67 * hash + (this.firstElementPort != null ? this.firstElementPort.hashCode() : 0);
-			hash = 67 * hash + (this.secondElement != null ? this.secondElement.hashCode() : 0);
-			hash = 67 * hash + (this.secondElementPort != null ? this.secondElementPort.hashCode() : 0);
+			hash = 67 * hash + (this.firstElement != null ? this.firstElement.hashCode() : 0)
+              + (this.secondElement != null ? this.secondElement.hashCode() : 0);
+			hash = 67 * hash + (this.firstElementPort != null ? this.firstElementPort.hashCode() : 0)
+              + (this.secondElementPort != null ? this.secondElementPort.hashCode() : 0);
 			return hash;
 		}
-		
+
 		/**
 		 * @return the firstElement
 		 */
@@ -317,6 +348,40 @@ public class BasicCircuit implements Circuit, Element
 		public String getSecondElementPort()
 		{
 			return secondElementPort;
-		}	
-	}
+		}
+
+    @Override
+    public Element getOther(Element element)
+    {
+      if(element == firstElement)
+      {
+        return secondElement;
+      }
+      if(element == secondElement)
+      {
+        return firstElement;
+      }
+      return null;
+    }
+
+    @Override
+    public String getElementPort(Element element)
+    {
+      if(element == firstElement)
+      {
+        return firstElementPort;
+      }
+      if(element == secondElement)
+      {
+        return secondElementPort;
+      }
+      return null;
+    }
+
+    @Override
+    public String toString()
+    {
+      return firstElement + " " + firstElementPort + " <-> " + secondElementPort + " " + secondElement;
+    }
+  }
 }

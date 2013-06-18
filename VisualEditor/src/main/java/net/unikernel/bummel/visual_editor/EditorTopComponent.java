@@ -11,8 +11,6 @@ import net.unikernel.bummel.project_model.api.ProjectModel;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.awt.StatusDisplayer;
 import org.openide.cookies.OpenCookie;
 import org.openide.cookies.SaveCookie;
@@ -38,10 +36,6 @@ autostore = false)
 //iconBase="SET/PATH/TO/ICON/HERE", 
 persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
 @TopComponent.Registration(mode = "editor", openAtStartup = false)
-@ActionID(category = "Window", id = "net.unikernel.bummel.visual_editor.EditorTopComponent")
-@ActionReference(path = "Menu/Window", position = 0)
-@TopComponent.OpenActionRegistration(displayName = "#CTL_NewEditorAction"/*,
-preferredID = "EditorTopComponent"*/)
 public final class EditorTopComponent extends TopComponent
 {
 	private JComponent vlEditorView;
@@ -82,15 +76,17 @@ public final class EditorTopComponent extends TopComponent
 	private ProjectModel project;
 	private CircuitGraphPinScene scene;
 
-	public EditorTopComponent()
-	{
-		this(new ProjectModel(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter)));
-	}
+  public EditorTopComponent()
+  {
+    this(new ProjectModel());
+  }
 
-	private EditorTopComponent(ProjectModel obj)
+  public EditorTopComponent(ProjectModel obj)
 	{
 		initComponents();
 		project = obj;
+    project.setName(project.getName() + " "
+            + NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter));
 		//setName(NbBundle.getMessage(EditorTopComponent.class, "CTL_EditorTopComponent", ++counter));
 		setName(project.getName());
 		setToolTipText(NbBundle.getMessage(EditorTopComponent.class, "HINT_EditorTopComponent"));

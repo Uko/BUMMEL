@@ -3,27 +3,23 @@ package net.unikernel.bummel.logic_elements;
 import net.unikernel.bummel.logic_elements.Analyzer.Analyzer;
 import net.unikernel.bummel.logic_elements.Generator.Generator;
 import net.unikernel.bummel.project_model.api.Circuit;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import static org.testng.Assert.assertEquals;
+import org.testng.annotations.Test;
 import org.openide.util.Lookup;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
-/**
- *
- * @author mcangel
- */
 public class UserInteractionTest
 {
 	Circuit instance;
 
-	@Before
+	@BeforeMethod
 	public void setUp()
 	{
 		instance = Lookup.getDefault().lookup(Circuit.class);
 	}
 
-	@After
+	@AfterMethod
 	public void tearDown()
 	{
 		instance = null;
