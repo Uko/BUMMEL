@@ -1,11 +1,11 @@
 body {
-  background: #fafafa url(../images/body-bg.jpg) 0 0 repeat;
+  background: #fafafa url(../images/body.jpg) 0 0 repeat;
 }
 
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
+  background: #2e7bcf url(../images/header.jpg) 0 0 repeat-x;
   border-bottom: solid 1px #275da1;
   color: white;
 }
@@ -74,6 +74,30 @@ header .lead {
   padding-left: 10px;
 }
 
-.container p {
+img.decorator {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+img.pull-left {
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+img.demo {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+
+.text-justify {
   text-align: justify;
+}
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 40px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
 }
