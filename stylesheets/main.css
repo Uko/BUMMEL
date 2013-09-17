@@ -60,6 +60,11 @@ header .lead {
   margin-top: 30px;
 }
 
+.container h2,
+.container h3 {
+  text-align: left;
+}
+
 .container h2:before {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   content: "//";
