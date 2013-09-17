@@ -30,9 +30,13 @@ header .lead {
 }
 
 @media screen and (min-width: 992px) {
-  #navMenu.affix-bottom,
+  #navMenu.affix-bottom {
+    position: relative;
+  }
+
   #navMenu.affix {
     width: 212px;
+    position: fixed;
   }
 }
 
