@@ -25,6 +25,10 @@ header .lead {
   top: 0px;
 }
 
+#navMenu.affix {
+  position: static;
+}
+
 @media screen and (min-width: 992px) {
   #navMenu.affix-bottom,
   #navMenu.affix {
@@ -85,7 +89,8 @@ img.pull-left {
 }
 
 img.demo {
-  width: 50%;
+  width: 75%;
+  height: auto;
   margin: auto;
   display: block;
 }
